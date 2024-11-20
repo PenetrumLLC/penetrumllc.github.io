@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backyard Bandwidth</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: black;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            text-align: center; /* Centers text content */
+        }
+
+        header, footer {
+            background-color: black;
+            color: white;
+            padding: 1em 2em;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .container {
+            padding: 2em;
+            max-width: 800px; /* Centers the content with a fixed width */
+            margin: 0 auto;
+        }
+
+        .hero {
+            background: url('path/to/hero-image.jpg') no-repeat center;
+            background-size: cover;
+            color: black;
+            padding: 4em 2em;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5em;
+        }
+
+        .section {
+            margin-bottom: 2em;
+            padding: 1em;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9; /* Light background for sections */
+        }
+
+        .pricing-table {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pricing-plan {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1.5em;
+            margin: 0.5em;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .pricing-plan h3 {
+            color: black;
+        }
+
+        #contact form {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 1.5em;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #contact form label, #contact form input, #contact form textarea, #contact form button {
+            display: block;
+            width: 100%;
+            margin-bottom: 1em;
+        }
+
+        #contact form input, #contact form textarea {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            color: black;
+            padding: 0.5em;
+            border-radius: 4px;
+        }
+
+        #contact form button {
+            background-color: black;
+            border: none;
+            color: white;
+            padding: 0.75em;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        #contact form button:hover {
+            background-color: #444;
+        }
+
+        footer p {
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="data:image/png;base64,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"
+         alt="Logo" style="display:block;margin:0 auto;width:auto;height:auto;">
+    <h1>Backyard Bandwidth</h1>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+        <a href="#faq">FAQ</a>
+    </nav>
+</header>
+
+<section id="home" class="hero">
+    <h1>Janky But Reliable</h1>
+    <p>Affordable rack space for everyone.</p>
+</section>
+
+<div class="container">
+    <section id="about" class="section">
+        <h2>About Us</h2>
+        <p>Welcome to Backyard Bandwidth! We're a boutique data center designed to be affordable for everyone.</p>
+    </section>
+
+    <section id="services" class="section" style="text-align: center;">
+        <h2>Our Services</h2>
+        <div class="pricing-table"
+             style="display: flex; justify-content: center; align-items: center; margin: 0 auto; max-width: 600px;">
+            <div class="pricing-plan"
+                 style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <h3 style="margin-bottom: 0.5em;">Premium Rack Hosting</h3>
+                <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">Starting at $150 per U per
+                    month</p>
+                <p style="margin-bottom: 1em;">
+                    Our Premium Rack Hosting service is designed for businesses and individuals seeking reliable,
+                    high-performance colocation solutions.
+                </p>
+                <ul style="list-style-type: none; padding: 0; margin: 0 auto; text-align: center;">
+                    <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
+                        <span style="color: green; margin-right: 0.5em;">✔</span>
+                        <strong>Daily Backups</strong>
+                    </li>
+                    <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
+                        <span style="color: green; margin-right: 0.5em;">✔</span>
+                        <strong>Private VLAN</strong>
+                    </li>
+                    <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
+                        <span style="color: green; margin-right: 0.5em;">✔</span>
+                        <strong>WISP Certified</strong>
+                    </li>
+                    <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
+                        <span style="color: green; margin-right: 0.5em;">✔</span>
+                        <strong>24/7 Monitoring</strong>
+                    </li>
+                    <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
+                        <span style="color: green; margin-right: 0.5em;">✔</span>
+                        <strong>High-Speed Connectivity</strong>
+                    </li>
+                </ul>
+                <p style="margin-top: 1em;">
+                    Partner with Backyard Bandwidth for dependable, scalable hosting backed by industry-leading uptime
+                    and top-tier customer support.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2>Contact Us</h2>
+        <form id="contact-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label>Services Interested In:</label>
+            <div style="display: flex; justify-content: center; gap: 1em; margin-bottom: 1em;">
+                <div>
+                    <input type="radio" id="rack-space" name="service" value="Rack Space" checked>
+                    <label for="rack-space">Rack Space</label>
+                </div>
+                <div>
+                    <input type="radio" id="vpn-service" name="service" value="VPN Service">
+                    <label for="vpn-service">VPN Service</label>
+                </div>
+            </div>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4"></textarea>
+
+            <button type="submit">Send Message</button>
+        </form>
+    </section>
+
+    <section id="faq" class="section">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <h4>Is Backyard Bandwidth reliable?</h4>
+                <p>Absolutely! We offer a 99.99% uptime guarantee backed by 2Gbps fiber internet, armed security, and
+                    24/7 security camera monitoring. Plus, we're WISP certified—our reliability is trusted even by the
+                    IRS!</p>
+            </div>
+            <div class="faq-item">
+                <h4>What kind of support do you offer?</h4>
+                <p>We provide responsive email support for all our services, along with weekly updates to keep you
+                    informed about your account and service status.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <p>&copy; <span id="current-year"></span> Backyard Bandwidth | Janky but reliable.</p>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About Us</a>
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+        <a href="#faq">FAQ</a>
+    </nav>
+</footer>
+
+<script>
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+    const obfuscatedEmail = ["penetrum", "corp", "@", "gmail", ".", "com"].join(""); // so bots don't get the email
+    document.getElementById("contact-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const message = document.getElementById("message").value.trim() || "N/A";
+        const selectedService = document.querySelector('input[name="service"]:checked').value;
+        const subject = `Interested in ${selectedService}!`;
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nMessage: ${message}`);
+        const mailtoLink = `mailto:${obfuscatedEmail}?subject=${encodeURIComponent(subject)}&body=${body}`;
+        window.location.href = mailtoLink;
+    });
+</script>
+
+</body>
+</html>
