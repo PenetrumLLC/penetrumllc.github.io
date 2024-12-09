@@ -11,6 +11,11 @@
     <link rel="icon" href="icons/icon.png" type="image/png">
     <title>Backyard Bandwidth: Janky but Reliable</title>
     <style>
+        @media screen and (max-width: 768px) {
+           header img {
+              display: none;
+           }
+        }
         body {
             font-family: Arial, sans-serif;
             color: black;
@@ -213,9 +218,49 @@
                     </li>
                 </ul>
                 <p style="margin-top: 1em;">
-                    Contact us for VPN information and access. <small>When purchasing the VPN you are currently pre-ordering. The client is not ready for production yet. All pre-orders will come with 3 months of free service</small>
+                    Contact us for VPN information and access.
                 </p>
             </div>
+
+        <!-- VPS Starting at $2.99 -->
+        <div class="pricing-plan"
+             style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <h3 style="margin-bottom: 0.5em;">VPS Service</h3>
+            <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">Starting at $2.99 per month</p>
+            <p style="margin-bottom: 1em;">
+                Experience high-performance VPS hosting at unbeatable prices, designed for all your hosting needs.
+            </p>
+            <ul style="list-style-type: none; padding: 0; margin: 0 auto; text-align: center;">
+                <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
+                    <span style="color: green; margin-right: 0.5em;">✔</span>
+                    <strong>SSD Storage</strong>
+                </li>
+                <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
+                    <span style="color: green; margin-right: 0.5em;">✔</span>
+                    <strong>Dedicated Resources</strong>
+                </li>
+                <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
+                    <span style="color: green; margin-right: 0.5em;">✔</span>
+                    <strong>Full Root Access</strong>
+                </li>
+                <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
+                    <span style="color: green; margin-right: 0.5em;">✔</span>
+                    <strong>99.99% Uptime</strong>
+                </li>
+                <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
+                    <span style="color: green; margin-right: 0.5em;">✔</span>
+                    <strong>Tailored setup</strong>
+                </li>
+                <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
+                    <span style="color: green; margin-right: 0.5em;">✔</span>
+                    <strong>NO LOGS</strong>
+                </li>
+            </ul>
+            <p style="margin-top: 1em;">
+                Contact us today to get started with our affordable VPS solutions.
+            </p>
+        </div>
+
         </div>
     </section>
 
@@ -237,6 +282,10 @@
                 <div>
                     <input type="radio" id="vpn-service" name="service" value="VPN Service">
                     <label for="vpn-service">VPN Service</label>
+                </div>
+                <div>
+                    <input type="radio" id="vps-service" name="service" value="VPS Service">
+                    <label for="vps-service">VPS Service</label>
                 </div>
             </div>
 
@@ -271,7 +320,6 @@
         <a href="#home">Home</a>
         <a href="#about">About Us</a>
         <a href="#services">Services</a>
-        <a href="#pricing">Pricing</a>
         <a href="#contact">Contact</a>
         <a href="#faq">FAQ</a>
     </nav>
