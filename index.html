@@ -11,11 +11,100 @@
     <link rel="icon" href="icons/icon.png" type="image/png">
     <title>Backyard Bandwidth: Janky but Reliable</title>
     <style>
-        @media screen and (max-width: 768px) {
-           header img {
-              display: none;
-           }
+        .slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1em;
         }
+
+        .slider-container label {
+            flex: 1;
+            font-weight: bold;
+        }
+
+        .slider-container input[type="number"] {
+            width: 60px;
+            margin-left: 5px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+            text-align: center;
+            background-color: #f9f9f9;
+            color: black;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .slider-container input[type="range"] {
+            flex: 3;
+            margin-left: 15px;
+            margin-right: 15px;
+            background: linear-gradient(to right, #ddd, #666);
+            height: 6px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="number"]:focus {
+            border-color: #666;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            outline: none;
+        }
+
+        input[type="number"] {
+            width: 60px;
+            margin-left: 5px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1em;
+            text-align: center;
+            background-color: #f9f9f9; /* Light background */
+            color: black;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        input[type="number"]:focus {
+            border-color: #666;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            outline: none;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+            cursor: pointer;
+            background: linear-gradient(to right, #ddd, #666);
+            height: 6px;
+            border-radius: 4px;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin: 0.5em 0;
+            cursor: pointer;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        @media screen and (max-width: 768px) {
+            header img {
+                display: none;
+            }
+        }
+
         body {
             font-family: Arial, sans-serif;
             color: black;
@@ -222,45 +311,71 @@
                 </p>
             </div>
 
-        <!-- VPS Starting at $2.99 -->
-        <div class="pricing-plan"
-             style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-            <h3 style="margin-bottom: 0.5em;">VPS Service</h3>
-            <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">Starting at $2.99 per month</p>
-            <p style="margin-bottom: 1em;">
-                Experience high-performance VPS hosting at unbeatable prices, designed for all your hosting needs.
-            </p>
-            <ul style="list-style-type: none; padding: 0; margin: 0 auto; text-align: center;">
-                <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
-                    <span style="color: green; margin-right: 0.5em;">✔</span>
-                    <strong>SSD Storage</strong>
-                </li>
-                <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
-                    <span style="color: green; margin-right: 0.5em;">✔</span>
-                    <strong>Dedicated Resources</strong>
-                </li>
-                <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
-                    <span style="color: green; margin-right: 0.5em;">✔</span>
-                    <strong>Full Root Access</strong>
-                </li>
-                <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
-                    <span style="color: green; margin-right: 0.5em;">✔</span>
-                    <strong>99.99% Uptime</strong>
-                </li>
-                <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
-                    <span style="color: green; margin-right: 0.5em;">✔</span>
-                    <strong>Tailored setup</strong>
-                </li>
-                <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
-                    <span style="color: green; margin-right: 0.5em;">✔</span>
-                    <strong>NO LOGS</strong>
-                </li>
-            </ul>
-            <p style="margin-top: 1em;">
-                Contact us today to get started with our affordable VPS solutions.
-            </p>
-        </div>
+            <!-- VPS Starting at $2.99 -->
+            <div class="pricing-plan"
+                 style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                <h3 style="margin-bottom: 0.5em;">VPS Service</h3>
+                <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">Starting at $2.99 per month</p>
+                <p style="margin-bottom: 1em;">
+                    Experience high-performance VPS hosting at unbeatable prices, designed for all your hosting needs.
+                </p>
+                <ul style="list-style-type: none; padding: 0; margin: 0 auto; text-align: center;">
+                    <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
+                        <span style="color: green; margin-right: 0.5em;">✔</span>
+                        <strong>SSD Storage</strong>
+                    </li>
+                    <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
+                        <span style="color: green; margin-right: 0.5em;">✔</span>
+                        <strong>Dedicated Resources</strong>
+                    </li>
+                    <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
+                        <span style="color: green; margin-right: 0.5em;">✔</span>
+                        <strong>Full Root Access</strong>
+                    </li>
+                    <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
+                        <span style="color: green; margin-right: 0.5em;">✔</span>
+                        <strong>99.99% Uptime</strong>
+                    </li>
+                    <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
+                        <span style="color: green; margin-right: 0.5em;">✔</span>
+                        <strong>Tailored setup</strong>
+                    </li>
+                    <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
+                        <span style="color: green; margin-right: 0.5em;">✔</span>
+                        <strong>NO LOGS</strong>
+                    </li>
+                </ul>
+                <p style="margin-top: 1em;">
+                    Contact us today to get started with our affordable VPS solutions.
+                </p>
 
+                <div style="margin-top: 2em;">
+                    <h4>Customize Your VPS Plan</h4>
+                    <p>Use the sliders or input fields below to estimate your cost:</p>
+
+                    <div class="slider-container">
+                        <label for="ram-slider">RAM (GB):</label>
+                        <input type="number" id="ram-input" min="1" max="256" value="1">
+                        <input type="range" id="ram-slider" min="1" max="256" step="1" value="1">
+                    </div>
+
+                    <div class="slider-container">
+                        <label for="cpu-slider">CPU Cores:</label>
+                        <input type="number" id="cpu-input" min="1" max="40" value="1">
+                        <input type="range" id="cpu-slider" min="1" max="40" step="1" value="1">
+                    </div>
+
+                    <div class="slider-container">
+                        <label for="storage-slider">Storage (GB):</label>
+                        <input type="number" id="storage-input" min="20" max="1024" value="20">
+                        <input type="range" id="storage-slider" min="20" max="1024" step="1" value="20">
+                    </div>
+
+                    <p style="margin-top: 1em; font-weight: bold;">Estimated Cost: $<span
+                            id="estimated-cost">2.99</span> per month</p>
+                </div>
+
+            </div>
         </div>
     </section>
 
@@ -273,7 +388,7 @@
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
 
-            <label>Services Interested In:</label>
+            <label>Service Interested In:</label>
             <div style="display: flex; justify-content: center; gap: 1em; margin-bottom: 1em;">
                 <div>
                     <input type="radio" id="rack-space" name="service" value="Rack Space" checked>
@@ -339,6 +454,45 @@
         const mailtoLink = `mailto:${obfuscatedEmail}?subject=${encodeURIComponent(subject)}&body=${body}`;
         window.location.href = mailtoLink;
     });
+    const ramSlider = document.getElementById("ram-slider");
+    const cpuSlider = document.getElementById("cpu-slider");
+    const storageSlider = document.getElementById("storage-slider");
+
+    const ramInput = document.getElementById("ram-input");
+    const cpuInput = document.getElementById("cpu-input");
+    const storageInput = document.getElementById("storage-input");
+
+    const estimatedCost = document.getElementById("estimated-cost");
+
+    // Pricing per unit
+    const ramCostPerGB = 1.495;
+    const cpuCostPerCore = 0.897;
+    const storageCostPerGB = 0.0299;
+
+    function updateCost() {
+        const ram = parseInt(ramInput.value, 10) || 0;
+        const cpu = parseInt(cpuInput.value, 10) || 0;
+        const storage = parseInt(storageInput.value, 10) || 0;
+        const totalCost = (ram * ramCostPerGB) + (cpu * cpuCostPerCore) + (storage * storageCostPerGB);
+        estimatedCost.textContent = totalCost.toFixed(2);
+        ramSlider.value = ram;
+        cpuSlider.value = cpu;
+        storageSlider.value = storage;
+    }
+
+    function syncInputs() {
+        ramInput.value = ramSlider.value;
+        cpuInput.value = cpuSlider.value;
+        storageInput.value = storageSlider.value;
+        updateCost();
+    }
+
+    ramSlider.addEventListener("input", syncInputs);
+    cpuSlider.addEventListener("input", syncInputs);
+    storageSlider.addEventListener("input", syncInputs);
+    ramInput.addEventListener("input", updateCost);
+    cpuInput.addEventListener("input", updateCost);
+    storageInput.addEventListener("input", updateCost);
 </script>
 </body>
 </html>
