@@ -12,57 +12,57 @@
     <title>Backyard Bandwidth: Janky but Reliable</title>
     <style>
         .preset-button.active {
-    background-color: #666; /* Darker background color */
-    color: white; /* Change text color */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a slight shadow */
-}
+            background-color: #666; /* Darker background color */
+            color: white; /* Change text color */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a slight shadow */
+        }
 
         .preset-button-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1em;
-    margin-bottom: 1em;
-}
-
-.preset-button {
-    flex: 1 1 calc(33.333% - 1em); /* Adjusts the button size to fit the container */
-    max-width: 150px; /* Ensures buttons don't grow too large */
-    padding: 0.5em 1em;
-    background-color: #ddd;
-    border: 1px solid #aaa;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1em;
-    text-align: center;
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
-
-@media screen and (max-width: 600px) {
-    .preset-button {
-        flex: 1 1 100%; /* Buttons take full width on smaller screens */
-    }
-}
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1em;
+            margin-bottom: 1em;
+        }
 
         .preset-button {
-    padding: 0.5em 1em;
-    background-color: #ddd;
-    border: 1px solid #aaa;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s, box-shadow 0.3s;
-}
+            flex: 1 1 calc(33.333% - 1em); /* Adjusts the button size to fit the container */
+            max-width: 150px; /* Ensures buttons don't grow too large */
+            padding: 0.5em 1em;
+            background-color: #ddd;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            text-align: center;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
 
-.preset-button:hover {
-    background-color: #666;
-    color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
+        @media screen and (max-width: 600px) {
+            .preset-button {
+                flex: 1 1 100%; /* Buttons take full width on smaller screens */
+            }
+        }
 
-.preset-button:active {
-    background-color: #444;
-}
+        .preset-button {
+            padding: 0.5em 1em;
+            background-color: #ddd;
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .preset-button:hover {
+            background-color: #666;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .preset-button:active {
+            background-color: #444;
+        }
 
         .slider-container {
             display: flex;
@@ -187,7 +187,7 @@
         }
 
         .hero {
-            background: url('path/to/hero-image.jpg') no-repeat center;
+            background: no-repeat center;
             background-size: cover;
             color: black;
             padding: 4em 2em;
@@ -402,41 +402,51 @@
                     Contact us today to get started with our affordable VPS solutions.
                 </p>
 
-<div style="margin-top: 2em;">
-    <h4>Customize Your VPS Plan</h4>
-    <p>Click a preset or use the sliders/input fields below to estimate your cost:</p>
+                <div style="margin-top: 2em;">
+                    <h4>Customize Your VPS Plan</h4>
+                    <p>Click a preset or use the sliders/input fields below to estimate your cost:</p>
 
-<div class="preset-button-container">
-    <button type="button" class="preset-button" data-ram="1" data-cpu="1" data-storage="20">Tiny</button>
-    <button type="button" class="preset-button" data-ram="2" data-cpu="2" data-storage="50">Small</button>
-    <button type="button" class="preset-button" data-ram="8" data-cpu="4" data-storage="100">Medium</button>
-    <button type="button" class="preset-button" data-ram="16" data-cpu="8" data-storage="200">Large</button>
-    <button type="button" class="preset-button" data-ram="32" data-cpu="16" data-storage="500">Huge</button>
-    <button type="button" class="preset-button" data-ram="64" data-cpu="32" data-storage="1024">Massive</button>
-</div>
+                    <div class="preset-button-container">
+                        <button type="button" class="preset-button" data-ram="1" data-cpu="1" data-storage="20">Tiny
+                        </button>
+                        <button type="button" class="preset-button" data-ram="4" data-cpu="4" data-storage="100">Small
+                        </button>
+                        <button type="button" class="preset-button" data-ram="16" data-cpu="8" data-storage="200">
+                            Medium
+                        </button>
+                        <button type="button" class="preset-button" data-ram="32" data-cpu="16" data-storage="400">
+                            Large
+                        </button>
+                        <button type="button" class="preset-button" data-ram="64" data-cpu="32" data-storage="1000">
+                            Huge
+                        </button>
+                        <button type="button" class="preset-button" data-ram="128" data-cpu="40" data-storage="2000">
+                            Massive
+                        </button>
+                    </div>
 
 
-    <div class="slider-container">
-        <label for="ram-slider">RAM (GB):</label>
-        <input type="number" id="ram-input" min="1" max="256" value="1">
-        <input type="range" id="ram-slider" min="1" max="256" step="1" value="1">
-    </div>
+                    <div class="slider-container">
+                        <label for="ram-slider">RAM (GB):</label>
+                        <input type="number" id="ram-input" min="1" max="256" value="1">
+                        <input type="range" id="ram-slider" min="1" max="256" step="1" value="1">
+                    </div>
 
-    <div class="slider-container">
-        <label for="cpu-slider">CPU Cores:</label>
-        <input type="number" id="cpu-input" min="1" max="40" value="1">
-        <input type="range" id="cpu-slider" min="1" max="40" step="1" value="1">
-    </div>
+                    <div class="slider-container">
+                        <label for="cpu-slider">CPU Cores:</label>
+                        <input type="number" id="cpu-input" min="1" max="40" value="1">
+                        <input type="range" id="cpu-slider" min="1" max="40" step="1" value="1">
+                    </div>
 
-    <div class="slider-container">
-        <label for="storage-slider">Storage (GB):</label>
-        <input type="number" id="storage-input" min="20" max="1024" value="20">
-        <input type="range" id="storage-slider" min="20" max="1024" step="1" value="20">
-    </div>
+                    <div class="slider-container">
+                        <label for="storage-slider">Storage (GB):</label>
+                        <input type="number" id="storage-input" min="20" max="2048" value="20">
+                        <input type="range" id="storage-slider" min="20" max="2048" step="1" value="20">
+                    </div>
 
-    <p style="margin-top: 1em; font-weight: bold;">Estimated Cost: $<span
-            id="estimated-cost">2.99</span> per month</p>
-</div>
+                    <p style="margin-top: 1em; font-weight: bold;">Estimated Cost: $<span
+                            id="estimated-cost">2.99</span> per month</p>
+                </div>
 
             </div>
         </div>
@@ -490,7 +500,10 @@
             </div>
             <div class="faq-item">
                 <h4>Tell me about the VPS?</h4>
-                <p>Our VPS services are created on demand, meaning no VPS is provisioned until the first month's payment is received. The only detail we log is the VPS name. Once the VPS is terminated, all related logs and information are permanently deleted. We do not, and will never, retain access to any data, ensuring complete privacy and security.</p>
+                <p>Our VPS services are created on demand, meaning no VPS is provisioned until the first month's payment
+                    is received. The only detail we log is the VPS name. Once the VPS is terminated, all related logs
+                    and information are permanently deleted. We do not, and will never, retain access to any data,
+                    ensuring complete privacy and security.</p>
             </div>
         </div>
     </section>
@@ -553,31 +566,31 @@
         storageInput.value = storageSlider.value;
         updateCost();
     }
-document.querySelectorAll('.preset-button').forEach(button => {
-    button.addEventListener('click', (event) => {
-        // Remove the active class from all buttons
-        document.querySelectorAll('.preset-button').forEach(btn => btn.classList.remove('active'));
 
-        // Add the active class to the clicked button
-        event.target.classList.add('active');
+    document.querySelectorAll('.preset-button').forEach(button => {
+        button.addEventListener('click', (event) => {
+            // Remove the active class from all buttons
+            document.querySelectorAll('.preset-button').forEach(btn => btn.classList.remove('active'));
 
-        // Update slider and input values
-        const ram = event.target.getAttribute('data-ram');
-        const cpu = event.target.getAttribute('data-cpu');
-        const storage = event.target.getAttribute('data-storage');
+            // Add the active class to the clicked button
+            event.target.classList.add('active');
 
-        ramInput.value = ram;
-        cpuInput.value = cpu;
-        storageInput.value = storage;
+            // Update slider and input values
+            const ram = event.target.getAttribute('data-ram');
+            const cpu = event.target.getAttribute('data-cpu');
+            const storage = event.target.getAttribute('data-storage');
 
-        ramSlider.value = ram;
-        cpuSlider.value = cpu;
-        storageSlider.value = storage;
+            ramInput.value = ram;
+            cpuInput.value = cpu;
+            storageInput.value = storage;
 
-        updateCost();
+            ramSlider.value = ram;
+            cpuSlider.value = cpu;
+            storageSlider.value = storage;
+
+            updateCost();
+        });
     });
-});
-
 
 
     ramSlider.addEventListener("input", syncInputs);
