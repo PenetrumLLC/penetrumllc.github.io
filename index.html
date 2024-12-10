@@ -549,16 +549,19 @@
     const cpuCostPerCore = 0.897;
     const storageCostPerGB = 0.0299;
 
-    function updateCost() {
-        const ram = parseInt(ramInput.value, 10) || 0;
-        const cpu = parseInt(cpuInput.value, 10) || 0;
-        const storage = parseInt(storageInput.value, 10) || 0;
-        const totalCost = (ram * ramCostPerGB) + (cpu * cpuCostPerCore) + (storage * storageCostPerGB);
-        estimatedCost.textContent = totalCost.toFixed(2);
-        ramSlider.value = ram;
-        cpuSlider.value = cpu;
-        storageSlider.value = storage;
-    }
+function updateCost() {
+    const ram = parseInt(ramInput.value, 10) || 0;
+    const cpu = parseInt(cpuInput.value, 10) || 0;
+    const storage = parseInt(storageInput.value, 10) || 0;
+    const totalCost = (ram * ramCostPerGB) + (cpu * cpuCostPerCore) + (storage * storageCostPerGB);
+    const roundedCost = Math.ceil(totalCost) - 0.01;
+
+    estimatedCost.textContent = roundedCost.toFixed(2);
+    ramSlider.value = ram;
+    cpuSlider.value = cpu;
+    storageSlider.value = storage;
+}
+
 
     function syncInputs() {
         ramInput.value = ramSlider.value;
@@ -569,13 +572,8 @@
 
     document.querySelectorAll('.preset-button').forEach(button => {
         button.addEventListener('click', (event) => {
-            // Remove the active class from all buttons
             document.querySelectorAll('.preset-button').forEach(btn => btn.classList.remove('active'));
-
-            // Add the active class to the clicked button
             event.target.classList.add('active');
-
-            // Update slider and input values
             const ram = event.target.getAttribute('data-ram');
             const cpu = event.target.getAttribute('data-cpu');
             const storage = event.target.getAttribute('data-storage');
