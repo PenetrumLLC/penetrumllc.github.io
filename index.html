@@ -317,7 +317,6 @@
         <div class="pricing-table"
              style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2em; margin: 0 auto; max-width: 800px;">
 
-            <!-- Premium Rack Hosting -->
             <div class="pricing-plan"
                  style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                 <h3 style="margin-bottom: 0.5em;">Premium Rack Hosting</h3>
@@ -355,7 +354,6 @@
                 </p>
             </div>
 
-            <!-- VPN Service -->
             <div class="pricing-plan"
                  style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                 <h3 style="margin-bottom: 0.5em;">VPN Service</h3>
@@ -383,7 +381,6 @@
                 </p>
             </div>
 
-            <!-- VPS Starting at $2.99 -->
             <div class="pricing-plan"
                  style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                 <h3 style="margin-bottom: 0.5em;">VPS Service</h3>
@@ -465,7 +462,9 @@
 
                     <p style="margin-top: 1em; font-weight: bold;">Estimated Cost: $<span
                             id="estimated-cost">2.99</span> per month</p>
-                    <p id="comparison" style="margin-top: 1em; font-size: 0.9em; color: green;">On average save <b><span
+                    <p style="margin-top: 1em; font-weight: bold;">Paying with Crypto: $<span
+                            id="estimated-cost-crypto">3.09</span></p>
+                    <p id="comparison" style="margin-top: 1em; font-size: 0.9em; color: green;">Save an average of <b><span
                             id="savings">0.00</span></b> monthly compared to leading solutions!</p>
 
                 </div>
@@ -589,6 +588,7 @@
     const cpuInput = document.getElementById("cpu-input");
     const storageInput = document.getElementById("storage-input");
     const estimatedCost = document.getElementById("estimated-cost");
+    const cryptoCost = document.getElementById('estimated-cost-crypto');
     const ramCostPerGB = 1.495;
     const cpuCostPerCore = 0.897;
     const storageCostPerGB = 0.0299;
@@ -608,6 +608,7 @@
         const totalCost = (ram * ramCostPerGB) + (cpu * cpuCostPerCore) + (storage * storageCostPerGB);
         const roundedCost = Math.ceil(totalCost) - 0.01;
         estimatedCost.textContent = roundedCost.toFixed(2);
+        cryptoCost.textContent = (roundedCost * 1.035).toFixed(2);
 
         let presetName = '';
         if (ram === 1 && cpu === 1 && storage === 20) presetName = 'Tiny';
