@@ -12,9 +12,13 @@
     <title>Backyard Bandwidth: Janky but Reliable</title>
     <style>
         .preset-button.active {
-            background-color: #666; /* Darker background color */
-            color: white; /* Change text color */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add a slight shadow */
+            background-color: #6ec1e4; /* Soft blue color */
+            color: #ffffff; /* White text for contrast */
+            border-color: #5da2c8; /* Slightly darker border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+            font-weight: bold; /* Emphasize the active button */
+            transform: scale(1.05); /* Slight scaling for a pop effect */
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s; /* Smooth transition */
         }
 
         .preset-button-container {
@@ -51,17 +55,30 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 1em;
-            transition: background-color 0.3s, box-shadow 0.3s;
+            transition: background-color 0.3s, box-shadow 0.3s, transform 0.2s;
         }
 
         .preset-button:hover {
-            background-color: #666;
+            background-color: #4a7a93;
             color: white;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
 
-        .preset-button:active {
-            background-color: #444;
+        /* Active button styles */
+        .preset-button.active {
+            background-color: #6ec1e4; /* Soft blue */
+            color: #ffffff; /* White text */
+            border-color: #5da2c8; /* Slightly darker border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
+            transform: scale(1.05);
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+        }
+
+        .preset-button.active:hover {
+            background-color: #5aafc8; /* Darker soft blue */
+            border-color: #4b94ab; /* Even darker border */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Slightly deeper shadow */
         }
 
         .slider-container {
@@ -182,7 +199,7 @@
 
         .container {
             padding: 2em;
-            max-width: 800px; /* Centers the content with a fixed width */
+            max-width: 800px;
             margin: 0 auto;
         }
 
@@ -201,9 +218,9 @@
         .section {
             margin-bottom: 2em;
             padding: 1em;
-            border: 1px solid #ddd;
+            border: 2px solid #949393;
             border-radius: 8px;
-            background-color: #f9f9f9; /* Light background for sections */
+            background-color: #f3f0f0;
         }
 
         .pricing-table {
@@ -281,11 +298,12 @@
         <a href="#faq">FAQ</a>
     </nav>
 </header>
-
+<br>
 <section id="home" class="hero">
     <h1>Janky But Reliable</h1>
     <p>Affordable rack space for everyone.</p>
 </section>
+<br>
 
 <div class="container">
     <section id="about" class="section">
@@ -446,6 +464,9 @@
 
                     <p style="margin-top: 1em; font-weight: bold;">Estimated Cost: $<span
                             id="estimated-cost">2.99</span> per month</p>
+                    <p id="comparison" style="margin-top: 1em; font-size: 0.9em; color: green;">On average save <b><span
+                            id="savings">0.00</span></b> monthly compared to leading solutions!</p>
+
                 </div>
 
             </div>
@@ -541,13 +562,18 @@
     const ramInput = document.getElementById("ram-input");
     const cpuInput = document.getElementById("cpu-input");
     const storageInput = document.getElementById("storage-input");
-
     const estimatedCost = document.getElementById("estimated-cost");
-
-    // Pricing per unit
     const ramCostPerGB = 1.495;
     const cpuCostPerCore = 0.897;
     const storageCostPerGB = 0.0299;
+    const leadingSolutionsPricing = {
+        Tiny: 5,
+        Small: 20,
+        Medium: 80,
+        Large: 160,
+        Huge: 320,
+        Massive: 640
+    };
 
     function updateCost() {
         const ram = parseInt(ramInput.value, 10) || 0;
@@ -555,13 +581,27 @@
         const storage = parseInt(storageInput.value, 10) || 0;
         const totalCost = (ram * ramCostPerGB) + (cpu * cpuCostPerCore) + (storage * storageCostPerGB);
         const roundedCost = Math.ceil(totalCost) - 0.01;
-
         estimatedCost.textContent = roundedCost.toFixed(2);
+
+        let presetName = '';
+        if (ram === 1 && cpu === 1 && storage === 20) presetName = 'Tiny';
+        else if (ram === 4 && cpu === 4 && storage === 100) presetName = 'Small';
+        else if (ram === 16 && cpu === 8 && storage === 200) presetName = 'Medium';
+        else if (ram === 32 && cpu === 16 && storage === 400) presetName = 'Large';
+        else if (ram === 64 && cpu === 32 && storage === 1000) presetName = 'Huge';
+        else if (ram === 128 && cpu === 40 && storage === 2000) presetName = 'Massive';
+
+        if (presetName in leadingSolutionsPricing) {
+            const leadingSolutionsCost = leadingSolutionsPricing[presetName];
+            const savings = Math.max(leadingSolutionsCost - Math.ceil(totalCost), 0);
+            document.getElementById('savings').textContent = "$" + savings.toFixed(2);
+        } else {
+            document.getElementById('savings').textContent = '???';
+        }
         ramSlider.value = ram;
         cpuSlider.value = cpu;
         storageSlider.value = storage;
     }
-
 
     function syncInputs() {
         ramInput.value = ramSlider.value;
@@ -581,7 +621,6 @@
             ramInput.value = ram;
             cpuInput.value = cpu;
             storageInput.value = storage;
-
             ramSlider.value = ram;
             cpuSlider.value = cpu;
             storageSlider.value = storage;
@@ -590,6 +629,12 @@
         });
     });
 
+    document.addEventListener('DOMContentLoaded', () => {
+        const tinyButton = document.querySelector('.preset-button[data-ram="4"][data-cpu="4"][data-storage="100"]');
+        if (tinyButton) {
+            tinyButton.click();
+        }
+    });
 
     ramSlider.addEventListener("input", syncInputs);
     cpuSlider.addEventListener("input", syncInputs);
