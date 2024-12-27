@@ -282,6 +282,23 @@
         footer p {
             font-size: 0.9em;
         }
+            nav a {
+        color: black;
+        text-decoration: none;
+        margin: 0 10px;
+        transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+        color: #6ec1e4;
+    }
+
+    nav {
+        margin-bottom: 1em;
+        text-align: center;
+        font-size: 1em;
+        font-weight: bold;
+    }
     </style>
 </head>
 <body>
@@ -314,10 +331,18 @@
 
     <section class="section" id="services" style="text-align: center;">
         <h2>Our Services</h2>
+        <hr>
+<nav>
+    <a href="#premium-rack-hosting">Premium Rack Hosting</a> |
+    <a href="#vps-service-link">VPS Service</a> |
+    <a href="#vpn-service-link">VPN Service</a> |
+    <a href="#s3-storage-hosting">S3 Storage Hosting</a>
+</nav>
+<hr><br><br>
         <div class="pricing-table"
              style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2em; margin: 0 auto; max-width: 800px;">
 
-            <div class="pricing-plan"
+            <div class="pricing-plan" id="premium-rack-hosting"
                  style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                 <h3 style="margin-bottom: 0.5em;">Premium Rack Hosting</h3>
                 <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">Starting at $150 per U per
@@ -382,8 +407,7 @@
                 </div>
             </div>
 
-
-            <div class="pricing-plan"
+            <div class="pricing-plan" id="vpn-service-link"
                  style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                 <h3 style="margin-bottom: 0.5em;">VPN Service</h3>
                 <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">Starting at $0.99 per month</p>
@@ -410,7 +434,7 @@
                 </p>
             </div>
 
-            <div class="pricing-plan"
+            <div class="pricing-plan" id="s3-storage-hosting"
                  style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                 <h3 style="margin-bottom: 0.5em;">S3 Storage Hosting</h3>
                 <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">Starting at just
@@ -446,7 +470,7 @@
                 </p>
             </div>
 
-            <div class="pricing-plan"
+            <div class="pricing-plan" id="vps-service-link"
                  style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                 <h3 style="margin-bottom: 0.5em;">VPS Service</h3>
                 <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">Starting at $2.99 per month</p>
