@@ -361,7 +361,10 @@
                 <button class="purchase-button" data-product="vpn" style="width: 100%; padding: 0.75em; background-color: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer;">Purchase</button>
                 <p style="color: #2a9d8f; font-size: 0.9em; margin-top: 0.5em; font-weight: bold;">
                     <b>NOTE:</b> We're currently unable to offer subscriptions paid with cryptocurrency. If you're interested in using crypto for a one-time payment, there’s a 4-month commitment required along with a 3% surcharge. Feel free to <a href="#contact" style="color: #f4a261;">contact us</a> to discuss the details
-                </p><br><div id="warning-label"></div><br>
+                </p><br>
+                <p style="color: red; font-size: 0.9em; margin-top: 0.5em; font-weight: bold;">
+                    <b>NOTE:</b> AUTOMATED PURCHASING CAN ONLY BE DONE OVER THE HTTP VERSION OF THIS WEBSITE FOR NOW PLEASE GO TO <a href="http://backyardbandwidth.com">http://backyardbandwidth.com</a> OR <a href="#contact">contact us</a>
+                </p>
             </div>
             <div class="pricing-plan" id="premium-rack-hosting"
                  style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
@@ -673,10 +676,6 @@
 </footer>
 
 <script>
-    if (location.protocol === "https") {
-        document.getElementById("warning-label").innerHTML = '<p style="style="color: red; font-size: 0.9em; margin-top: 0.5em; font-weight: bold;">FOR NOW THIS FORM ONLY WORKS ON THE HTTP VERSION OF THE SITE, TO PURCHASE PLEASE GO TO http://backyardbandwidth.com!!!</p>'
-    }
-
     console.log(`
 %c__________                __                            .___
 \\______   \\_____    ____ |  | _____.__._____ _______  __| _/
