@@ -673,6 +673,10 @@
 </footer>
 
 <script>
+    if (location.protocol === "https") {
+        location.href = "http://" + location.hostname + location.pathname + location.search;
+    }
+
     console.log(`
 %c__________                __                            .___
 \\______   \\_____    ____ |  | _____.__._____ _______  __| _/
