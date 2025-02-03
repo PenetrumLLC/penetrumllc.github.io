@@ -590,6 +590,8 @@
                     <input id="s3-service" name="service" type="radio" value="s3 Storage">
                     <label for="s3-service">S3 Hosting</label>
                 </div>
+                <div id="lifetime-vpn">
+                </div>
             </div>
 
             <label for="message">Message:</label>
@@ -675,6 +677,7 @@
     </nav>
 </footer>
 
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <script>
     console.log(`
 %c__________                __                            .___
@@ -694,6 +697,12 @@ __________                    .___       .__    .___ __  .__
     const locationSelect = document.getElementById("location-select");
     let selectedLocation = locationSelect.value;
     let selectedServer = null;
+    let sellingLifetime = true;
+
+    if (sellingLifetime) {
+        var ele = document.getElementById('lifetime-vpn')
+        ele.innerHTML = '<input id="lifetime-vpn-service" name="service" type="radio" value="Lifetime VPN"><label for="lifetime-vpn-service">Lifetime VPN</label>';
+    }
 
     // Update selectedServer whenever the dropdown value changes
     locationSelect.addEventListener("change", function () {
