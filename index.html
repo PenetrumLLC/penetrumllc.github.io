@@ -349,22 +349,29 @@
             <div class="pricing-plan" id="vpn-service-link">
                 <h3 style="margin-bottom: 0.5em;">VPN Service</h3>
                 <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">Starting at $0.99 per month</p>
-                <p style="margin-bottom: 1em;">Our VPN is fast, reliable, secure, and private, ensuring your online activity stays safe and anonymous.</p>
+                <p style="margin-bottom: 1em;">Our VPN is fast, reliable, secure, and private, ensuring your online
+                    activity stays safe and anonymous.</p>
                 <p style="margin-bottom: 1em;">Choose a location:</p>
-                <select id="location-select" style="width: 100%; padding: 0.5em; margin-bottom: 1em; border: 1px solid #ccc; border-radius: 4px;">
-                    <option value="" disabled selected>Select a location ...</option>
+                <select id="location-select"
+                        style="width: 100%; padding: 0.5em; margin-bottom: 1em; border: 1px solid #ccc; border-radius: 4px;">
+                    <option disabled selected value="">Select a location ...</option>
                     <option value="usa">USA</option>
                     <option value="germany">Germany</option>
                     <option value="singapore">Singapore</option>
                 </select>
-                <input id="email-input" placeholder="Enter your email" style="width: 100%; padding: 0.5em; margin-bottom: 1em; border: 1px solid #ccc; border-radius: 4px;" type="email">
-                <button class="purchase-button" data-product="vpn" style="width: 100%; padding: 0.75em; background-color: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer;">Purchase</button>
-<!--                <p style="color: #2a9d8f; font-size: 0.9em; margin-top: 0.5em; font-weight: bold;">-->
-<!--                    <b>NOTE:</b> We're currently unable to offer subscriptions paid with cryptocurrency. If you're interested in using crypto for a one-time payment, there’s a 4-month commitment required along with a 3% surcharge. Feel free to <a href="#contact" style="color: #f4a261;">contact us</a> to discuss the details-->
-<!--                </p><br>-->
-<!--                <p style="color: red; font-size: 0.9em; margin-top: 0.5em; font-weight: bold;">-->
-<!--                    <b>NOTE:</b> AUTOMATED PURCHASING CAN ONLY BE DONE OVER THE HTTP VERSION OF THIS WEBSITE FOR NOW PLEASE GO TO <a href="http://backyardbandwidth.com">http://backyardbandwidth.com</a> OR <a href="#contact">contact us</a>-->
-<!--                </p>-->
+                <input id="email-input" placeholder="Enter your email"
+                       style="width: 100%; padding: 0.5em; margin-bottom: 1em; border: 1px solid #ccc; border-radius: 4px;"
+                       type="email">
+                <button class="purchase-button" data-product="vpn"
+                        style="width: 100%; padding: 0.75em; background-color: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                    Purchase
+                </button>
+                <!--                <p style="color: #2a9d8f; font-size: 0.9em; margin-top: 0.5em; font-weight: bold;">-->
+                <!--                    <b>NOTE:</b> We're currently unable to offer subscriptions paid with cryptocurrency. If you're interested in using crypto for a one-time payment, there’s a 4-month commitment required along with a 3% surcharge. Feel free to <a href="#contact" style="color: #f4a261;">contact us</a> to discuss the details-->
+                <!--                </p><br>-->
+                <!--                <p style="color: red; font-size: 0.9em; margin-top: 0.5em; font-weight: bold;">-->
+                <!--                    <b>NOTE:</b> AUTOMATED PURCHASING CAN ONLY BE DONE OVER THE HTTP VERSION OF THIS WEBSITE FOR NOW PLEASE GO TO <a href="http://backyardbandwidth.com">http://backyardbandwidth.com</a> OR <a href="#contact">contact us</a>-->
+                <!--                </p>-->
             </div>
             <div class="pricing-plan" id="premium-rack-hosting"
                  style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
@@ -658,7 +665,8 @@
                     must cover a
                     minimum of 4 months of service in advance and require multi-month increments. Additionally, a 3%
                     price adjustment
-                    applies to payments made using cryptocurrency. We are not able to refund any purchases made using cryptocurrency.</p>
+                    applies to payments made using cryptocurrency. We are not able to refund any purchases made using
+                    cryptocurrency.</p>
             </div>
         </div>
     </section>
@@ -676,7 +684,7 @@
     </nav>
 </footer>
 
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
     console.log(`
 %c__________                __                            .___
@@ -832,24 +840,24 @@ __________                    .___       .__    .___ __  .__
             });
     }
 
-function sendBuildRequest(invoiceId, emailAddress, parentDiv) {
-    const data = {
-        invoiceId: invoiceId,
-        emailAddress: emailAddress,
-        locationRequested: selectedLocation
-    };
+    function sendBuildRequest(invoiceId, emailAddress, parentDiv) {
+        const data = {
+            invoiceId: invoiceId,
+            emailAddress: emailAddress,
+            locationRequested: selectedLocation
+        };
 
-    fetch(`${selectedServer}/api/build`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-    }).then(response => response.json())
-        .then(result => {
-            // Create the container dynamically
-            const vpnConfigContainer = document.createElement('div');
-            vpnConfigContainer.innerHTML = `
+        fetch(`${selectedServer}/api/build`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then(response => response.json())
+            .then(result => {
+                // Create the container dynamically
+                const vpnConfigContainer = document.createElement('div');
+                vpnConfigContainer.innerHTML = `
         <h3 style="color: green; font-size: 1.5em; text-align: center;">VPN Provisioned Successfully!</h3>
         <p style="text-align: center;"><b>Follow the instructions below to set up your VPN:</b></p>
         <div class="vpn-instructions" style="background-color: #f9f9f9; border: 1px solid #ddd; padding: 1em; border-radius: 8px; overflow: auto; margin-bottom: 1em;">
@@ -867,87 +875,99 @@ function sendBuildRequest(invoiceId, emailAddress, parentDiv) {
         <button class="restart-button" onclick="window.location.reload()" style="width: 100%; padding: 0.75em; background-color: #6ec1e4; color: white; border: none; border-radius: 4px; cursor: pointer;">Go Back</button>
         `;
 
-            // Append the container to the parentDiv
-            parentDiv.innerHTML = '';
-            parentDiv.appendChild(vpnConfigContainer);
+                // Append the container to the parentDiv
+                parentDiv.innerHTML = '';
+                parentDiv.appendChild(vpnConfigContainer);
 
-            // Set the text content to preserve formatting
-            const vpnInstructionsElement = vpnConfigContainer.querySelector('#vpn-instructions');
-            const vpnProfileElement = vpnConfigContainer.querySelector('#vpn-profile');
+                // Set the text content to preserve formatting
+                const vpnInstructionsElement = vpnConfigContainer.querySelector('#vpn-instructions');
+                const vpnProfileElement = vpnConfigContainer.querySelector('#vpn-profile');
 
-            vpnInstructionsElement.innerHTML = result.instructions;
-            vpnProfileElement.textContent = result.profile;
+                vpnInstructionsElement.innerHTML = result.instructions;
+                vpnProfileElement.textContent = result.profile;
 
-            // Add event listener for the copy button
-            const copyButton = vpnConfigContainer.querySelector("#copy-profile");
-            copyButton.addEventListener("click", () => {
-                navigator.clipboard.writeText(vpnProfileElement.textContent)
-                    .then(() => {
-                        copyButton.textContent = "Copied!";
-                        setTimeout(() => {
-                            copyButton.textContent = "Copy";
-                        }, 2000);
-                    })
-                    .catch(err => {
-                    });
+                // Add event listener for the copy button
+                const copyButton = vpnConfigContainer.querySelector("#copy-profile");
+                copyButton.addEventListener("click", () => {
+                    navigator.clipboard.writeText(vpnProfileElement.textContent)
+                        .then(() => {
+                            copyButton.textContent = "Copied!";
+                            setTimeout(() => {
+                                copyButton.textContent = "Copy";
+                            }, 2000);
+                        })
+                        .catch(err => {
+                        });
+                });
+
+                const sanitizedEmail = emailAddress.split("@")[0];
+                const filename = sanitizedEmail.replace(/[^\w\s]/gi, "");
+
+                // Add event listener for the download button
+                const downloadButton = vpnConfigContainer.querySelector("#download-profile");
+                downloadButton.addEventListener("click", () => {
+                    const blob = new Blob([vpnProfileElement.textContent], {type: "text/plain"});
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = `${filename}_profile.ovpn`;
+                    a.click();
+                    URL.revokeObjectURL(url); // Clean up the URL object
+                });
+                showNotification("VPN provisioned successfully!")
+            })
+            .catch(error => {
+                showNotification("An error occurred while provisioning the VPN.", "error");
             });
+    }
 
-            const sanitizedEmail = emailAddress.split("@")[0];
-            const filename = sanitizedEmail.replace(/[^\w\s]/gi, "");
+    function showNotification(message, type) {
+        const notification = document.getElementById("notification");
+        const notificationMessage = document.getElementById("notification-message");
 
-            // Add event listener for the download button
-            const downloadButton = vpnConfigContainer.querySelector("#download-profile");
-            downloadButton.addEventListener("click", () => {
-                const blob = new Blob([vpnProfileElement.textContent], { type: "text/plain" });
-                const url = URL.createObjectURL(blob);
-                const a = document.createElement("a");
-                a.href = url;
-                a.download = `${filename}_profile.ovpn`;
-                a.click();
-                URL.revokeObjectURL(url); // Clean up the URL object
-            });
-            showNotification("VPN provisioned successfully!")
-        })
-        .catch(error => {
-            showNotification("An error occurred while provisioning the VPN.", "error");
+        // Set message and style
+        notificationMessage.textContent = message;
+        notification.style.backgroundColor = type === "error" ? "#f44336" : "#4CAF50"; // Red for error, green for success
+        notification.style.display = "block";
+
+        // Close notification when button is clicked
+        document.getElementById("close-notification").addEventListener("click", () => {
+            notification.style.display = "none";
         });
-}
 
-function showNotification(message, type) {
-    const notification = document.getElementById("notification");
-    const notificationMessage = document.getElementById("notification-message");
-
-    // Set message and style
-    notificationMessage.textContent = message;
-    notification.style.backgroundColor = type === "error" ? "#f44336" : "#4CAF50"; // Red for error, green for success
-    notification.style.display = "block";
-
-    // Close notification when button is clicked
-    document.getElementById("close-notification").addEventListener("click", () => {
-        notification.style.display = "none";
-    });
-
-    // Auto-hide after 5 seconds
-    setTimeout(() => {
-        notification.style.display = "none";
-    }, 5000);
-}
-
-
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+            notification.style.display = "none";
+        }, 5000);
+    }
 
     document.getElementById('current-year').textContent = new Date().getFullYear();
-    const obfuscatedEmail = ["penetrum", "corp", "@", "gmail", ".", "com"].join(""); // so bots don't get the email
+    (function() {emailjs.init("eQ0-mr5lNTl3d-Pdj");})();
+
+    //const obfuscatedEmail = ["penetrum", "corp", "@", "gmail", ".", "com"].join(""); // so bots don't get the email
     document.getElementById("contact-form").addEventListener("submit", function (event) {
         event.preventDefault();
         const name = document.getElementById("name").value.trim();
         const email = document.getElementById("email").value.trim();
         const message = document.getElementById("message").value.trim() || "N/A";
         const selectedService = document.querySelector('input[name="service"]:checked').value;
-        const subject = `Interested in ${selectedService}!`;
-        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nMessage: ${message}`);
-        const mailtoLink = `mailto:${obfuscatedEmail}?subject=${encodeURIComponent(subject)}&body=${body}`;
-        window.location.href = mailtoLink;
+        const templateParams = {
+          name: name,
+          email: email,
+          message: message,
+          subject: `Interested in ${selectedService}!`
+        };
+        const serviceId = "service_0qmh393";
+        const templateId = "template_7wznujh";
+        emailjs.send(serviceId, templateId, templateParams)
+            .then(() => {
+                showNotification("Your message has been sent successfully and we will be in contact with you shortly!");
+                document.getElementById("contact-form").reset();
+                }, (err) => {
+                showNotification("Message failed to send, please try again later or email us at penetrumcorp@gmail.com", "error");
+            });
     });
+
     const ramSlider = document.getElementById("ram-slider");
     const cpuSlider = document.getElementById("cpu-slider");
     const storageSlider = document.getElementById("storage-slider");
@@ -1063,9 +1083,13 @@ function showNotification(message, type) {
     cpuInput.addEventListener("input", updateCost);
     storageInput.addEventListener("input", updateCost);
 </script>
-<div id="notification" style="display: none; position: fixed; bottom: 20px; right: 20px; background-color: #f44336; color: white; padding: 1em; border-radius: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); z-index: 1000;">
+<div id="notification"
+     style="display: none; position: fixed; bottom: 20px; right: 20px; background-color: #f44336; color: white; padding: 1em; border-radius: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); z-index: 1000;">
     <span id="notification-message"></span>
-    <button id="close-notification" style="background: none; border: none; color: white; font-weight: bold; margin-left: 10px; cursor: pointer;">&times;</button>
+    <button id="close-notification"
+            style="background: none; border: none; color: white; font-weight: bold; margin-left: 10px; cursor: pointer;">
+        &times;
+    </button>
 </div>
 </body>
 </html>
