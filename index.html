@@ -610,7 +610,8 @@
                     By checking this box you acknowledge and accept the
                     <a href="policy.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">Privacy
                         Policy</a>, as well as the
-                    <a href="fair-use.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">Fair Use Policy</a>.
+                    <a href="fair-use.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">Fair Use
+                        Policy</a>.
                 </label>
             </div>
 
@@ -669,6 +670,13 @@
                     applies to payments made using cryptocurrency. We are not able to refund any purchases made using
                     cryptocurrency.</p>
             </div>
+            <div class="faq-item">
+                <h4>What is your logging policy?</h4>
+                <p>We enforce a strict no-logging policy, ensuring that no user activity, connection logs, or
+                    identifying information is ever recorded or stored—now or in the future. For full details, please
+                    refer to our <a href="logging-policy.html">No Logs Policy</a>.</p>
+            </div>
+
         </div>
     </section>
 </div>
@@ -943,7 +951,9 @@ __________                    .___       .__    .___ __  .__
     }
 
     document.getElementById('current-year').textContent = new Date().getFullYear();
-    (function() {emailjs.init("eQ0-mr5lNTl3d-Pdj");})();
+    (function () {
+        emailjs.init("eQ0-mr5lNTl3d-Pdj");
+    })();
 
     //const obfuscatedEmail = ["penetrum", "corp", "@", "gmail", ".", "com"].join(""); // so bots don't get the email
     document.getElementById("contact-form").addEventListener("submit", function (event) {
@@ -953,10 +963,10 @@ __________                    .___       .__    .___ __  .__
         const message = document.getElementById("message").value.trim() || "N/A";
         const selectedService = document.querySelector('input[name="service"]:checked').value;
         const templateParams = {
-          name: name,
-          email: email,
-          message: message,
-          subject: `Interested in ${selectedService}!`
+            name: name,
+            email: email,
+            message: message,
+            subject: `Interested in ${selectedService}!`
         };
         const serviceId = "service_0qmh393";
         const templateId = "template_7wznujh";
@@ -964,7 +974,7 @@ __________                    .___       .__    .___ __  .__
             .then(() => {
                 showNotification("Your message has been sent successfully and we will be in contact with you shortly!");
                 document.getElementById("contact-form").reset();
-                }, (err) => {
+            }, (err) => {
                 showNotification("Message failed to send, please try again later or email us at penetrumcorp@gmail.com", "error");
             });
     });
