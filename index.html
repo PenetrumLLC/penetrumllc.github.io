@@ -366,6 +366,7 @@
                         style="width: 100%; padding: 0.75em; background-color: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer;">
                     Purchase
                 </button>
+                <div id="lifetime-sale-div"></div>
                 <!--                <p style="color: #2a9d8f; font-size: 0.9em; margin-top: 0.5em; font-weight: bold;">-->
                 <!--                    <b>NOTE:</b> We're currently unable to offer subscriptions paid with cryptocurrency. If you're interested in using crypto for a one-time payment, there’s a 4-month commitment required along with a 3% surcharge. Feel free to <a href="#contact" style="color: #f4a261;">contact us</a> to discuss the details-->
                 <!--                </p><br>-->
@@ -716,8 +717,10 @@ __________                    .___       .__    .___ __  .__
     let sellingLifetime = true;
 
     if (sellingLifetime) {
-        var ele = document.getElementById('lifetime-vpn')
+        var ele = document.getElementById('lifetime-vpn');
         ele.innerHTML = '<input id="lifetime-vpn-service" name="service" type="radio" value="Lifetime VPN"><label for="lifetime-vpn-service">Lifetime VPN</label>';
+        var ele2 = document.getElementById('lifetime-sale-div');
+        ele2.innerHTML = '<br><hr><br><p style="color: #000000; font-size: 0.9em; margin-top: 0.5em; font-weight: bold;">LIFETIME VPN SALE IS LIVE! One-time payment of $50.00 for LIFETIME ACCESS! For more information and to purchase <a href="#contact">contact us</a>!</p>'
     }
 
     // Update selectedServer whenever the dropdown value changes
