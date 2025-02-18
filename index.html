@@ -302,47 +302,47 @@
         }
 
 
-    /* Navigation Bar */
-    .navbar {
-        text-align: center;
-        margin-top: 20px;
-    }
+        /* Navigation Bar */
+        .navbar {
+            text-align: center;
+            margin-top: 20px;
+        }
 
-    .navbar ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        gap: 15px; /* Adds spacing between buttons */
-        flex-wrap: wrap;
-    }
+        .navbar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px; /* Adds spacing between buttons */
+            flex-wrap: wrap;
+        }
 
-    .navbar ul li {
-        display: inline;
-    }
+        .navbar ul li {
+            display: inline;
+        }
 
-    .navbar ul li a {
-        background: #333;
-        color: #fff;
-        font-weight: bold;
-        font-size: 16px;
-        padding: 12px 20px;
-        text-decoration: none;
-        border-radius: 5px;
-        display: inline-block;
-        transition: background 0.3s, transform 0.2s;
-    }
+        .navbar ul li a {
+            background: #333;
+            color: #fff;
+            font-weight: bold;
+            font-size: 16px;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background 0.3s, transform 0.2s;
+        }
 
-    .navbar ul li a:hover {
-        background: #444;
-        transform: scale(1.05);
-    }
+        .navbar ul li a:hover {
+            background: #444;
+            transform: scale(1.05);
+        }
 
-    /* Hero Section */
-    .hero {
-        text-align: center;
-    }
+        /* Hero Section */
+        .hero {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -361,7 +361,7 @@
     <!--        <a href="policy.html">Privacy Policy</a>-->
     <!--    </nav>-->
 </header>
-    <nav class="navbar">
+<nav class="navbar">
     <ul>
         <li><a href="#services">Our Services</a></li>
         <li><a href="policy-list.html">Our Policies</a></li>
@@ -369,26 +369,31 @@
         <li><a href="#contact">Contact Us</a></li>
     </ul>
 </nav>
-<section class="hero" id="home">
-    <h1>Janky But Reliable</h1>
-    <p>Affordable rack space for everyone.</p>
+
+<section class="hero" id="home" style="text-align: center; padding: 3em 1.5em;">
+    <h1 style="font-size: 2.5em; font-weight: bold; margin-bottom: 0.3em;">Janky But Reliable</h1>
+    <p style="max-width: 700px; margin: 0 auto; font-size: 1.2em; line-height: 1.6;">
+        Affordable services with enterprise-grade performance. No hidden fees, no hidden agenda - just reliable
+        solutions at a price that makes sense.
+    </p>
 </section>
+
 <br>
 
 <div class="container">
-    <section class="section" id="about">
-        <h2>About Us</h2>
-        <p>Welcome to Backyard Bandwidth! We're a boutique data center designed to be affordable for everyone.</p>
-    </section>
+    <!--    <section class="section" id="about">-->
+    <!--        <h2>About Us</h2>-->
+    <!--        <p>Welcome to Backyard Bandwidth! We're a boutique data center designed to be affordable for everyone.</p>-->
+    <!--    </section>-->
 
     <section class="section" id="services" style="text-align: center;">
         <h2>Our Services</h2>
         <hr>
         <nav>
             <a href="#vpn-service-link">VPN Service</a> |
+            <a href="#s3-storage-hosting">S3 Storage Hosting</a> |
             <a href="#premium-rack-hosting">Premium Rack Hosting</a> |
             <a href="#vps-service-link">VPS Service</a> |
-            <a href="#s3-storage-hosting">S3 Storage Hosting</a> |
             <a href="#contact">Contact Us</a>
         </nav>
         <hr>
@@ -424,6 +429,47 @@
                 <!--                    <b>NOTE:</b> AUTOMATED PURCHASING CAN ONLY BE DONE OVER THE HTTP VERSION OF THIS WEBSITE FOR NOW PLEASE GO TO <a href="http://backyardbandwidth.com">http://backyardbandwidth.com</a> OR <a href="#contact">contact us</a>-->
                 <!--                </p>-->
             </div>
+
+
+            <div class="pricing-plan" id="s3-storage-hosting"
+                 style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #fff; color: #000; text-align: center;">
+                <h3 style="margin-bottom: 0.5em; font-weight: bold;">S3 Storage Hosting</h3>
+                <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">
+                    Starting at <span id="price-display">$5.99</span> per month
+                </p>
+                <p style="margin-bottom: 1em; font-size: 1em;">
+                    Experience high-speed, reliable, and secure S3 storage hosting—ideal for all your data storage
+                    needs.
+                </p>
+                <ul style="list-style-type: none; padding: 0; margin: 0 auto; text-align: center;">
+                    <li style="margin-bottom: 0.5em; font-weight: bold;"><span style="color: #28a745;">✔</span> No
+                        Ingress or Egress Costs
+                    </li>
+                    <li style="margin-bottom: 0.5em; font-weight: bold;"><span style="color: #28a745;">✔</span>
+                        High-Speed Storage
+                    </li>
+                    <li style="margin-bottom: 0.5em; font-weight: bold;"><span style="color: #28a745;">✔</span> 99.99%
+                        Uptime Guarantee
+                    </li>
+                    <li style="margin-bottom: 0.5em; font-weight: bold;"><span style="color: #28a745;">✔</span> Advanced
+                        Security
+                    </li>
+                </ul>
+                <p style="margin-top: 1em;">
+                    <a href="#contact" style="color: #007bff; text-decoration: none;">Contact us</a> today to get
+                    started with secure S3 storage.
+                </p>
+
+                <h4 style="margin-top: 1.5em; font-weight: bold;">Customize Your Storage Plan</h4>
+                <p style="margin-bottom: 1em;">Use the slider below to estimate your cost:</p>
+
+                <input type="range" id="s3-storage-slider" min="1" max="40" value="1" step="1"
+                       style="width: 100%; cursor: pointer; -webkit-appearance: none; appearance: none; height: 5px; background: #007bff; border-radius: 5px;">
+                <p style="margin-top: 0.5em; font-size: 1.25em;"><strong><span id="storage-amount">1</span> TB</strong>
+                </p>
+
+            </div>
+
             <div class="pricing-plan" id="premium-rack-hosting"
                  style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                 <h3 style="margin-bottom: 0.5em;">Premium Rack Hosting</h3>
@@ -581,43 +627,6 @@
                         for a quote. Tiny and small VPS are IPv6 only.</small></p>
                 </div>
             </div>
-
-            <div class="pricing-plan" id="s3-storage-hosting"
-                 style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-                <h3 style="margin-bottom: 0.5em;">S3 Storage Hosting</h3>
-                <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">Starting at just
-                    $5.99 per month</p>
-                <p style="margin-bottom: 1em; font-size: 1em;">
-                    Unlock unparalleled speed, rock-solid reliability, and advanced security with our S3 storage
-                    hosting—tailored for all your data storage and access needs.
-                </p>
-                <ul style="list-style-type: none; padding: 0; margin: 0 auto; text-align: center;">
-                    <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
-                        <span style="color: green; margin-right: 0.5em;">✔</span>
-                        <strong>No Ingress or Egress Costs</strong>
-                    </li>
-                    <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
-                        <span style="color: green; margin-right: 0.5em;">✔</span>
-                        <strong>High Speed Storage</strong>
-                    </li>
-                    <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
-                        <span style="color: green; margin-right: 0.5em;">✔</span>
-                        <strong>99.99% Uptime Guarantee</strong>
-                    </li>
-                    <!-- <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
-                        <span style="color: green; margin-right: 0.5em;">✔</span>
-                        <strong>99.99% Uptime</strong>
-                    </li> -->
-                    <li style="display: flex; align-items: center; justify-content: center; margin-bottom: 0.5em;">
-                        <span style="color: green; margin-right: 0.5em;">✔</span>
-                        <strong>Advanced Security</strong>
-                    </li>
-                </ul>
-                <p style="margin-top: 1em;">
-                    <a href="#contact">Contact us</a> if you're ready for better s3 storage
-                </p>
-            </div>
-
         </div>
     </section>
 
@@ -689,6 +698,17 @@
         <h2>Frequently Asked Questions</h2>
         <div class="faq-list">
             <div class="faq-item">
+                <h4>Who are you?</h4>
+                <p>Backyard Bandwidth is owned by <a href="https://penetrumllc.com">Penetrum LLC.</a><br><br> This project
+                    started as a joke over whiskey and cigars—"We should start a data center." After
+                    years in cybersecurity, malware research, software engineering, and systems engineering, we knew the
+                    industry was full of overpriced, overcomplicated solutions. So, we built something better.
+                    By repurposing garages, abandoned buildings, and offices, we created a cost-effective, secure, and
+                    scalable infrastructure. With 24/7 monitoring and armed security, we provide enterprise-grade
+                    solutions at a price that actually makes sense.</p>
+            </div>
+
+            <div class="faq-item">
                 <h4>Is Backyard Bandwidth reliable?</h4>
                 <p>Absolutely! We offer a 99.99% uptime guarantee backed by 2Gbps fiber internet, armed security, and
                     24/7 security camera monitoring. Plus, we're WISP certified—our reliability is trusted even by the
@@ -711,11 +731,13 @@
                 <p>Our VPN services are designed with your privacy and security in mind. We do not log or track your
                     activity, ensuring complete anonymity. Connections are encrypted end-to-end to protect your data
                     from any potential breaches. All logs are redirected to /dev/null. Your privacy is our priority.
-                For more information on our logging policy please see our <a href="logging-policy.html">No Logs Policy</a>.</p>
+                    For more information on our logging policy please see our <a href="logging-policy.html">No Logs
+                        Policy</a>.</p>
             </div>
             <div class="faq-item">
                 <h4>Do you accept cryptocurrency?</h4>
-                <p>Yes, we accept all cryptocurrencies supported by Coinbase and Coinbase Wallet. Please note that cryptocurrency payments
+                <p>Yes, we accept all cryptocurrencies supported by Coinbase and Coinbase Wallet. Please note that
+                    cryptocurrency payments
                     must cover a
                     minimum of 4 months of service in advance and require multi-month increments. Additionally, a 3%
                     price adjustment
@@ -863,6 +885,24 @@ __________                    .___       .__    .___ __  .__
                     showNotification("An error occurred. Please try again.", "error");
                 });
         });
+    });
+
+    const slider = document.getElementById('s3-storage-slider');
+    const storageAmount = document.getElementById('storage-amount');
+    const priceDisplay = document.getElementById('price-display');
+
+    slider.addEventListener('input', function () {
+        const storageValue = parseInt(slider.value, 10);
+        const maxPricePerTB = 5.99;
+        const minPricePerTB = 2.99;
+        const maxStorage = 40;
+
+        // Calculate the smooth price per TB using linear interpolation
+        let pricePerTB = maxPricePerTB - ((maxPricePerTB - minPricePerTB) / (maxStorage - 1)) * (storageValue - 1);
+
+        let totalPrice = storageValue * pricePerTB;
+        storageAmount.textContent = storageValue;
+        priceDisplay.textContent = `$${totalPrice.toFixed(2)}`;
     });
 
     // Function to check the invoice status
