@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation Home</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #000;
+            margin-bottom: 20px;
+        }
+
+        .doc-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .doc-list li {
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .doc-list a {
+            display: block;
+            background: #f1f1f1;
+            color: #000;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background 0.3s;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .doc-list a:hover {
+            background: #e0e0e0;
+        }
+
+        /* Tooltip Styles */
+        .tooltip {
+            display: none;
+            position: absolute;
+            bottom: 110%; /* Position above the button */
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            white-space: nowrap;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+
+        .doc-list a:hover .tooltip {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Back to Homepage Button */
+        .home-button {
+            display: block;
+            width: 180px;
+            margin: 20px auto;
+            background: #6cb2eb;
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+            border: none;
+            cursor: pointer;
+        }
+
+        .home-button:hover {
+            background: #5a9cd6;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Documentation Home</h1>
+        <ul class="doc-list">
+            <li>
+                <a href="docs/vps.html">
+                    VPS Documentation
+                    <span class="tooltip">Configuring VPS, SSH Keys, and Troubleshooting</span>
+                </a>
+            </li>
+            <li>
+                <a href="docs/s3.html">
+                    S3 Documentation
+                    <span class="tooltip">Using MinIO with JavaScript, Python, and AWS CLI</span>
+                </a>
+            </li>
+            <li>
+                <a href="docs/vpn.html">
+                    VPN Documentation
+                    <span class="tooltip">VPN Setup, OpenVPN Installation, and Troubleshooting</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <a href="index.html" class="home-button">Back to Homepage</a>
+
+</body>
+</html>

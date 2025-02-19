@@ -365,6 +365,7 @@
     <ul>
         <li><a href="#services">Our Services</a></li>
         <li><a href="policy-list.html">Our Policies</a></li>
+        <li><a href="docs.html">Documentation</a></li>
         <li><a href="#faq">FAQ</a></li>
         <li><a href="#contact">Contact Us</a></li>
     </ul>
@@ -656,6 +657,10 @@
                     <input id="s3-service" name="service" type="radio" value="s3 Storage">
                     <label for="s3-service">S3 Hosting</label>
                 </div>
+                <div>
+                    <input id="support" name="service" type="radio" value="Support and Help">
+                    <label for="support">Tech Support</label>
+                </div>
                 <div id="lifetime-vpn">
                 </div>
             </div>
@@ -758,7 +763,7 @@
     <p>&copy; <span id="current-year"></span> Backyard Bandwidth | Janky but reliable.</p>
     <nav>
         <a href="#home">Home</a>
-        <a href="#about">About Us</a>
+<!--        <a href="#about">About Us</a>-->
         <a href="#services">Services</a>
         <a href="#contact">Contact</a>
         <a href="#faq">FAQ</a>
@@ -786,7 +791,7 @@ __________                    .___       .__    .___ __  .__
     const locationSelect = document.getElementById("location-select");
     let selectedLocation = locationSelect.value;
     let selectedServer = null;
-    let sellingLifetime = true;
+    let sellingLifetime = false;
 
     if (sellingLifetime) {
         var ele = document.getElementById('lifetime-vpn');

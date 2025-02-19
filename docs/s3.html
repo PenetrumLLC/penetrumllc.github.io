@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S3 Documentation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7f9;
+            color: #333;
+        }
+        .container {
+            background: white;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .accordion-item {
+            background: #e9f5fc;
+            margin: 10px 0;
+            padding: 15px;
+            border-left: 4px solid #3498db;
+            border-radius: 5px;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        .accordion-item:hover {
+            transform: scale(1.02);
+        }
+        .accordion-item.active {
+            background: #d8eff8;
+        }
+        .accordion-title {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .accordion-content {
+            display: none;
+            margin-top: 10px;
+            padding-left: 20px;
+            color: #555;
+        }
+        .accordion-content ul {
+            list-style: disc;
+            padding-left: 25px;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+        .accordion-content ul ul {
+            list-style: circle;
+            padding-left: 20px;
+        }
+        .accordion-content ul ul ul {
+            list-style: square;
+            padding-left: 20px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #c7254e;
+        }
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 14px;
+            line-height: 1.5;
+            text-align: left;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .back-button {
+            display: inline-block;
+            margin: 30px auto;
+            padding: 10px 20px;
+            background-color: #5da9e9;
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            font-weight: bold;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            transition: background 0.3s;
+        }
+        .back-button:hover {
+            background-color: #4a90d9;
+        }
+        .button-container {
+            text-align: center;
+        }
+        .help-section {
+            background: #f8f9fa;
+            border-left: 4px solid #fd7e14;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+        .help-section h3 {
+            color: #fd7e14;
+        }
+    </style>
+</head>
+<body>
+    <div id="s3" class="container">
+        <h2>S3 Documentation</h2>
+
+        <div class="accordion-item" onclick="toggleAccordion(this)">
+            <div class="accordion-title">1. Connecting with JavaScript (MinIO SDK)</div>
+            <div class="accordion-content">
+                <pre>
+const Minio = require('minio');
+const minioClient = new Minio.Client({
+    endPoint: 'IP',
+    port: PORT,
+    useSSL: true,
+    accessKey: 'your-access-key',
+    secretKey: 'your-secret-key'
+});
+
+// Upload a file
+minioClient.fPutObject('my-bucket', 'my-object', 'file.txt', {}, function(err, etag) {
+    if (err) return console.log(err);
+    console.log('File uploaded successfully.');
+});
+                </pre>
+            </div>
+        </div>
+
+        <div class="accordion-item" onclick="toggleAccordion(this)">
+            <div class="accordion-title">2. Connecting with Python (Boto3)</div>
+            <div class="accordion-content">
+                <pre>
+import boto3
+s3 = boto3.client('s3',
+    endpoint_url='http://IP:PORT',
+    aws_access_key_id='your-access-key',
+    aws_secret_access_key='your-secret-key')
+
+# Upload a file
+s3.upload_file('file.txt', 'my-bucket', 'my-object')
+print("File uploaded successfully.")
+                </pre>
+            </div>
+        </div>
+
+        <div class="accordion-item" onclick="toggleAccordion(this)">
+            <div class="accordion-title">3. Connecting with S3 Explorer</div>
+            <div class="accordion-content">
+                <p>You can use tools like <a href="https://s3browser.com/">S3 Browser</a> or <a href="https://cyberduck.io/">Cyberduck</a> to connect to MinIO.</p>
+                <ul>
+                    <li>Download and install S3 Browser or Cyberduck.</li>
+                    <li>In the settings, configure:
+                        <ul>
+                            <li>Endpoint: <code>http://IP:PORT</code></li>
+                            <li>Access Key: Your MinIO access key</li>
+                            <li>Secret Key: Your MinIO secret key</li>
+                            <li>Enable SSL if required</li>
+                        </ul>
+                    </li>
+                    <li>Save and connect to start managing files.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Still Need Help Section -->
+        <div class="help-section">
+            <h3>Still Need Help?</h3>
+            <p>If you're still experiencing issues, please reach out to us for further assistance. It helps us troubleshoot faster if you can provide the following information:</p>
+            <ul>
+                <li>Your programming language and version (e.g., Node.js v14, Python 3.9).</li>
+                <li>The SDK or tool you are using (e.g., MinIO SDK, Boto3, AWS CLI).</li>
+                <li>A detailed description of the issue you're experiencing.</li>
+                <li>Any error messages you are seeing.</li>
+            </ul>
+            <p>For more help, visit our <a href="../index.html#contact">Contact Us</a> page.</p>
+        </div>
+    </div>
+
+    <!-- Button to go back to Documentation Selection -->
+    <div class="button-container">
+        <a href="../docs.html" class="back-button">Back to Docs Selection</a>
+    </div>
+
+    <script>
+        function toggleAccordion(element) {
+            var content = element.querySelector(".accordion-content");
+            var isActive = element.classList.contains("active");
+
+            // Close all accordion items
+            var allItems = document.querySelectorAll(".accordion-item");
+            allItems.forEach(function(item) {
+                item.classList.remove("active");
+                item.querySelector(".accordion-content").style.display = "none";
+            });
+
+            // Toggle current item
+            if (!isActive) {
+                element.classList.add("active");
+                content.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
