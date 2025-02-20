@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VPN Documentation</title>
+    <title>Splunk User Documentation</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -54,14 +54,6 @@
             margin-top: 10px;
             line-height: 1.6;
         }
-        .accordion-content ul ul {
-            list-style: circle;
-            padding-left: 20px;
-        }
-        .accordion-content ul ul ul {
-            list-style: square;
-            padding-left: 20px;
-        }
         code {
             background: #f4f4f4;
             padding: 3px 6px;
@@ -80,13 +72,6 @@
             white-space: pre-wrap;
             word-wrap: break-word;
         }
-        a {
-            color: #3498db;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
         .back-button {
             display: inline-block;
             margin: 30px auto;
@@ -104,10 +89,8 @@
         .back-button:hover {
             background-color: #4a90d9;
         }
-        .button-container {
-            text-align: center;
-        }
-        .help-section {
+
+                .help-section {
             background: #f8f9fa;
             border-left: 4px solid #fd7e14;
             padding: 20px;
@@ -117,49 +100,80 @@
         .help-section h3 {
             color: #fd7e14;
         }
+
+                .button-container {
+            text-align: center;
+        }
     </style>
 </head>
 <body>
-    <div id="vpn" class="container">
-        <h2>VPN Documentation</h2>
+    <div class="container">
+        <h2>Splunk User Documentation</h2>
 
         <div class="accordion-item" onclick="toggleAccordion(this)">
-            <div class="accordion-title">1. Downloading the VPN Profile</div>
+            <div class="accordion-title">1. What is Splunk?</div>
             <div class="accordion-content">
-                <p>Visit <a href="../index.html#vpn-service-link">this link</a> to purchase and download a VPN profile from the Backyard Bandwidth website.</p>
+                <p>Splunk is a powerful platform used for searching, monitoring, and analyzing machine-generated big data via a web-style interface. It helps you visualize and make sense of data from various sources such as application logs, system metrics, and network traffic.</p>
             </div>
         </div>
 
         <div class="accordion-item" onclick="toggleAccordion(this)">
-            <div class="accordion-title">2. Installing OpenVPN</div>
+            <div class="accordion-title">2. How to Log In</div>
             <div class="accordion-content">
                 <ul>
-                    <li>Windows: Download and install <a href="https://openvpn.net/community-downloads/">OpenVPN</a> or use our experimental <a href="https://github.com/PenetrumLLC/Backyard-Bandwidth-VPN-GUI/releases/download/v1/backyard-bandwidth-installer.exe">Backyard Bandwidth VPN GUI</a>.</li>
-                    <li>Linux: Install OpenVPN with: <code>sudo apt install openvpn</code> (Debian/Ubuntu) or <code>sudo yum install openvpn</code> (CentOS).</li>
-                    <li>Mac: Install using Homebrew: <code>brew install openvpn</code>.</li>
-                    <li>Android/iOS: Use <a href="https://play.google.com/store/apps/details?id=net.openvpn.openvpn">OpenVPN Connect</a> (Android) or <a href="https://apps.apple.com/us/app/openvpn-connect/id590379981">OpenVPN Connect</a> (iOS).</li>
+                    <li>Open your web browser and go to the Splunk URL provided by your organization (e.g., <code>https://splunk.backyardbandwidth.com:8000</code>).</li>
+                    <li>Enter your username and password that was provided to you at time of purchase.</li>
+                    <li>Click on <strong>Login</strong> to access the Splunk dashboard.</li>
                 </ul>
             </div>
         </div>
 
         <div class="accordion-item" onclick="toggleAccordion(this)">
-            <div class="accordion-title">3. Configuring the VPN Client</div>
+            <div class="accordion-title">3. Understanding Ingestion</div>
             <div class="accordion-content">
+                <p><strong>Ingestion</strong> in Splunk means collecting and storing data from different sources, like application logs or network traffic, into the Splunk index for searching and analysis.</p>
                 <ul>
-                    <li>Windows: Place the .ovpn file in <code>C:\Program Files\OpenVPN\config\</code> and launch OpenVPN GUI or use our Backyard Bandwidth VPN GUI.</li>
-                    <li>Linux/Mac: Run <code>sudo openvpn --config /path/to/your-profile.ovpn</code>.</li>
-                    <li>Android/iOS: Import the .ovpn profile into OpenVPN Connect.</li>
+                    <li>Data is broken down into events and stored in indexes for efficient searching.</li>
+                    <li>Only data that is ingested can be searched or visualized in Splunk.</li>
                 </ul>
             </div>
         </div>
 
         <div class="accordion-item" onclick="toggleAccordion(this)">
-            <div class="accordion-title">4. Connecting to the VPN</div>
+            <div class="accordion-title">4. How to Search Data</div>
             <div class="accordion-content">
                 <ul>
-                    <li>Windows: Right-click OpenVPN GUI or Backyard Bandwidth VPN GUI and select "Connect."</li>
-                    <li>Linux/Mac: Run <code>sudo openvpn --config /path/to/your-profile.ovpn</code>.</li>
-                    <li>Android/iOS: Open the OpenVPN app and tap "Connect."</li>
+                    <li>Go to the Search & Reporting app from the main dashboard.</li>
+                    <li>In the search bar, type the query to find the data you need, such as:
+                        <pre><code>index=[PROVIDED INDEX NAME] [SEARCH QUERY]</code></pre> for example searching through index abc for the query "application": <pre><code>index=abc application</code></pre>
+                    </li>
+                    <li>To search within a time range, use the time picker on the top right corner.</li>
+                    <li>Use filters and fields to refine your search results.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="accordion-item" onclick="toggleAccordion(this)">
+            <div class="accordion-title">5. How to Ingest a Certain Amount of Data</div>
+            <div class="accordion-content">
+                <ul>
+                    <li>Splunk ingests data based on the sources configured by the administrator.</li>
+                    <li>As a user, you can limit search results to a specific amount using:
+                        <pre><code>index=main | head 100</code></pre>
+                    </li>
+                    <li>This command shows the first 100 events matching the search criteria.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="accordion-item" onclick="toggleAccordion(this)">
+            <div class="accordion-title">6. Creating Simple Dashboards</div>
+            <div class="accordion-content">
+                <ul>
+                    <li>From the Search & Reporting app, run your search query.</li>
+                    <li>Click on "Save As" and select "Dashboard Panel."</li>
+                    <li>Provide a title and description, then choose an existing dashboard or create a new one.</li>
+                    <li>Click on "Save" to add the visualization to your dashboard.</li>
                 </ul>
             </div>
         </div>
@@ -167,19 +181,18 @@
         <!-- Still Need Help Section -->
         <div class="help-section">
             <h3>Still Need Help?</h3>
-            <p>If you're still experiencing issues, please reach out to us for further assistance. It helps us troubleshoot faster if you can provide the following information:</p>
+            <p>If you're still experiencing issues, please reach out to us. It helps to provide:</p>
             <ul>
-                <li>Your operating system and version (e.g., Windows 10, Ubuntu 20.04, macOS Monterey).</li>
-                <li>The version of OpenVPN or the VPN client you are using.</li>
-                <li>A detailed description of the issue you're experiencing.</li>
-                <li>Any error messages you are seeing.</li>
+                <li>A description of the issue you're experiencing.</li>
+                <li>The search query you're using, if applicable.</li>
+                <li>Any error messages you're seeing.</li>
             </ul>
             <p>For more help, visit our <a href="../index.html#contact">Contact Us</a> page.</p>
         </div>
+
     </div>
 
-    <!-- Button to go back to Documentation Selection -->
-    <div class="button-container">
+        <div class="button-container">
         <a href="../docs.html" class="back-button">Back to Docs Selection</a>
     </div>
 

@@ -374,7 +374,8 @@
 <section class="hero" id="home" style="text-align: center; padding: 3em 1.5em;">
     <h1 style="font-size: 2.5em; font-weight: bold; margin-bottom: 0.3em;">Janky But Reliable</h1>
     <p style="max-width: 700px; margin: 0 auto; font-size: 1.2em; line-height: 1.6;">
-        Enterprise-grade performance at a price that makes sense. No hidden fees, no catch—just reliable, affordable services with a commitment to privacy
+        Enterprise-grade performance at a price that makes sense. No hidden fees, no catch—just reliable, affordable
+        services with a commitment to privacy
     </p>
 </section>
 
@@ -390,10 +391,11 @@
         <h2>Our Services</h2>
         <hr>
         <nav>
-            <a href="#vpn-service-link">VPN Service</a> |
-            <a href="#s3-storage-hosting">S3 Storage Hosting</a> |
-            <a href="#premium-rack-hosting">Premium Rack Hosting</a> |
-            <a href="#vps-service-link">VPS Service</a> |
+            <a href="#vpn-service-link">VPN</a>|
+            <a href="#s3-storage-hosting">S3 Storage</a>|
+            <a href="#splunk-hosting">Splunk</a>|
+            <a href="#premium-rack-hosting">Rack Hosting</a>|
+            <a href="#vps-service-link">VPS</a>|
             <a href="#contact">Contact Us</a>
         </nav>
         <hr>
@@ -429,7 +431,6 @@
                 <!--                    <b>NOTE:</b> AUTOMATED PURCHASING CAN ONLY BE DONE OVER THE HTTP VERSION OF THIS WEBSITE FOR NOW PLEASE GO TO <a href="http://backyardbandwidth.com">http://backyardbandwidth.com</a> OR <a href="#contact">contact us</a>-->
                 <!--                </p>-->
             </div>
-
 
             <div class="pricing-plan" id="s3-storage-hosting"
                  style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #fff; color: #000; text-align: center;">
@@ -467,7 +468,44 @@
                        style="width: 100%; cursor: pointer; -webkit-appearance: none; appearance: none; height: 5px; background: #007bff; border-radius: 5px;">
                 <p style="margin-top: 0.5em; font-size: 1.25em;"><strong><span id="storage-amount">1</span> TB</strong>
                 </p>
+            </div>
 
+            <div class="pricing-plan" id="splunk-hosting"
+                 style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #fff; color: #000; text-align: center;">
+                <h3 style="margin-bottom: 0.5em; font-weight: bold;">Splunk</h3>
+                <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">
+                    Starting at <span id="splunk-price-display">$0.00</span> per month
+                </p>
+                <p style="margin-bottom: 1em; font-size: 1em;">
+                    High-performance Splunk hosting with flexible pricing for ingestion and index storage.
+                </p>
+                <ul style="list-style-type: none; padding: 0; margin: 0 auto; text-align: center;">
+                    <li style="margin-bottom: 0.5em; font-weight: bold;"><span style="color: #28a745;">✔</span> Flexible
+                        Daily Ingestion
+                    </li>
+                    <li style="margin-bottom: 0.5em; font-weight: bold;"><span style="color: #28a745;">✔</span>
+                        High-Performance Index Storage
+                    </li>
+                    <li style="margin-bottom: 0.5em; font-weight: bold;"><span style="color: #28a745;">✔</span> Scalable
+                        and Secure
+                    </li>
+                </ul>
+                <h4 style="margin-top: 1.5em; font-weight: bold;">Customize Your Ingestion and Index</h4>
+                <p style="margin-bottom: 1em;">Use the slider below to estimate your cost:</p>
+                <div style="text-align: left; margin-bottom: 1em;">
+                    <label for="ingest-slider" style="font-weight: bold;">Daily Ingestion (GB):&nbsp;<span
+                            id="ingest-value">0</span> GB</label>
+                    <input type="range" id="ingest-slider" min="1" max="10" step="1" value="0" style="width: 100%;">
+                </div>
+                <div style="text-align: left; margin-bottom: 1em;">
+                    <label for="index-slider" style="font-weight: bold;">Index Storage (TB):&nbsp;<span
+                            id="index-value">0</span> TB</label>
+                    <input type="range" id="index-slider" min="1" max="10" step="1" value="0" style="width: 100%;">
+                </div>
+                <p style="margin-top: 1em;">
+                    <a href="#contact" style="color: #007bff; text-decoration: none;"><u>Contact us</u></a> today to get
+                    started with Splunk hosting.
+                </p>
             </div>
 
             <div class="pricing-plan" id="premium-rack-hosting"
@@ -658,8 +696,8 @@
                     <label for="s3-service">S3 Hosting</label>
                 </div>
                 <div>
-                    <input id="support" name="service" type="radio" value="Support and Help">
-                    <label for="support">Tech Support</label>
+                    <input id="splunk-service" name="service" type="radio" value="Splunk Hosting">
+                    <label for="splunk-service">Splunk Hosting</label>
                 </div>
                 <div id="lifetime-vpn">
                 </div>
@@ -678,7 +716,7 @@
                         Policy</a>.
                     If you are contacting us regarding technical support, please read our
                     <a href="docs.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">
-                    Documentation</a> first.
+                        Documentation</a> first.
                 </label>
             </div>
 
@@ -706,7 +744,8 @@
         <div class="faq-list">
             <div class="faq-item">
                 <h4>Who are you?</h4>
-                <p>Backyard Bandwidth is owned by <a href="https://penetrumllc.com">Penetrum LLC.</a><br><br> This project
+                <p>Backyard Bandwidth is owned by <a href="https://penetrumllc.com">Penetrum LLC.</a><br><br> This
+                    project
                     started as a joke over whiskey and cigars—"We should start a data center." After
                     years in cybersecurity, malware research, software engineering, and systems engineering, we knew the
                     industry was full of overpriced, overcomplicated solutions. So, we built something better.
@@ -731,7 +770,8 @@
                 <p>Our VPS services are created on demand, meaning no VPS is provisioned until the first month's payment
                     is received. The only detail we log is the VPS name. Once the VPS is terminated, all related logs
                     and information are permanently deleted. We do not, and will never, retain access to any data,
-                    ensuring complete privacy and security. For more information on our logging policy please see our <a href="logging-policy.html">No Logs
+                    ensuring complete privacy and security. For more information on our logging policy please see our <a
+                            href="logging-policy.html">No Logs
                         Policy</a>.</p>
             </div>
             <div class="faq-item">
@@ -767,7 +807,7 @@
     <p>&copy; <span id="current-year"></span> Backyard Bandwidth | Janky but reliable.</p>
     <nav>
         <a href="#home">Home</a>
-<!--        <a href="#about">About Us</a>-->
+        <!--        <a href="#about">About Us</a>-->
         <a href="#services">Services</a>
         <a href="#contact">Contact</a>
         <a href="#faq">FAQ</a>
@@ -893,6 +933,36 @@ __________                    .___       .__    .___ __  .__
                     showNotification("An error occurred. Please try again.", "error");
                 });
         });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const ingestSlider = document.getElementById('ingest-slider');
+        const indexSlider = document.getElementById('index-slider');
+        const ingestValue = document.getElementById('ingest-value');
+        const indexValue = document.getElementById('index-value');
+        const priceDisplay = document.getElementById('splunk-price-display');
+
+        const ingestionRate = 3.33; // $3.33 per GB per day
+        const storageRate = 0.33; // $0.33 per TB per day
+        const daysInMonth = 30;
+
+        function calculatePrice() {
+            const dailyIngest = parseFloat(ingestSlider.value);
+            const dailyStorage = parseFloat(indexSlider.value);
+
+            const ingestCost = dailyIngest * ingestionRate * daysInMonth;
+            const storageCost = dailyStorage * storageRate * daysInMonth;
+            const totalCost = (ingestCost + storageCost).toFixed(2);
+
+            ingestValue.textContent = dailyIngest;
+            indexValue.textContent = dailyStorage;
+            priceDisplay.textContent = `$${totalCost}`;
+        }
+
+        ingestSlider.addEventListener('input', calculatePrice);
+        indexSlider.addEventListener('input', calculatePrice);
+
+        calculatePrice();
     });
 
     const slider = document.getElementById('s3-storage-slider');
