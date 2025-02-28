@@ -37,7 +37,7 @@
             position: relative;
         }
         .blacklist-item h2::after {
-            content: '▼';
+            content: '↓';
             font-size: 0.8em;
             position: absolute;
             right: 0;
@@ -86,32 +86,31 @@
             border-radius: 8px;
             padding: 15px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: max-height 0.3s ease;
             overflow: hidden;
-            max-height: 60px;
             cursor: pointer;
+            transition: max-height 0.3s ease;
+            max-height: 50px;
             position: relative;
-        }
-        .intro-text:hover {
-            max-height: 1000px;
         }
         .intro-text::after {
             content: '↓';
-            font-size: 0.9em;
-            color: #000000;
+            font-size: 1.2em;
+            color: #888;
             position: absolute;
             bottom: 10px;
             right: 15px;
         }
-        .intro-text:hover::after {
-            content: '';
+        .intro-text:hover {
+            max-height: 1000px;
         }
-    </style>
+        .intro-text:hover::after {
+            content: '...';
+        }    </style>
 </head>
 <body>
     <h1>Backyard Bandwidth Refuse List</h1>
     <div class="intro-text">
-        We reserve the right to refuse service indefinitely to the companies and individuals listed below.
+        We reserve the right to refuse service indefinitely to the companies and individuals listed below.<br>
         This list provides transparency about entities with whom we have chosen to part ways due to unresolved operational differences and challenges encountered during our engagements.
         These challenges impacted our ability to maintain seamless workflows and strategic alignments, leading to the decision to discontinue service.
         This list reflects our commitment to maintaining efficient operations and is based solely on compatibility with our internal processes and business needs.
