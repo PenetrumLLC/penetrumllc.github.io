@@ -33,14 +33,33 @@
             margin: 0;
             font-size: 1.8em;
             color: #333;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 5px;
+            cursor: pointer;
+            position: relative;
+        }
+        .blacklist-item h2::after {
+            content: '▼';
+            font-size: 0.8em;
+            position: absolute;
+            right: 0;
+            top: 5px;
+            transition: transform 0.3s;
+        }
+        .blacklist-item h2.active::after {
+            transform: rotate(180deg);
+        }
+        .blacklist-item .description {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            color: #555;
+        }
+        .blacklist-item .description.open {
+            max-height: 1000px;
         }
         .blacklist-item p {
             margin-top: 10px;
             font-size: 1em;
             line-height: 1.6;
-            color: #555;
         }
         .back-button {
             display: inline-block;
@@ -79,7 +98,7 @@
         .intro-text::after {
             content: '↓';
             font-size: 0.9em;
-            color: #888;
+            color: #000000;
             position: absolute;
             bottom: 10px;
             right: 15px;
@@ -99,16 +118,27 @@
     </div>
     <div class="blacklist-container">
         <div class="blacklist-item">
-            <h2>Internet 2.0</h2>
-            <p>While providing Internet 2.0 with 15TB of S3 storage, we encountered operational differences that did not align with our internal workflows and strategic objectives. These differences included challenges in communication and varying perspectives among the individuals involved. Despite efforts to bridge these gaps and find common ground, we ultimately concluded that the partnership was not the best fit for our operational requirements.</p>
-            <p>As a result, we made the strategic decision to part ways to better meet our evolving business needs. This decision was based solely on compatibility with our processes and objectives. We wish Internet 2.0 luck in their future endeavors.</p>
+            <h2 onclick="toggleDescription(this)">Internet 2.0</h2>
+            <div class="description">
+                <p>While providing Internet 2.0 with 15TB of S3 storage, we encountered operational differences that did not align with our internal workflows and strategic objectives. These differences included challenges in communication and varying perspectives among the individuals involved. Despite efforts to bridge these gaps and find common ground, we ultimately concluded that the partnership was not the best fit for our operational requirements.</p>
+                <p>As a result, we made the strategic decision to part ways to better meet our evolving business needs. This decision was based solely on compatibility with our processes and objectives. We wish Internet 2.0 luck in their future endeavors.</p>
+            </div>
         </div>
         <div class="blacklist-item">
-            <h2>kri*s@tut**ota.com</h2>
-            <p>During our time providing VPN service to this individual, we encountered communication challenges and differences in expectations that did not align with our internal workflows. Consequently, we made the strategic decision to discontinue any further engagement. This decision was based solely on operational compatibility and does not reflect on the individual’s character or integrity.</p>
-            <p>We wish them success in their future endeavors. We have provided this individual with a lifetime VPN, ensuring continued access to the service. However, we will not be offering any additional support or services beyond this provision.</p>
+            <h2 onclick="toggleDescription(this)">kri*s@tut**ota.com</h2>
+            <div class="description">
+                <p>During our time providing VPN service to this individual, we encountered communication challenges and differences in expectations that did not align with our internal workflows. Consequently, we made the strategic decision to discontinue any further engagement. This decision was based solely on operational compatibility and does not reflect on the individual’s character or integrity.</p>
+                <p>We wish them success in their future endeavors. We have provided this individual with a lifetime VPN, ensuring continued access to the service. However, we will not be offering any additional support or services beyond this provision.</p>
+            </div>
         </div>
     </div>
     <a class="back-button" href="index.html">Go Back to Home</a>
+    <script>
+        function toggleDescription(element) {
+            const description = element.nextElementSibling;
+            description.classList.toggle('open');
+            element.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
