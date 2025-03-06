@@ -868,6 +868,7 @@ __________                    .___       .__    .___ __  .__
         ele2.innerHTML = '<br><hr><br><p style="color: #000000; font-size: 0.9em; margin-top: 0.5em; font-weight: bold;">LIFETIME VPN SALE IS LIVE! One-time payment of $50.00 for LIFETIME ACCESS! For more information and to purchase <a href="#contact">contact us</a>!</p>'
     }
 
+
     // Update selectedServer whenever the dropdown value changes
     locationSelect.addEventListener("change", function () {
         selectedLocation = this.value;
@@ -884,6 +885,12 @@ __________                    .___       .__    .___ __  .__
 
     document.querySelectorAll('.purchase-button').forEach(button => {
         button.addEventListener('click', function () {
+
+            window.addEventListener("beforeunload", function (event) {
+                event.preventDefault();
+                event.returnValue = "Are you sure you want to cancel the purchase?";
+            });
+
             const parentDiv = this.closest('.pricing-plan');
             const emailInput = parentDiv.querySelector('#email-input').value;
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
