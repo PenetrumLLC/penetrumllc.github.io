@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>VPS Documentation</title>
     <style>
         body {
@@ -10,6 +10,7 @@
             background: #f4f7f9;
             color: #333;
         }
+
         .container {
             background: white;
             max-width: 900px;
@@ -18,11 +19,13 @@
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         }
+
         h2 {
             color: #2c3e50;
             text-align: center;
             margin-bottom: 20px;
         }
+
         .accordion-item {
             background: #e9f5fc;
             margin: 10px 0;
@@ -32,36 +35,44 @@
             transition: transform 0.3s;
             cursor: pointer;
         }
+
         .accordion-item:hover {
             transform: scale(1.02);
         }
+
         .accordion-item.active {
             background: #d8eff8;
         }
+
         .accordion-title {
             font-weight: bold;
             color: #2c3e50;
         }
+
         .accordion-content {
             display: none;
             margin-top: 10px;
             padding-left: 20px;
             color: #555;
         }
+
         .accordion-content ul {
             list-style: disc;
             padding-left: 25px;
             margin-top: 10px;
             line-height: 1.6;
         }
+
         .accordion-content ul ul {
             list-style: circle;
             padding-left: 20px;
         }
+
         .accordion-content ul ul ul {
             list-style: square;
             padding-left: 20px;
         }
+
         code {
             background: #f4f4f4;
             padding: 3px 6px;
@@ -69,13 +80,16 @@
             font-family: 'Courier New', monospace;
             color: #c7254e;
         }
+
         a {
             color: #3498db;
             text-decoration: none;
         }
+
         a:hover {
             text-decoration: underline;
         }
+
         .back-button {
             display: inline-block;
             margin: 30px auto;
@@ -90,12 +104,15 @@
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
             transition: background 0.3s;
         }
+
         .back-button:hover {
             background-color: #4a90d9;
         }
+
         .button-container {
             text-align: center;
         }
+
         .help-section {
             background: #f8f9fa;
             border-left: 4px solid #fd7e14;
@@ -103,108 +120,153 @@
             border-radius: 5px;
             margin-top: 30px;
         }
+
         .help-section h3 {
             color: #fd7e14;
         }
     </style>
 </head>
 <body>
-    <div id="vps" class="container">
-        <h2>VPS Documentation</h2>
+<div class="container" id="vps">
+    <h2>VPS Documentation</h2>
 
-        <div class="accordion-item" onclick="toggleAccordion(this)">
-            <div class="accordion-title">IPv6 Tunneling to IPv4</div>
-            <div class="accordion-content">
-                <p>Learn how to tunnel IPv6 traffic through an IPv4 network using various techniques such as 6to4, Teredo, and Cloudflare tunnels.</p>
-                <ul>
-                    <li><strong>Using 6to4:</strong>
-                        <ul>
-                            <li>Ensure your system supports 6to4 tunneling.</li>
-                            <li>Enable the 6to4 interface using <code>ip tunnel add tun6to4 mode sit remote any local your-ipv4-address ttl 255</code>.</li>
-                            <li>Assign an IPv6 address in the 2002::/16 range to the tunnel interface.</li>
-                            <li>Set up routing to ensure IPv6 traffic flows through the tunnel.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Using Teredo:</strong>
-                        <ul>
-                            <li>Install and enable Teredo on your operating system.</li>
-                            <li>For Windows: Run <code>netsh interface teredo set state client</code>.</li>
-                            <li>For Linux: Use <code>miredo</code> (a Teredo client) to establish connectivity.</li>
-                            <li>Ensure firewall settings allow Teredo traffic (UDP port 3544).</li>
-                        </ul>
-                    </li>
-                    <li><strong>Using Cloudflare Tunnels:</strong>
-                        <ul>
-                            <li>Sign up for Cloudflare and configure your domain.</li>
-                            <li>Enable Cloudflare's Argo Tunnel and install <code>cloudflared</code>.</li>
-                            <li>Run <code>cloudflared tunnel create &lt;tunnel-name&gt;</code> and configure your tunnel.</li>
-                            <li>Use Cloudflare DNS to route traffic from an IPv6-only host to an IPv4 server.</li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="accordion-item" onclick="toggleAccordion(this)">
-            <div class="accordion-title">Generating an SSH Key</div>
-            <div class="accordion-content">
-                <p>Follow these steps to generate an SSH keypair:</p>
-                <ul>
-                    <li><strong>Using OpenSSH:</strong>
-                        <ul>
-                            <li>Open a terminal and run: <code>ssh-keygen -t rsa -b 4096 -C "your_email@example.com"</code></li>
-                            <li>Press Enter to save the key to the default location (<code>~/.ssh/id_rsa</code>).</li>
-                            <li>Optionally, set a passphrase for additional security.</li>
-                            <li>Your public key is saved as <code>~/.ssh/id_rsa.pub</code>. Email this file securely.</li>
-                        </ul>
-                    </li>
-                    <li><strong>Using PuTTY (Windows):</strong>
-                        <ul>
-                            <li>Download and open <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTYgen</a>.</li>
-                            <li>Select "RSA" and set key size to 4096 bits.</li>
-                            <li>Click "Generate" and move your mouse to randomize.</li>
-                            <li>Save the private key (.ppk) and public key.</li>
-                            <li>Copy the public key and email it securely.</li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Still Need Help Section -->
-        <div class="help-section">
-            <h3>Still Need Help?</h3>
-            <p>If you're still experiencing issues, please reach out to us for further assistance. It helps us troubleshoot faster if you can provide the following information:</p>
+    <div class="accordion-item" onclick="toggleAccordion(this)">
+        <div class="accordion-title">IPv6 Tunneling to IPv4</div>
+        <div class="accordion-content">
+            <p>Learn how to tunnel IPv6 traffic through an IPv4 network using various techniques such as 6to4, Teredo,
+                and Cloudflare tunnels.</p>
             <ul>
-                <li>Your operating system and version (e.g., Ubuntu 20.04, CentOS 8, Windows 10).</li>
-                <li>The commands you executed and the output (screenshots are helpful).</li>
-                <li>A detailed description of the issue you're experiencing.</li>
-                <li>Any error messages you are seeing.</li>
+                <li><strong>Using 6to4:</strong>
+                    <ul>
+                        <li>Ensure your system supports 6to4 tunneling.</li>
+                        <li>Enable the 6to4 interface using <code>ip tunnel add tun6to4 mode sit remote any local
+                            your-ipv4-address ttl 255</code>.
+                        </li>
+                        <li>Assign an IPv6 address in the 2002::/16 range to the tunnel interface.</li>
+                        <li>Set up routing to ensure IPv6 traffic flows through the tunnel.</li>
+                    </ul>
+                </li>
+                <li><strong>Using Teredo:</strong>
+                    <ul>
+                        <li>Install and enable Teredo on your operating system.</li>
+                        <li>For Windows: Run <code>netsh interface teredo set state client</code>.</li>
+                        <li>For Linux: Use <code>miredo</code> (a Teredo client) to establish connectivity.</li>
+                        <li>Ensure firewall settings allow Teredo traffic (UDP port 3544).</li>
+                    </ul>
+                </li>
+                <li><strong>Using Cloudflare Tunnels:</strong>
+                    <ul>
+                        <li>Sign up for Cloudflare and configure your domain.</li>
+                        <li>Enable Cloudflare's Argo Tunnel and install <code>cloudflared</code>.</li>
+                        <li>Run <code>cloudflared tunnel create &lt;tunnel-name&gt;</code> and configure your tunnel.
+                        </li>
+                        <li>Use Cloudflare DNS to route traffic from an IPv6-only host to an IPv4 server.</li>
+                    </ul>
+                </li>
             </ul>
-            <p>For more help, visit our <a href="../index.html#contact">Contact Us</a> page.</p>
         </div>
     </div>
 
-    <div class="button-container">
-        <a href="../docs.html" class="back-button">Back to Docs Selection</a>
+    <div class="accordion-item" onclick="toggleAccordion(this)">
+        <div class="accordion-title">Generating an SSH Key</div>
+        <div class="accordion-content">
+            <p>Follow these steps to generate an SSH keypair:</p>
+            <ul>
+                <li><strong>Using OpenSSH:</strong>
+                    <ul>
+                        <li>Open a terminal and run: <code>ssh-keygen -t rsa -b 4096 -C "your_email@example.com"</code>
+                        </li>
+                        <li>Press Enter to save the key to the default location (<code>~/.ssh/id_rsa</code>).</li>
+                        <li>Optionally, set a passphrase for additional security.</li>
+                        <li>Your public key is saved as <code>~/.ssh/id_rsa.pub</code>. Email this file securely.</li>
+                    </ul>
+                </li>
+                <li><strong>Using PuTTY (Windows):</strong>
+                    <ul>
+                        <li>Download and open <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTYgen</a>.
+                        </li>
+                        <li>Select "RSA" and set key size to 4096 bits.</li>
+                        <li>Click "Generate" and move your mouse to randomize.</li>
+                        <li>Save the private key (.ppk) and public key.</li>
+                        <li>Copy the public key and email it securely.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
     </div>
 
-    <script>
-        function toggleAccordion(element) {
-            var content = element.querySelector(".accordion-content");
-            var isActive = element.classList.contains("active");
+    <div class="accordion-item" onclick="toggleAccordion(this)">
+        <div class="accordion-title">Using Your SSH Key</div>
+        <div class="accordion-content">
+            <p>Follow these steps to SSH into a server using your key:</p>
+            <ul>
+                <li><strong>Connect to the Server:</strong>
+                    <ul>
+                        <li>Use the following command: <code>ssh -i ~/.ssh/id_rsa username@your-server-ip</code></li>
+                        <li>If your key is stored in the default location, you can simply run: <code>ssh
+                            username@your-server-ip</code></li>
+                    </ul>
+                </li>
+                <li><strong>Using PuTTY (Windows):</strong>
+                    <ul>
+                        <li>Open <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTY</a> and
+                            navigate to <code>Connection → SSH → Auth</code>.
+                        </li>
+                        <li>Click "Browse" and select your private key file (.ppk).</li>
+                        <li>Go back to "Session", enter your server IP, and click "Open".</li>
+                        <li>Log in with your username when prompted.</li>
+                    </ul>
+                </li>
+                <li><strong>Verify Connection:</strong>
+                    <ul>
+                        <li>If successful, you should see a shell prompt on the server.</li>
+                        <li>If denied, ensure your public key is added to <code>~/.ssh/authorized_keys</code> on the
+                            server.
+                        </li>
+                        <li>Check permissions: <code>chmod 600 ~/.ssh/id_rsa</code> and <code>chmod 700 ~/.ssh</code>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
 
-            var allItems = document.querySelectorAll(".accordion-item");
-            allItems.forEach(function(item) {
-                item.classList.remove("active");
-                item.querySelector(".accordion-content").style.display = "none";
-            });
 
-            if (!isActive) {
-                element.classList.add("active");
-                content.style.display = "block";
-            }
+    <!-- Still Need Help Section -->
+    <div class="help-section">
+        <h3>Still Need Help?</h3>
+        <p>If you're still experiencing issues, please reach out to us for further assistance. It helps us troubleshoot
+            faster if you can provide the following information:</p>
+        <ul>
+            <li>Your operating system and version (e.g., Ubuntu 20.04, CentOS 8, Windows 10).</li>
+            <li>The commands you executed and the output (screenshots are helpful).</li>
+            <li>A detailed description of the issue you're experiencing.</li>
+            <li>Any error messages you are seeing.</li>
+        </ul>
+        <p>For more help, visit our <a href="../index.html#contact">Contact Us</a> page.</p>
+    </div>
+</div>
+
+<div class="button-container">
+    <a class="back-button" href="../docs.html">Back to Docs Selection</a>
+</div>
+
+<script>
+    function toggleAccordion(element) {
+        var content = element.querySelector(".accordion-content");
+        var isActive = element.classList.contains("active");
+
+        var allItems = document.querySelectorAll(".accordion-item");
+        allItems.forEach(function (item) {
+            item.classList.remove("active");
+            item.querySelector(".accordion-content").style.display = "none";
+        });
+
+        if (!isActive) {
+            element.classList.add("active");
+            content.style.display = "block";
         }
-    </script>
+    }
+</script>
 </body>
 </html>
