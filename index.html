@@ -413,7 +413,7 @@
         <h2>Our Services</h2>
         <hr>
         <nav>
-            <a href="#vpn-service-link">VPN</a>|
+            <a href="#vpn-service-link">VPN/Proxy</a>|
             <a href="#s3-storage-hosting">S3 Storage</a>|
             <a href="#splunk-hosting">Splunk</a>|
             <a href="#premium-rack-hosting">Rack Hosting</a>|
@@ -426,7 +426,7 @@
              style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2em; margin: 0 auto; max-width: 800px;">
 
             <div class="pricing-plan" id="vpn-service-link">
-                <h3 style="margin-bottom: 0.5em;">VPN Service</h3>
+                <h3 style="margin-bottom: 0.5em;">VPN/Proxy Service</h3>
                 <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">Starting at $0.99 per month</p>
                 <p style="margin-bottom: 1em;">Our VPN is fast, reliable, secure, and private, ensuring your online
                     activity stays safe and anonymous.</p>
@@ -434,10 +434,11 @@
                 <select id="location-select"
                         style="width: 100%; padding: 0.5em; margin-bottom: 1em; border: 1px solid #ccc; border-radius: 4px;">
                     <option disabled selected value="">Select a location ...</option>
-                    <option value="usa">USA</option>
-                    <option value="germany">Germany</option>
-                    <option value="singapore">Singapore</option>
-                    <option value="tor">Tor</option>
+                    <option value="usa">USA VPN</option>
+                    <option value="germany">Germany VPN</option>
+                    <option value="singapore">Singapore VPN</option>
+                    <option value="tor">Tor VPN</option>
+<!--                    <option value="shadowsocks">ShadowSocks Proxy</option>-->
                 </select>
                 <input id="email-input" placeholder="Enter your email"
                        style="width: 95%; padding: 0.5em; margin-bottom: 1em; border: 1px solid #ccc; border-radius: 4px;"
@@ -876,7 +877,8 @@ __________                    .___       .__    .___ __  .__
         usa: "https://us001.backyardbandwidth.com",
         germany: "https://eu001.backyardbandwidth.com",
         singapore: "https://as001.backyardbandwidth.com",
-        tor: "https://tor001.backyardbandwidth.com"
+        tor: "https://tor001.backyardbandwidth.com",
+        shadowsocks: "https://sp001.backyardbandwidth.com"
     };
     selectedServer = servers[selectedLocation];
 
@@ -1068,19 +1070,19 @@ __________                    .___       .__    .___ __  .__
                 // Create the container dynamically
                 const vpnConfigContainer = document.createElement('div');
                 vpnConfigContainer.innerHTML = `
-        <h3 style="color: green; font-size: 1.5em; text-align: center;">VPN Provisioned Successfully!</h3>
-        <p style="text-align: center;"><b>Follow the instructions below to set up your VPN:</b></p>
+        <h3 style="color: green; font-size: 1.5em; text-align: center;">Provisioned Successfully!</h3>
+        <p style="text-align: center;"><b>Follow the instructions below to set up your service:</b></p>
         <div class="vpn-instructions" style="background-color: #f9f9f9; border: 1px solid #ddd; padding: 1em; border-radius: 8px; overflow: auto; margin-bottom: 1em;">
             <div id="vpn-instructions" style="text-align: left; margin: 0;"></div>
         </div>
-        <p style="text-align: center;"><b>VPN Profile:</b></p>
+        <p style="text-align: center;"><b>Profile:</b></p>
         <div style="position: relative; text-align: center;">
             <pre id="vpn-profile" style="background-color: #f9f9f9; border: 1px solid #ddd; padding: 1em; border-radius: 8px; overflow: auto; margin-bottom: 1em; text-align: left; margin: 0;"></pre>
             <button id="copy-profile" style="position: absolute; top: 0; right: 80px; background-color: #6ec1e4; color: white; border: none; padding: 0.5em; border-radius: 4px; cursor: pointer;">Copy</button>
             <button id="download-profile" style="position: absolute; top: 0; right: 10px; background-color: #4caf50; color: white; border: none; padding: 0.5em; border-radius: 4px; cursor: pointer;">Download</button>
         </div><br><br>
         <p style="color: red; font-size: 0.9em; margin-top: 0.5em; font-weight: bold;">
-            <b>Note:</b> We are not able to retrieve your original profile. If lost, we will need to recreate it manually. Please verify that you have downloaded your profile before going back. If you have issues or need help please <a href="#contact">contact us</a>
+            <b>Note:</b> We are not able to retrieve this information after purchase. If lost, we will need to recreate it manually. Please verify that you have downloaded your profile before going back. If you have issues or need help please <a href="#contact">contact us</a>
         </p><br>
         <button class="restart-button" onclick="window.location.reload()" style="width: 100%; padding: 0.75em; background-color: #6ec1e4; color: white; border: none; border-radius: 4px; cursor: pointer;">Go Back</button>
         `;
@@ -1112,6 +1114,8 @@ __________                    .___       .__    .___ __  .__
 
                 const sanitizedEmail = emailAddress.split("@")[0];
                 const filename = sanitizedEmail.replace(/[^\w\s]/gi, "");
+                console.log(result.profile);
+                console.log(result.profile.includes("Proxy"));
 
                 // Add event listener for the download button
                 const downloadButton = vpnConfigContainer.querySelector("#download-profile");
@@ -1120,7 +1124,7 @@ __________                    .___       .__    .___ __  .__
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement("a");
                     a.href = url;
-                    a.download = `${filename}_profile.ovpn`;
+                    a.download = result.profile.includes("Proxy") ? `${filename}_profile.proxy` : `${filename}_profile.ovpn`;
                     a.click();
                     URL.revokeObjectURL(url); // Clean up the URL object
                 });
