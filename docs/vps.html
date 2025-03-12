@@ -133,34 +133,94 @@
     <div class="accordion-item" onclick="toggleAccordion(this)">
         <div class="accordion-title">IPv6 Tunneling to IPv4</div>
         <div class="accordion-content">
-            <p>Learn how to tunnel IPv6 traffic through an IPv4 network using various techniques such as 6to4, Teredo,
-                and Cloudflare tunnels.</p>
+            <p>Learn how to tunnel IPv6 traffic through an IPv4 network using different techniques such as 6to4, Teredo,
+                and Cloudflare tunnels. These methods allow IPv6 connectivity even if your ISP only provides IPv4
+                support.</p>
             <ul>
                 <li><strong>Using 6to4:</strong>
+                    <p>6to4 is an automatic tunneling mechanism that allows IPv6 traffic to be transported over an IPv4
+                        network. It assigns IPv6 addresses from the 2002::/16 block based on your IPv4 address.</p>
                     <ul>
-                        <li>Ensure your system supports 6to4 tunneling.</li>
-                        <li>Enable the 6to4 interface using <code>ip tunnel add tun6to4 mode sit remote any local
-                            your-ipv4-address ttl 255</code>.
+                        <li><strong>Check System Support:</strong> Ensure your system supports 6to4 tunneling. Most
+                            modern Linux distributions and Windows versions do.
                         </li>
-                        <li>Assign an IPv6 address in the 2002::/16 range to the tunnel interface.</li>
-                        <li>Set up routing to ensure IPv6 traffic flows through the tunnel.</li>
+                        <li><strong>Enable the 6to4 Interface:</strong> Run the following command to create the tunnel
+                            interface:
+                        </li>
+                        <pre><code>ip tunnel add tun6to4 mode sit remote any local YOUR_IPV4_ADDRESS ttl 255</code></pre>
+                        <li><strong>Assign an IPv6 Address:</strong> Use your IPv4 address to generate a 6to4 address:
+                        </li>
+                        <pre><code>ip addr add 2002:YOUR_IPV4_HEX::1/16 dev tun6to4</code></pre>
+                        <li><strong>Set Up Routing:</strong> Ensure IPv6 traffic is routed through the tunnel:</li>
+                        <pre><code>ip link set tun6to4 up
+ip -6 route add ::/0 dev tun6to4</code></pre>
+                        <li><strong>Test Connectivity:</strong> Use <code>ping6 google.com</code> to confirm IPv6
+                            access.
+                        </li>
                     </ul>
                 </li>
+
                 <li><strong>Using Teredo:</strong>
+                    <p>Teredo is a tunneling protocol that allows IPv6 connectivity even when behind NAT. It
+                        encapsulates IPv6 packets inside UDP.</p>
                     <ul>
-                        <li>Install and enable Teredo on your operating system.</li>
-                        <li>For Windows: Run <code>netsh interface teredo set state client</code>.</li>
-                        <li>For Linux: Use <code>miredo</code> (a Teredo client) to establish connectivity.</li>
-                        <li>Ensure firewall settings allow Teredo traffic (UDP port 3544).</li>
+                        <li><strong>Install and Enable Teredo:</strong> Different operating systems handle Teredo
+                            differently.
+                        </li>
+                        <li><strong>For Windows:</strong> Open a command prompt as Administrator and run:</li>
+                        <pre><code>netsh interface teredo set state client</code></pre>
+                        <li>Check Teredo status with:</li>
+                        <pre><code>netsh interface teredo show state</code></pre>
+                        <li><strong>For Linux:</strong> Install <code>miredo</code> (Teredo client) with:</li>
+                        <pre><code>sudo apt install miredo</code></pre>
+                        <li>Start the service:</li>
+                        <pre><code>sudo systemctl start miredo</code></pre>
+                        <li><strong>Ensure Firewall Allows Teredo:</strong> UDP port 3544 must be open:</li>
+                        <pre><code>sudo ufw allow 3544/udp</code></pre>
+                        <li><strong>Test IPv6 Connectivity:</strong> Run:</li>
+                        <pre><code>ping6 ipv6.google.com</code></pre>
                     </ul>
                 </li>
-                <li><strong>Using Cloudflare Tunnels:</strong>
+
+                <li><strong>Using Cloudflare Tunnels for SSH:</strong>
+                    <p>Cloudflare's Argo Tunnel allows you to securely expose your SSH service via a domain, eliminating
+                        the need for port forwarding.</p>
                     <ul>
-                        <li>Sign up for Cloudflare and configure your domain.</li>
-                        <li>Enable Cloudflare's Argo Tunnel and install <code>cloudflared</code>.</li>
-                        <li>Run <code>cloudflared tunnel create &lt;tunnel-name&gt;</code> and configure your tunnel.
+                        <li><strong>Sign Up for Cloudflare:</strong> Create an account at <a
+                                href="https://www.cloudflare.com">Cloudflare</a> and add your domain.
                         </li>
-                        <li>Use Cloudflare DNS to route traffic from an IPv6-only host to an IPv4 server.</li>
+                        <li><strong>Install Cloudflared on Your Server:</strong></li>
+                        <pre><code>sudo apt install cloudflared</code></pre>
+                        <li><strong>Authenticate Cloudflared:</strong> Run:</li>
+                        <pre><code>cloudflared tunnel login</code></pre>
+                        <li>Follow the authentication link provided in the output.</li>
+                        <li><strong>Create a Tunnel for SSH:</strong></li>
+                        <pre><code>cloudflared tunnel create my-ssh-tunnel</code></pre>
+                        <li><strong>Route the Tunnel to Your SSH Server:</strong></li>
+                        <pre><code>cloudflared tunnel route ip my-ssh-tunnel 127.0.0.1</code></pre>
+                        <li><strong>Configure the Tunnel in a Config File:</strong></li>
+                        <pre><code>sudo mkdir -p /etc/cloudflared/
+sudo nano /etc/cloudflared/config.yml</code></pre>
+                        <p>Add the following content to the config file:</p>
+                        <pre><code>tunnel: my-ssh-tunnel
+credentials-file: /root/.cloudflared/my-ssh-tunnel.json
+
+ingress:
+  - hostname: ssh.example.com
+    service: ssh://localhost:22
+  - service: http_status:404</code></pre>
+                        <li><strong>Start the Cloudflare Tunnel:</strong></li>
+                        <pre><code>cloudflared tunnel run my-ssh-tunnel</code></pre>
+                        <li><strong>Update Cloudflare DNS:</strong> Add a CNAME record in Cloudflare pointing <code>ssh.example.com</code>
+                            to <code>my-ssh-tunnel</code>.
+                        </li>
+                        <li><strong>Connect to SSH via Cloudflare Tunnel:</strong> Use the following command from a
+                            client machine:
+                        </li>
+                        <pre><code>ssh -o ProxyCommand="cloudflared access ssh --hostname ssh.example.com" user@ssh.example.com</code></pre>
+                        <li><strong>Verify Connection:</strong> If successful, you should now be able to SSH into your
+                            server using the Cloudflare tunnel.
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -170,25 +230,51 @@
     <div class="accordion-item" onclick="toggleAccordion(this)">
         <div class="accordion-title">Generating an SSH Key</div>
         <div class="accordion-content">
-            <p>Follow these steps to generate an SSH keypair:</p>
+            <p>Follow these steps to generate an SSH key pair for secure authentication:</p>
             <ul>
-                <li><strong>Using OpenSSH:</strong>
+                <li><strong>Using OpenSSH (Linux/macOS/Windows with OpenSSH):</strong>
                     <ul>
-                        <li>Open a terminal and run: <code>ssh-keygen -t rsa -b 4096 -C "your_email@example.com"</code>
+                        <li>Open a terminal and run:
+                            <pre><code>ssh-keygen -t rsa -b 4096 -C "your_email@example.com"</code></pre>
                         </li>
-                        <li>Press Enter to save the key to the default location (<code>~/.ssh/id_rsa</code>).</li>
-                        <li>Optionally, set a passphrase for additional security.</li>
-                        <li>Your public key is saved as <code>~/.ssh/id_rsa.pub</code>. Email this file securely.</li>
+                        <li>Press <kbd>Enter</kbd> to save the key in the default location (<code>~/.ssh/id_rsa</code>),
+                            or specify a custom path.
+                        </li>
+                        <li>Optionally, enter a passphrase for extra security (recommended).</li>
+                        <li>Your public key is stored as <code>~/.ssh/id_rsa.pub</code>. Share this key securely with
+                            the remote server.
+                        </li>
+                    </ul>
+                    <strong>Troubleshooting:</strong>
+                    <ul>
+                        <li><strong>Command not found?</strong> Install OpenSSH:
+                            <pre><code>sudo apt install openssh-client  # Debian/Ubuntu</code></pre>
+                            <pre><code>brew install openssh  # macOS (Homebrew)</code></pre>
+                        </li>
+                        <li><strong>Permission issues?</strong> Ensure your <code>~/.ssh</code> directory has the
+                            correct permissions:
+                            <pre><code>chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_rsa</code></pre>
+                        </li>
                     </ul>
                 </li>
                 <li><strong>Using PuTTY (Windows):</strong>
                     <ul>
                         <li>Download and open <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTYgen</a>.
                         </li>
-                        <li>Select "RSA" and set key size to 4096 bits.</li>
-                        <li>Click "Generate" and move your mouse to randomize.</li>
-                        <li>Save the private key (.ppk) and public key.</li>
-                        <li>Copy the public key and email it securely.</li>
+                        <li>Select <strong>RSA</strong> and set the key size to <strong>4096 bits</strong>.</li>
+                        <li>Click "Generate" and move your mouse randomly in the blank area to create entropy.</li>
+                        <li>Once generated, save the private key as a <code>.ppk</code> file.</li>
+                        <li>Copy and save the public key for use on the server.</li>
+                    </ul>
+                    <strong>Troubleshooting:</strong>
+                    <ul>
+                        <li><strong>Cannot connect with PuTTY?</strong> Ensure your private key is converted to OpenSSH
+                            format:
+                            <pre><code>puttygen private.ppk -O private-openssh -o id_rsa</code></pre>
+                        </li>
+                        <li><strong>Key authentication failing?</strong> Verify that the public key is correctly added
+                            to <code>~/.ssh/authorized_keys</code> on the remote server.
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -209,9 +295,10 @@
                 </li>
                 <li><strong>Using PuTTY (Windows):</strong>
                     <ul>
-                        <li>Open <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTY</a> and
-                            navigate to <code>Connection → SSH → Auth</code>.
+                        <li>Download <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTY</a>
+                            if you haven’t already.
                         </li>
+                        <li>Open PuTTY and navigate to <code>Connection → SSH → Auth</code>.</li>
                         <li>Click "Browse" and select your private key file (.ppk).</li>
                         <li>Go back to "Session", enter your server IP, and click "Open".</li>
                         <li>Log in with your username when prompted.</li>
@@ -221,16 +308,43 @@
                     <ul>
                         <li>If successful, you should see a shell prompt on the server.</li>
                         <li>If denied, ensure your public key is added to <code>~/.ssh/authorized_keys</code> on the
-                            server.
+                            server:
                         </li>
-                        <li>Check permissions: <code>chmod 600 ~/.ssh/id_rsa</code> and <code>chmod 700 ~/.ssh</code>
-                        </li>
+                        <ul>
+                            <li>Run: <code>cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys</code></li>
+                            <li>Ensure correct permissions: <code>chmod 600 ~/.ssh/authorized_keys</code></li>
+                        </ul>
+                        <li>Check SSH folder permissions:</li>
+                        <ul>
+                            <li>Run: <code>chmod 700 ~/.ssh</code> (makes sure the directory is secure).</li>
+                            <li>Run: <code>chmod 600 ~/.ssh/id_rsa</code> (restricts private key access).</li>
+                        </ul>
+                        <li>Restart SSH service on the server (if you have access): <code>sudo systemctl restart
+                            ssh</code></li>
+                        <li>Ensure the SSH server is listening on the correct port (default is 22):</li>
+                        <ul>
+                            <li>Check with: <code>sudo netstat -tulnp | grep ssh</code></li>
+                            <li>If SSH is running on a different port, connect using: <code>ssh -p PORT
+                                username@your-server-ip</code></li>
+                        </ul>
+                        <li>Check for any firewall rules blocking SSH:</li>
+                        <ul>
+                            <li>On Ubuntu/Debian: <code>sudo ufw status</code></li>
+                            <li>On CentOS/RHEL: <code>sudo firewall-cmd --list-all</code></li>
+                            <li>Ensure SSH is allowed: <code>sudo ufw allow OpenSSH</code></li>
+                        </ul>
+                        <li>Confirm the SSH daemon is configured correctly:</li>
+                        <ul>
+                            <li>Check <code>/etc/ssh/sshd_config</code> for settings like <code>PermitRootLogin</code>
+                                and <code>PubkeyAuthentication</code>.
+                            </li>
+                            <li>Restart SSH after changes: <code>sudo systemctl restart ssh</code></li>
+                        </ul>
                     </ul>
                 </li>
             </ul>
         </div>
     </div>
-
 
     <!-- Still Need Help Section -->
     <div class="help-section">
