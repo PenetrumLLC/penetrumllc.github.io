@@ -438,7 +438,7 @@
                     <option value="germany">Germany VPN</option>
                     <option value="singapore">Singapore VPN</option>
                     <option value="tor">Tor VPN</option>
-<!--                    <option value="shadowsocks">ShadowSocks Proxy</option>-->
+                    <!--                    <option value="shadowsocks">ShadowSocks Proxy</option>-->
                 </select>
                 <input id="email-input" placeholder="Enter your email"
                        style="width: 95%; padding: 0.5em; margin-bottom: 1em; border: 1px solid #ccc; border-radius: 4px;"
@@ -488,8 +488,8 @@
                 <h4 style="margin-top: 1.5em; font-weight: bold;">Customize Your Storage Plan</h4>
                 <p style="margin-bottom: 1em;">Use the slider below to estimate your cost:</p>
 
-                <input type="range" id="s3-storage-slider" min="1" max="40" value="1" step="1"
-                       style="width: 100%; cursor: pointer; -webkit-appearance: none; appearance: none; height: 5px; background: #007bff; border-radius: 5px;">
+                <input id="s3-storage-slider" max="40" min="1" step="1" style="width: 100%; cursor: pointer; -webkit-appearance: none; appearance: none; height: 5px; background: #007bff; border-radius: 5px;" type="range"
+                       value="1">
                 <p style="margin-top: 0.5em; font-size: 1.25em;"><strong><span id="storage-amount">1</span> TB</strong>
                 </p>
             </div>
@@ -519,12 +519,12 @@
                 <div style="text-align: left; margin-bottom: 1em;">
                     <label for="ingest-slider" style="font-weight: bold;">Daily Ingestion (GB):&nbsp;<span
                             id="ingest-value">0</span> GB</label>
-                    <input type="range" id="ingest-slider" min="1" max="10" step="1" value="0" style="width: 100%;">
+                    <input id="ingest-slider" max="10" min="1" step="1" style="width: 100%;" type="range" value="0">
                 </div>
                 <div style="text-align: left; margin-bottom: 1em;">
                     <label for="index-slider" style="font-weight: bold;">Index Storage (TB):&nbsp;<span
                             id="index-value">0</span> TB</label>
-                    <input type="range" id="index-slider" min="1" max="10" step="1" value="0" style="width: 100%;">
+                    <input id="index-slider" max="10" min="1" step="1" style="width: 100%;" type="range" value="0">
                 </div>
                 <p style="margin-top: 1em;">
                     <a href="#contact" style="color: #007bff; text-decoration: none;"><u>Contact us</u></a> today to get
@@ -728,7 +728,8 @@
                 <input id="accept-policy" required type="checkbox">
                 <label for="accept-policy">
                     By checking this box you acknowledge and accept our
-                    <a href="policy-list.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">Policy List</a>
+                    <a href="policy-list.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">Policy
+                        List</a>
                     If you are contacting us regarding technical support, please read our
                     <a href="docs.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">
                         Documentation</a> first.
@@ -777,9 +778,12 @@
             </div>
             <div class="faq-item">
                 <h4>What kind of support do you offer?</h4>
-                <p>We provide responsive email support for all our services, along with weekly updates to keep you
-                    informed about your account and service status.</p>
+                <p>We provide limited free email support for all our services. Under our <a href="fair-use.html">Fair
+                    Use Policy</a>, each customer receives three (3) free support tickets per month. If additional
+                    support is needed beyond this limit, extra charges may apply based on our <a
+                            href="terms.html">Support Charges</a>.</p>
             </div>
+
             <div class="faq-item">
                 <h4>Tell me about the VPS?</h4>
                 <p>Our VPS services are created on demand, meaning no VPS is provisioned until the first month's payment
