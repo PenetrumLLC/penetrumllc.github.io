@@ -116,15 +116,61 @@
     </ul>
 
     <h2>6. Bruteforce Attempts and Security Violations</h2>
-    <p>Backyard Bandwidth maintains a strict policy against bruteforce attempts on any of its services, including VPN,
-        VPS, Splunk, and storage services. If a user is found to be attempting or engaging in bruteforce activities:</p>
+    <p>
+        Backyard Bandwidth enforces a strict policy against bruteforce attacks targeting any part of our infrastructure,
+        including login portals, APIs, VPN gateways, Splunk endpoints, and storage systems.
+    </p>
+    <p>
+        A <strong>bruteforce attempt</strong> is defined as an automated or repeated attempt to gain unauthorized access
+        to
+        Backyard Bandwidth systems by systematically guessing credentials such as usernames, passwords, SSH keys, or API
+        tokens. Examples of prohibited activity include:
+    </p>
+    <ul>
+        <li>Rapid or scripted login attempts across multiple accounts or services.</li>
+        <li>Port scanning with the intent to identify authentication mechanisms for bruteforce.</li>
+        <li>Credential stuffing or password spraying attempts targeting Backyard Bandwidth infrastructure.</li>
+    </ul>
+
+    <p>
+        We want to be clear: <strong>we do not monitor or inspect activity within your VPS or VPN tunnel</strong>, and
+        we fully
+        comply with our <a href="https://backyardbandwidth.com/logging-policy">Logging Policy</a>. We do not log or
+        retain user
+        activity data, and we cannot see or inspect what you do inside your instance.
+    </p>
+    <p>
+        Our enforcement is limited to visible, inbound behavior <strong>against our systems</strong> — not outbound
+        traffic or internal activity within your environment.
+    </p>
+
+    <p>
+        When we detect behavior matching known bruteforce patterns, we evaluate:
+    </p>
+    <ul>
+        <li>The frequency and velocity of attempted logins or access attempts.</li>
+        <li>Behavioral patterns aligned with known attack vectors or tools.</li>
+        <li>Public abuse reputation of the originating IP address or subnet.</li>
+    </ul>
+
+    <p>
+        If a user is determined to be intentionally engaging in such activity:
+    </p>
     <ul>
         <li>Their account will be <strong>terminated immediately without notice</strong>.</li>
-        <li>No refunds will be issued for terminated accounts involved in bruteforce attempts.</li>
-        <li>Backyard Bandwidth reserves the right to report such activities to relevant authorities as required by
-            law.
+        <li>No refunds will be issued for any terminated services related to this violation.</li>
+        <li>We reserve the right to report malicious attempts to the appropriate authorities or upstream network
+            providers.
         </li>
     </ul>
+
+    <p>
+        We understand that accidental misconfigurations (such as a broken cron job or test script) may occasionally
+        resemble attack traffic.
+        In such cases, where there is no malicious intent and no impact to service stability, we may issue a warning
+        before taking further action.
+    </p>
+
 
     <h2>7. Termination for Violations</h2>
     <p>Users found to be in violation of this Policy, including but not limited to excessive egress/ingress, illegal
@@ -174,6 +220,8 @@
     </ul>
     <p><em>Note:</em> Users requiring higher sustained throughput or monthly transfer volumes are encouraged to contact
         support for a custom bandwidth allocation or overage pricing options.</p>
+    <p><em>Note:</em> The "Tiny" plan is designed for lightweight, consistent usage. The daily and monthly limits are enforced to prevent accidental overuse or unfair resource allocation on our most affordable tier.</p>
+
 
     <p>Accidental or short-term overages will not result in enforcement action. However, repeated or continuous misuse
         may result in rate limiting, suspension, or termination <strong>without refund</strong>.</p>
