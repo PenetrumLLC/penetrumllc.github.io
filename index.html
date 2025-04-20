@@ -2,7 +2,7 @@
 <html lang="en">
 
 <!--
-<!DOCTYPE html><html><body><div class="error-1" style="background: #f4f4f4;border: 1px solid #ddd;border-left: 3px solid #f36d33;color: #666;page-break-inside: avoid;font-family: monospace;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;overflow: auto;padding: 1em 1.5em;display: block;word-wrap: break-word;"><code>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\'' at line 1</code></div><div class="invis-dev" style="visibility:hidden;position:absolute;top:-999999px">;DROP TABLE IF EXISTS servertypes,server_types,servers,ip,results,vuln; -- /* if you haven't figured it out yet, this isn't a real error */</div></body></html>
+<body><div class="error-1" style="background: #f4f4f4;border: 1px solid #ddd;border-left: 3px solid #f36d33;color: #666;page-break-inside: avoid;font-family: monospace;font-size: 15px;line-height: 1.6;margin-bottom: 1.6em;max-width: 100%;overflow: auto;padding: 1em 1.5em;display: block;word-wrap: break-word;"><code>You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\'' at line 1</code></div><div class="invis-dev" style="visibility:hidden;position:absolute;top:-999999px">;DROP TABLE IF EXISTS servertypes,server_types,servers,ip,results,vuln; -- /* if you haven't figured it out yet, this isn't a real error */</div></body></html>
 -->
 
 <head>
@@ -413,7 +413,7 @@
         <h2>Our Services</h2>
         <hr>
         <nav>
-            <a href="#vpn-service-link">VPN</a>|
+            <a href="#vpn-service-link">VPN/Proxy</a>|
             <a href="#s3-storage-hosting">S3 Storage</a>|
             <a href="#splunk-hosting">Splunk</a>|
             <a href="#premium-rack-hosting">Rack Hosting</a>|
@@ -426,7 +426,7 @@
              style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2em; margin: 0 auto; max-width: 800px;">
 
             <div class="pricing-plan" id="vpn-service-link">
-                <h3 style="margin-bottom: 0.5em;">VPN Service</h3>
+                <h3 style="margin-bottom: 0.5em;">VPN/Proxy Service</h3>
                 <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">Starting at $0.99 per month</p>
                 <p style="margin-bottom: 1em;">Our VPN is fast, reliable, secure, and private, ensuring your online
                     activity stays safe and anonymous.</p>
@@ -434,12 +434,14 @@
                 <select id="location-select"
                         style="width: 100%; padding: 0.5em; margin-bottom: 1em; border: 1px solid #ccc; border-radius: 4px;">
                     <option disabled selected value="">Select a location ...</option>
-                    <option value="usa">USA</option>
-                    <option value="germany">Germany</option>
-                    <option value="singapore">Singapore</option>
+                    <option value="usa">USA VPN</option>
+                    <option value="germany">Germany VPN</option>
+                    <option value="singapore">Singapore VPN</option>
+                    <option value="tor">Tor VPN</option>
+                    <option value="shadowsocks">ShadowSocks Proxy</option>
                 </select>
                 <input id="email-input" placeholder="Enter your email"
-                       style="width: 100%; padding: 0.5em; margin-bottom: 1em; border: 1px solid #ccc; border-radius: 4px;"
+                       style="width: 95%; padding: 0.5em; margin-bottom: 1em; border: 1px solid #ccc; border-radius: 4px;"
                        type="email">
                 <button class="purchase-button" data-product="vpn"
                         style="width: 100%; padding: 0.75em; background-color: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer;">
@@ -486,8 +488,8 @@
                 <h4 style="margin-top: 1.5em; font-weight: bold;">Customize Your Storage Plan</h4>
                 <p style="margin-bottom: 1em;">Use the slider below to estimate your cost:</p>
 
-                <input type="range" id="s3-storage-slider" min="1" max="40" value="1" step="1"
-                       style="width: 100%; cursor: pointer; -webkit-appearance: none; appearance: none; height: 5px; background: #007bff; border-radius: 5px;">
+                <input id="s3-storage-slider" max="40" min="1" step="1" style="width: 100%; cursor: pointer; -webkit-appearance: none; appearance: none; height: 5px; background: #007bff; border-radius: 5px;" type="range"
+                       value="1">
                 <p style="margin-top: 0.5em; font-size: 1.25em;"><strong><span id="storage-amount">1</span> TB</strong>
                 </p>
             </div>
@@ -517,12 +519,12 @@
                 <div style="text-align: left; margin-bottom: 1em;">
                     <label for="ingest-slider" style="font-weight: bold;">Daily Ingestion (GB):&nbsp;<span
                             id="ingest-value">0</span> GB</label>
-                    <input type="range" id="ingest-slider" min="1" max="10" step="1" value="0" style="width: 100%;">
+                    <input id="ingest-slider" max="10" min="1" step="1" style="width: 100%;" type="range" value="0">
                 </div>
                 <div style="text-align: left; margin-bottom: 1em;">
                     <label for="index-slider" style="font-weight: bold;">Index Storage (TB):&nbsp;<span
                             id="index-value">0</span> TB</label>
-                    <input type="range" id="index-slider" min="1" max="10" step="1" value="0" style="width: 100%;">
+                    <input id="index-slider" max="10" min="1" step="1" style="width: 100%;" type="range" value="0">
                 </div>
                 <p style="margin-top: 1em;">
                     <a href="#contact" style="color: #007bff; text-decoration: none;"><u>Contact us</u></a> today to get
@@ -725,11 +727,9 @@
             <div style="margin-top: 1em; text-align: center; font-size: 0.9em; color: #444;">
                 <input id="accept-policy" required type="checkbox">
                 <label for="accept-policy">
-                    By checking this box you acknowledge and accept the
-                    <a href="policy.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">Privacy
-                        Policy</a>, as well as the
-                    <a href="fair-use.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">Fair Use
-                        Policy</a>.
+                    By checking this box you acknowledge and accept our
+                    <a href="policy-list.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">Policy
+                        List</a>
                     If you are contacting us regarding technical support, please read our
                     <a href="docs.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">
                         Documentation</a> first.
@@ -778,9 +778,12 @@
             </div>
             <div class="faq-item">
                 <h4>What kind of support do you offer?</h4>
-                <p>We provide responsive email support for all our services, along with weekly updates to keep you
-                    informed about your account and service status.</p>
+                <p>We provide limited free email support for all our services. Under our <a href="fair-use.html">Fair
+                    Use Policy</a>, each customer receives three (3) free support tickets per month. If additional
+                    support is needed beyond this limit, extra charges may apply based on our <a
+                            href="terms.html">Support Charges</a>.</p>
             </div>
+
             <div class="faq-item">
                 <h4>Tell me about the VPS?</h4>
                 <p>Our VPS services are created on demand, meaning no VPS is provisioned until the first month's payment
@@ -867,6 +870,7 @@ __________                    .___       .__    .___ __  .__
         ele2.innerHTML = '<br><hr><br><p style="color: #000000; font-size: 0.9em; margin-top: 0.5em; font-weight: bold;">LIFETIME VPN SALE IS LIVE! One-time payment of $50.00 for LIFETIME ACCESS! For more information and to purchase <a href="#contact">contact us</a>!</p>'
     }
 
+
     // Update selectedServer whenever the dropdown value changes
     locationSelect.addEventListener("change", function () {
         selectedLocation = this.value;
@@ -876,12 +880,20 @@ __________                    .___       .__    .___ __  .__
     const servers = {
         usa: "https://us001.backyardbandwidth.com",
         germany: "https://eu001.backyardbandwidth.com",
-        singapore: "https://as001.backyardbandwidth.com"
+        singapore: "https://as001.backyardbandwidth.com",
+        tor: "https://tor001.backyardbandwidth.com",
+        shadowsocks: "https://sp001.backyardbandwidth.com"
     };
     selectedServer = servers[selectedLocation];
 
     document.querySelectorAll('.purchase-button').forEach(button => {
         button.addEventListener('click', function () {
+
+            window.addEventListener("beforeunload", function (event) {
+                event.preventDefault();
+                event.returnValue = "Are you sure you want to cancel the purchase?";
+            });
+
             const parentDiv = this.closest('.pricing-plan');
             const emailInput = parentDiv.querySelector('#email-input').value;
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -1062,19 +1074,19 @@ __________                    .___       .__    .___ __  .__
                 // Create the container dynamically
                 const vpnConfigContainer = document.createElement('div');
                 vpnConfigContainer.innerHTML = `
-        <h3 style="color: green; font-size: 1.5em; text-align: center;">VPN Provisioned Successfully!</h3>
-        <p style="text-align: center;"><b>Follow the instructions below to set up your VPN:</b></p>
+        <h3 style="color: green; font-size: 1.5em; text-align: center;">Provisioned Successfully!</h3>
+        <p style="text-align: center;"><b>Follow the instructions below to set up your service:</b></p>
         <div class="vpn-instructions" style="background-color: #f9f9f9; border: 1px solid #ddd; padding: 1em; border-radius: 8px; overflow: auto; margin-bottom: 1em;">
             <div id="vpn-instructions" style="text-align: left; margin: 0;"></div>
         </div>
-        <p style="text-align: center;"><b>VPN Profile:</b></p>
+        <p style="text-align: center;"><b>Profile:</b></p>
         <div style="position: relative; text-align: center;">
             <pre id="vpn-profile" style="background-color: #f9f9f9; border: 1px solid #ddd; padding: 1em; border-radius: 8px; overflow: auto; margin-bottom: 1em; text-align: left; margin: 0;"></pre>
             <button id="copy-profile" style="position: absolute; top: 0; right: 80px; background-color: #6ec1e4; color: white; border: none; padding: 0.5em; border-radius: 4px; cursor: pointer;">Copy</button>
             <button id="download-profile" style="position: absolute; top: 0; right: 10px; background-color: #4caf50; color: white; border: none; padding: 0.5em; border-radius: 4px; cursor: pointer;">Download</button>
         </div><br><br>
         <p style="color: red; font-size: 0.9em; margin-top: 0.5em; font-weight: bold;">
-            <b>Note:</b> We are not able to retrieve your original profile. If lost, we will need to recreate it manually. Please verify that you have downloaded your profile before going back. If you have issues or need help please <a href="#contact">contact us</a>
+            <b>Note:</b> We are not able to retrieve this information after purchase. If lost, we will need to recreate it manually. Please verify that you have downloaded your profile before going back. If you have issues or need help please <a href="#contact">contact us</a>
         </p><br>
         <button class="restart-button" onclick="window.location.reload()" style="width: 100%; padding: 0.75em; background-color: #6ec1e4; color: white; border: none; border-radius: 4px; cursor: pointer;">Go Back</button>
         `;
@@ -1106,6 +1118,8 @@ __________                    .___       .__    .___ __  .__
 
                 const sanitizedEmail = emailAddress.split("@")[0];
                 const filename = sanitizedEmail.replace(/[^\w\s]/gi, "");
+                console.log(result.profile);
+                console.log(result.profile.includes("Proxy"));
 
                 // Add event listener for the download button
                 const downloadButton = vpnConfigContainer.querySelector("#download-profile");
@@ -1114,7 +1128,7 @@ __________                    .___       .__    .___ __  .__
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement("a");
                     a.href = url;
-                    a.download = `${filename}_profile.ovpn`;
+                    a.download = result.profile.includes("Proxy") ? `${filename}_profile.proxy` : `${filename}_profile.ovpn`;
                     a.click();
                     URL.revokeObjectURL(url); // Clean up the URL object
                 });
