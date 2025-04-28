@@ -495,6 +495,8 @@
                 <input id="email-input" placeholder="Enter your email"
                        style="width: 95%; padding: 0.5em; margin-bottom: 1em; border: 1px solid #ccc; border-radius: 4px;"
                        type="email">
+                <p>By clicking the purchase button you are accepting our <a href="terms.html">Terms of Service</a> and
+                    our <a href="fair-use.html">Fair Use Policy</a></p>
                 <button class="purchase-button" data-product="vpn"
                         style="width: 100%; padding: 0.75em; background-color: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer;">
                     Purchase
@@ -750,30 +752,34 @@
             <input id="email" name="email" required type="email">
 
             <label>Service Interested In:</label>
-            <div style="display: flex; justify-content: center; gap: 1em; margin-bottom: 1em;">
-                <div>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1em; margin-bottom: 1em;">
+                <div style="min-width: 140px;">
                     <input checked id="rack-space" name="service" type="radio" value="Rack Space">
                     <label for="rack-space">Rack Space</label>
                 </div>
-                <div>
+                <div style="min-width: 140px;">
                     <input id="vpn-service" name="service" type="radio" value="VPN Service">
                     <label for="vpn-service">VPN Service</label>
                 </div>
-                <div>
+                <div style="min-width: 140px;">
                     <input id="vps-service" name="service" type="radio" value="VPS Service">
                     <label for="vps-service">VPS Service</label>
                 </div>
-                <div>
+                <div style="min-width: 140px;">
                     <input id="s3-service" name="service" type="radio" value="s3 Storage">
                     <label for="s3-service">S3 Hosting</label>
                 </div>
-                <div>
+                <div style="min-width: 140px;">
                     <input id="splunk-service" name="service" type="radio" value="Splunk Hosting">
                     <label for="splunk-service">Splunk Hosting</label>
                 </div>
-                <div id="lifetime-vpn">
+                <div style="min-width: 140px;">
+                    <input id="technical-support" name="service" type="radio" value="Technical Support">
+                    <label for="technical-support">Tech Support</label>
                 </div>
+                <div id="lifetime-vpn"></div>
             </div>
+
 
             <label for="message">Message:</label>
             <textarea id="message" name="message" rows="4"></textarea>
@@ -784,13 +790,14 @@
                         <input id="accept-policy" required type="checkbox"
                                style="appearance: none; width: 40px; height: 40px; border: 2px solid #6ec1e4; border-radius: 8px; background: white; cursor: pointer; position: relative;">
                         <label for="accept-policy" style="text-align: left; font-size: 1em; cursor: pointer;">
-                            <strong>Accept Terms:</strong> By checking this box you acknowledge our
+                            <strong>Accept Terms:</strong> By checking this box you acknowledge and accept our
                             <a href="terms.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">Terms
                                 of Service</a>,
-                            accept our <a href="policy-list.html" style="color: #6ec1e4; text-decoration: underline;"
-                                          target="_blank">Policy List</a>.<br><br> Please read the
+                            as well as our full <a href="policy-list.html"
+                                                   style="color: #6ec1e4; text-decoration: underline;"
+                                                   target="_blank">Policy List</a>.<br><br> Please read our full
                             <a href="docs.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">Documentation</a>
-                            first if contacting support.
+                            before contacting for technical support.
                         </label>
                     </div>
                 </div>
