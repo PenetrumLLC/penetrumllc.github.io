@@ -61,8 +61,7 @@
 <div class="container">
     <h1>Fair Use Policy</h1>
 
-    <p>Last Updated: Friday, March 14th 2025</p>
-
+    <p>Last Updated: Sunday, April 20th, 2025</p>
     <h2>1. Introduction</h2>
     <p>This Fair Use Policy ("Policy") sets forth the acceptable use guidelines for Backyard Bandwidth's VPN, VPS,
         Splunk ingestion, indexing, storage services, and other related services ("Service"). While we do not impose
@@ -117,15 +116,61 @@
     </ul>
 
     <h2>6. Bruteforce Attempts and Security Violations</h2>
-    <p>Backyard Bandwidth maintains a strict policy against bruteforce attempts on any of its services, including VPN,
-        VPS, Splunk, and storage services. If a user is found to be attempting or engaging in bruteforce activities:</p>
+    <p>
+        Backyard Bandwidth enforces a strict policy against bruteforce attacks targeting any part of our infrastructure,
+        including login portals, APIs, VPN gateways, Splunk endpoints, and storage systems.
+    </p>
+    <p>
+        A <strong>bruteforce attempt</strong> is defined as an automated or repeated attempt to gain unauthorized access
+        to
+        Backyard Bandwidth systems by systematically guessing credentials such as usernames, passwords, SSH keys, or API
+        tokens. Examples of prohibited activity include:
+    </p>
+    <ul>
+        <li>Rapid or scripted login attempts across multiple accounts or services.</li>
+        <li>Port scanning with the intent to identify authentication mechanisms for bruteforce.</li>
+        <li>Credential stuffing or password spraying attempts targeting Backyard Bandwidth infrastructure.</li>
+    </ul>
+
+    <p>
+        We want to be clear: <strong>we do not monitor or inspect activity within your VPS or VPN tunnel</strong>, and
+        we fully
+        comply with our <a href="https://backyardbandwidth.com/logging-policy">Logging Policy</a>. We do not log or
+        retain user
+        activity data, and we cannot see or inspect what you do inside your instance.
+    </p>
+    <p>
+        Our enforcement is limited to visible, inbound behavior <strong>against our systems</strong> — not outbound
+        traffic or internal activity within your environment.
+    </p>
+
+    <p>
+        When we detect behavior matching known bruteforce patterns, we evaluate:
+    </p>
+    <ul>
+        <li>The frequency and velocity of attempted logins or access attempts.</li>
+        <li>Behavioral patterns aligned with known attack vectors or tools.</li>
+        <li>Public abuse reputation of the originating IP address or subnet.</li>
+    </ul>
+
+    <p>
+        If a user is determined to be intentionally engaging in such activity:
+    </p>
     <ul>
         <li>Their account will be <strong>terminated immediately without notice</strong>.</li>
-        <li>No refunds will be issued for terminated accounts involved in bruteforce attempts.</li>
-        <li>Backyard Bandwidth reserves the right to report such activities to relevant authorities as required by
-            law.
+        <li>No refunds will be issued for any terminated services related to this violation.</li>
+        <li>We reserve the right to report malicious attempts to the appropriate authorities or upstream network
+            providers.
         </li>
     </ul>
+
+    <p>
+        We understand that accidental misconfigurations (such as a broken cron job or test script) may occasionally
+        resemble attack traffic.
+        In such cases, where there is no malicious intent and no impact to service stability, we may issue a warning
+        before taking further action.
+    </p>
+
 
     <h2>7. Termination for Violations</h2>
     <p>Users found to be in violation of this Policy, including but not limited to excessive egress/ingress, illegal
@@ -151,6 +196,40 @@
     <h2>11. Severability</h2>
     <p>If any provision of this Policy is found to be invalid or unenforceable, the remaining provisions shall continue
         to be fully valid, binding, and enforceable.</p>
+
+    <h2>12. Network Bandwidth Fair Use</h2>
+    <p>All Backyard Bandwidth services that utilize network infrastructure—including VPN, VPS, S3-compatible storage,
+        Splunk ingestion, or any other networked service—are subject to fair use limits on network bandwidth
+        consumption.</p>
+
+    <p>Normal usage patterns and occasional high-traffic spikes are acceptable, including large software updates,
+        backups, or short-term data transfers. However, long-term sustained high bandwidth consumption that degrades
+        network performance for others is a violation of this Fair Use Policy.</p>
+
+    <h3>VPS Bandwidth Limits (Per Instance)</h3>
+    <ul>
+        <li><strong>Tiny (1 GB RAM / 1 CPU / 20 GB disk):</strong> Up to <strong>10 GB/day egress</strong> and <strong>200
+            GB/month total network traffic</strong>. Usage beyond these limits may incur additional charges or bandwidth
+            restrictions.
+        </li>
+        <li><strong>Small (4 GB RAM / 4 CPU / 100 GB disk):</strong> 75 GB/day egress, 500 GB/week total</li>
+        <li><strong>Medium (16 GB RAM / 8 CPU / 200 GB disk):</strong> 150 GB/day egress, 1.2 TB/week total</li>
+        <li><strong>Large (32 GB RAM / 16 CPU / 400 GB disk):</strong> 300 GB/day egress, 2.5 TB/week total</li>
+        <li><strong>Huge (64 GB RAM / 32 CPU / 1 TB disk):</strong> 600 GB/day egress, 5 TB/week total</li>
+        <li><strong>Massive (128 GB RAM / 40 CPU / 2 TB disk):</strong> 1 TB/day egress, 10 TB/week total</li>
+    </ul>
+    <p><em>Note:</em> Users requiring higher sustained throughput or monthly transfer volumes are encouraged to contact
+        support for a custom bandwidth allocation or overage pricing options.</p>
+    <p><em>Note:</em> The "Tiny" plan is designed for lightweight, consistent usage. The daily and monthly limits are enforced to prevent accidental overuse or unfair resource allocation on our most affordable tier.</p>
+
+
+    <p>Accidental or short-term overages will not result in enforcement action. However, repeated or continuous misuse
+        may result in rate limiting, suspension, or termination <strong>without refund</strong>.</p>
+
+    <p>Users will typically receive one or more warnings before enforcement, unless network integrity is at risk. Custom
+        plans are available for users with consistently high bandwidth needs—please contact support for
+        arrangements.</p>
+
 
     <h2>13. Limited Free Support</h2>
     <p>Backyard Bandwidth provides limited free support for general inquiries and basic setup assistance. Our support

@@ -9,8 +9,60 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="icons/icon.png" rel="icon" type="image/png">
-    <title>Backyard Bandwidth: Janky but Reliable</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Backyard Bandwidth | Reliable, Affordable Infrastructure Services</title>
+
+    <meta name="description"
+          content="Enterprise-grade performance at a price that makes sense. No hidden fees, no catch—just reliable, affordable services with a commitment to privacy.">
+    <meta name="keywords"
+          content="private servers, cloud hosting, VPS, bandwidth services, storage hosting, enterprise hosting, affordable hosting">
+
+    <meta property="og:title" content="Backyard Bandwidth | Infrastructure Services Without the Nonsense">
+    <meta property="og:description"
+          content="Reliable private servers, bandwidth, and cloud solutions. No hidden fees. No catch. Privacy-focused and affordable.">
+    <meta property="og:image" content="https://backyardbandwidth.com/icons/og-logo.webp">
+    <meta property="og:url" content="https://backyardbandwidth.com">
+
+    <meta name="twitter:card" content="summary_large_image">
     <style>
+        #accept-policy:checked::after {
+            content: '✔';
+            color: #6ec1e4;
+            font-size: 30px;
+            position: absolute;
+            top: 0px;
+            left: 6px;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(5px);
+            }
+        }
+
+        #terms-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        #terms-content::-webkit-scrollbar-track {
+            background: #f9f9f9;
+        }
+
+        #terms-content::-webkit-scrollbar-thumb {
+            background-color: #888;
+            border-radius: 10px;
+            border: 2px solid #f9f9f9;
+        }
+
+        #terms-content::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
         .hover-info {
             position: relative;
             cursor: pointer;
@@ -444,6 +496,8 @@
                 <input id="email-input" placeholder="Enter your email"
                        style="width: 95%; padding: 0.5em; margin-bottom: 1em; border: 1px solid #ccc; border-radius: 4px;"
                        type="email">
+                <p>By clicking the purchase button you are accepting our <a href="terms.html">Terms of Service</a> and
+                    our <a href="fair-use.html">Fair Use Policy</a></p>
                 <button class="purchase-button" data-product="vpn"
                         style="width: 100%; padding: 0.75em; background-color: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer;">
                     Purchase
@@ -489,7 +543,9 @@
                 <h4 style="margin-top: 1.5em; font-weight: bold;">Customize Your Storage Plan</h4>
                 <p style="margin-bottom: 1em;">Use the slider below to estimate your cost:</p>
 
-                <input id="s3-storage-slider" max="40" min="1" step="1" style="width: 100%; cursor: pointer; -webkit-appearance: none; appearance: none; height: 5px; background: #007bff; border-radius: 5px;" type="range"
+                <input id="s3-storage-slider" max="40" min="1" step="1"
+                       style="width: 100%; cursor: pointer; -webkit-appearance: none; appearance: none; height: 5px; background: #007bff; border-radius: 5px;"
+                       type="range"
                        value="1">
                 <p style="margin-top: 0.5em; font-size: 1.25em;"><strong><span id="storage-amount">1</span> TB</strong>
                 </p>
@@ -697,45 +753,57 @@
             <input id="email" name="email" required type="email">
 
             <label>Service Interested In:</label>
-            <div style="display: flex; justify-content: center; gap: 1em; margin-bottom: 1em;">
-                <div>
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1em; margin-bottom: 1em;">
+                <div style="min-width: 140px;">
                     <input checked id="rack-space" name="service" type="radio" value="Rack Space">
                     <label for="rack-space">Rack Space</label>
                 </div>
-                <div>
+                <div style="min-width: 140px;">
                     <input id="vpn-service" name="service" type="radio" value="VPN Service">
                     <label for="vpn-service">VPN Service</label>
                 </div>
-                <div>
+                <div style="min-width: 140px;">
                     <input id="vps-service" name="service" type="radio" value="VPS Service">
                     <label for="vps-service">VPS Service</label>
                 </div>
-                <div>
+                <div style="min-width: 140px;">
                     <input id="s3-service" name="service" type="radio" value="s3 Storage">
                     <label for="s3-service">S3 Hosting</label>
                 </div>
-                <div>
+                <div style="min-width: 140px;">
                     <input id="splunk-service" name="service" type="radio" value="Splunk Hosting">
                     <label for="splunk-service">Splunk Hosting</label>
                 </div>
-                <div id="lifetime-vpn">
+                <div style="min-width: 140px;">
+                    <input id="technical-support" name="service" type="radio" value="Technical Support">
+                    <label for="technical-support">Tech Support</label>
                 </div>
+                <div id="lifetime-vpn"></div>
             </div>
+
 
             <label for="message">Message:</label>
             <textarea id="message" name="message" rows="4"></textarea>
 
-            <div style="margin-top: 1em; text-align: center; font-size: 0.9em; color: #444;">
-                <input id="accept-policy" required type="checkbox">
-                <label for="accept-policy">
-                    By checking this box you acknowledge and accept our
-                    <a href="policy-list.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">Policy
-                        List</a>
-                    If you are contacting us regarding technical support, please read our
-                    <a href="docs.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">
-                        Documentation</a> first.
-                </label>
+            <div style="margin-top: 1em; font-size: 0.9em; color: #444; text-align: center;">
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                    <div style="display: flex; align-items: center; gap: 15px; background: #f5f5f5; padding: 20px; border-radius: 10px; box-shadow: 0 0 8px rgba(0,0,0,0.08);">
+                        <input id="accept-policy" required type="checkbox"
+                               style="appearance: none; width: 40px; height: 40px; border: 2px solid #6ec1e4; border-radius: 8px; background: white; cursor: pointer; position: relative;">
+                        <label for="accept-policy" style="text-align: left; font-size: 1em; cursor: pointer;">
+                            <strong>Accept Terms:</strong> By checking this box you acknowledge and accept our
+                            <a href="terms.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">Terms
+                                of Service</a>,
+                            as well as our full <a href="policy-list.html"
+                                                   style="color: #6ec1e4; text-decoration: underline;"
+                                                   target="_blank">Policy List</a>.<br><br> Please read our full
+                            <a href="docs.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">Documentation</a>
+                            before contacting for technical support.
+                        </label>
+                    </div>
+                </div>
             </div>
+
 
             <button style="margin-top: 1em;
                padding: 0.75em 1.5em;
@@ -1308,16 +1376,16 @@ __________                    .___       .__    .___ __  .__
     document.addEventListener('DOMContentLoaded', function () {
         const coinListContainer = document.querySelector('.coin-logos');
         const coins = [
-            {logo: 'https://cryptologos.cc/logos/bitcoin-btc-logo.png?v=040'},
-            {logo: 'https://cryptologos.cc/logos/ethereum-eth-logo.png?v=040'},
-            {logo: 'https://cryptologos.cc/logos/usd-coin-usdc-logo.png?v=040'},
-            {logo: 'https://cryptologos.cc/logos/xrp-xrp-logo.png?v=040'},
-            {logo: 'https://cryptologos.cc/logos/monero-xmr-logo.png?v=040'},
-            {logo: 'https://cryptologos.cc/logos/solana-sol-logo.png?v=040'},
-            {logo: 'https://cryptologos.cc/logos/litecoin-ltc-logo.png?v=040'},
-            {logo: 'https://www.geckoterminal.com/_next/image?url=https%3A%2F%2Fcoin-images.coingecko.com%2Fcoins%2Fimages%2F52389%2Flarge%2FTETSUO_1733206905718.jpeg%3F1733269367&w=64&q=75'}, // Stellar
-            {logo: 'https://cryptologos.cc/logos/avalanche-avax-logo.png?v=040'},
-            {logo: 'https://cryptologos.cc/logos/filecoin-fil-logo.png?v=040'}
+            {logo: 'icons/crypto/bitcoin.png'},
+            {logo: 'icons/crypto/ethereum.png'},
+            {logo: 'icons/crypto/usdc.png'},
+            {logo: 'icons/crypto/xrp.png'},
+            {logo: 'icons/crypto/monero.png'},
+            {logo: 'icons/crypto/solana.png'},
+            {logo: 'icons/crypto/litecoin.png'},
+            {logo: 'icons/crypto/tets.webp'}, // Stellar
+            {logo: 'icons/crypto/avalanche.png'},
+            {logo: 'icons/crypto/filecoin.png'}
         ];
 
         coins.forEach(coin => {
@@ -1326,6 +1394,74 @@ __________                    .___       .__    .___ __  .__
             coinListContainer.appendChild(img);
         });
         coinListContainer.append("And much more ...");
+    });
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkbox = document.getElementById('accept-policy');
+        const popup = document.getElementById('terms-popup');
+        const termsBox = document.getElementById('terms-box');
+        const termsContent = document.getElementById('terms-content');
+        const acceptButton = document.getElementById('accept-terms-button');
+        const scrollButton = document.getElementById('scroll-to-bottom-button');
+        const disagreeButton = document.getElementById('disagree-button');
+        const scrollIndicator = document.getElementById('scroll-indicator');
+
+        let hasScrolledToBottom = false;
+
+        if (checkbox) {
+            checkbox.addEventListener('click', function (e) {
+                if (!hasScrolledToBottom) {
+                    e.preventDefault();
+                    popup.style.display = 'flex';
+                    termsBox.style.opacity = '0';
+                    termsBox.style.transform = 'translateY(-20px)';
+
+                    fetch('terms.html')
+                        .then(response => response.text())
+                        .then(data => {
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(data, 'text/html');
+                            const container = doc.querySelector('.container');
+                            if (container) {
+                                termsContent.innerHTML = container.innerHTML;
+                                termsContent.appendChild(scrollIndicator);
+
+                                setTimeout(() => {
+                                    termsBox.style.opacity = '1';
+                                    termsBox.style.transform = 'translateY(0)';
+                                }, 50);
+                            } else {
+                                termsContent.innerHTML = 'Failed to load terms properly.';
+                            }
+                        })
+                        .catch(err => {
+                            termsContent.innerHTML = 'Failed to load terms. Please try again.';
+                        });
+
+                    termsContent.addEventListener('scroll', function () {
+                        if (termsContent.scrollTop + termsContent.clientHeight >= termsContent.scrollHeight - 5) {
+                            hasScrolledToBottom = true;
+                            acceptButton.disabled = false;
+                            acceptButton.style.background = '#28a745'; // Green Accept
+                            acceptButton.style.cursor = 'pointer';
+                            scrollIndicator.style.display = 'none'; // Hide the arrow after full scroll
+                        }
+                    });
+
+                    scrollButton.addEventListener('click', function () {
+                        termsContent.scrollTo({top: termsContent.scrollHeight, behavior: 'smooth'});
+                    });
+
+                    acceptButton.addEventListener('click', function () {
+                        popup.style.display = 'none';
+                        checkbox.checked = true;
+                    });
+
+                    disagreeButton.addEventListener('click', function () {
+                        window.location.reload();
+                    });
+                }
+            });
+        }
     });
 </script>
 <div id="notification"
@@ -1336,5 +1472,42 @@ __________                    .___       .__    .___ __  .__
         &times;
     </button>
 </div>
+<!-- Terms Popup -->
+<div id="terms-popup"
+     style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:10000; align-items:center; justify-content:center; overflow:auto;">
+    <div id="terms-box"
+         style="background:white; padding:2em; border-radius:12px; width:90%; max-width:600px; max-height:90%; display:flex; flex-direction:column; position:relative; box-shadow:0 4px 20px rgba(0,0,0,0.3); opacity:0; transform:translateY(-20px); transition:all 0.4s ease;">
+
+        <!-- Top Buttons -->
+        <div style="display:flex; justify-content:space-between; margin-bottom:1em; gap:1em;">
+            <button id="scroll-to-bottom-button"
+                    style="flex:1; background:linear-gradient(135deg, #6ec1e4, #4a90e2); color:white; border:none; padding:1em; font-size:1.2em; font-weight:bold; border-radius:8px; cursor:pointer; box-shadow:0 4px 12px rgba(0,0,0,0.2); animation: pulse 1.5s infinite;">
+                Scroll to Bottom
+            </button>
+        </div>
+
+        <h2 style="margin-bottom:1em; font-size:1.5em; color:#333;">Terms and Conditions</h2>
+
+        <div id="terms-content"
+             style="flex:1; overflow-y:auto; border:1px solid #ccc; padding:1em; background:#f9f9f9; border-radius:8px; scrollbar-width:thin; scrollbar-color:#888 #f9f9f9; position:relative;">
+            <div id="scroll-indicator"
+                 style="position:absolute; bottom:8px; left:95%; transform:translateX(-50%); font-size:1.5em; color:#000000; animation:bounce 1s infinite;">
+                ↓
+            </div>
+            Loading terms...
+        </div>
+        <div style="margin-top:1em; display: flex; gap: 0.5em; justify-content: center; align-items: center;">
+            <button id="accept-terms-button" disabled
+                    style="flex:2; background:#bbb; color:white; border:none; padding:0.75em; border-radius:6px; cursor:not-allowed; font-size:1.1em;">
+                Click Here To Agree
+            </button>
+            <button id="disagree-button"
+                    style="flex:1; background:#eee; color:#666; border:1px solid #ccc; padding:0.5em; border-radius:6px; font-size:0.9em; cursor:pointer;">
+                I Disagree
+            </button>
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
