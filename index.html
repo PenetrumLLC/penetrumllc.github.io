@@ -10,22 +10,22 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="icons/icon.png" rel="icon" type="image/png">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <title>Backyard Bandwidth | Reliable, Affordable Infrastructure Services</title>
 
-    <meta name="description"
-          content="Enterprise-grade performance at a price that makes sense. No hidden fees, no catch—just reliable, affordable services with a commitment to privacy.">
-    <meta name="keywords"
-          content="private servers, cloud hosting, VPS, bandwidth services, storage hosting, enterprise hosting, affordable hosting">
+    <meta content="Enterprise-grade performance at a price that makes sense. No hidden fees, no catch—just reliable, affordable services with a commitment to privacy."
+          name="description">
+    <meta content="private servers, cloud hosting, VPS, bandwidth services, storage hosting, enterprise hosting, affordable hosting"
+          name="keywords">
 
-    <meta property="og:title" content="Backyard Bandwidth | Infrastructure Services Without the Nonsense">
-    <meta property="og:description"
-          content="Reliable private servers, bandwidth, and cloud solutions. No hidden fees. No catch. Privacy-focused and affordable.">
-    <meta property="og:image" content="https://backyardbandwidth.com/icons/og-logo.webp">
-    <meta property="og:url" content="https://backyardbandwidth.com">
+    <meta content="Backyard Bandwidth | Infrastructure Services Without the Nonsense" property="og:title">
+    <meta content="Reliable private servers, bandwidth, and cloud solutions. No hidden fees. No catch. Privacy-focused and affordable."
+          property="og:description">
+    <meta content="https://backyardbandwidth.com/icons/og-logo.webp" property="og:image">
+    <meta content="https://backyardbandwidth.com" property="og:url">
 
-    <meta name="twitter:card" content="summary_large_image">
+    <meta content="summary_large_image" name="twitter:card">
     <style>
         #accept-policy:checked::after {
             content: '✔';
@@ -431,6 +431,9 @@
             text-align: center;
         }
     </style>
+    <script defer data-domain="backyardbandwidth.com" src="https://plausible.io/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js"></script>
+<script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+
 </head>
 <body>
 
@@ -446,7 +449,8 @@
         <li><a href="policy-list.html">Our Policies</a></li>
         <li><a href="docs.html">Documentation</a></li>
         <li><a href="#faq">FAQ</a></li>
-        <li><a href="#contact">Contact Us</a></li>
+        <!--        <li><a href="#contact">Contact Us</a></li>-->
+        <li><a href="user/login.html">Dashboard</a></li>
     </ul>
 </nav>
 
@@ -787,8 +791,9 @@
             <div style="margin-top: 1em; font-size: 0.9em; color: #444; text-align: center;">
                 <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
                     <div style="display: flex; align-items: center; gap: 15px; background: #f5f5f5; padding: 20px; border-radius: 10px; box-shadow: 0 0 8px rgba(0,0,0,0.08);">
-                        <input id="accept-policy" required type="checkbox"
-                               style="appearance: none; width: 40px; height: 40px; border: 2px solid #6ec1e4; border-radius: 8px; background: white; cursor: pointer; position: relative;">
+                        <input id="accept-policy" required
+                               style="appearance: none; width: 40px; height: 40px; border: 2px solid #6ec1e4; border-radius: 8px; background: white; cursor: pointer; position: relative;"
+                               type="checkbox">
                         <label for="accept-policy" style="text-align: left; font-size: 1em; cursor: pointer;">
                             <strong>Accept Terms:</strong> By checking this box you acknowledge and accept our
                             <a href="terms.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">Terms
@@ -1005,6 +1010,7 @@ __________                    .___       .__    .___ __  .__
                         parentDiv.innerHTML = `
                     <h3>Thank you!</h3>
                     <p>You should receive an email shortly. If you do not, please follow this link to pay the invoice:</p>
+                    <p>NOTE:<strong> DO NOT</strong> close this window, your profile will be provided after payment</p>
                     <p><a href="${result.invoiceUrl}" target="_blank" style="color: blue;">Pay Invoice</a></p>
                     <button id="check-status-button" style="margin-top: 1em; padding: 0.75em; background-color: orange; color: white; border: none; border-radius: 4px; cursor: pointer;">Check Invoice Status</button>
                     <p id="status-message" style="margin-top: 1em;"></p>
@@ -1494,7 +1500,7 @@ __________                    .___       .__    .___ __  .__
             Loading terms...
         </div>
         <div style="margin-top:1em; display: flex; gap: 0.5em; justify-content: center; align-items: center;">
-            <button id="accept-terms-button" disabled
+            <button disabled id="accept-terms-button"
                     style="flex:2; background:#bbb; color:white; border:none; padding:0.75em; border-radius:6px; cursor:not-allowed; font-size:1.1em;">
                 Click Here To Agree
             </button>
