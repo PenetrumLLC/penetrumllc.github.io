@@ -1529,7 +1529,8 @@ __________                    .___       .__    .___ __  .__
         canaryDiv.innerHTML = `
           <strong>Transparency Statement</strong><br/>
           ${data.message}<br/>
-          <small>Signed by ${data.signed_by.uid} (Key ID: ${data.signed_by.key_id}) on ${data.published}</small>
+          <small>Signed by ${data.signed_by.uid} (${data.signed_by.key_id})</small><br>
+          <small>Last update: ${data.published}</small>
         `;
 
         footer.appendChild(canaryDiv);

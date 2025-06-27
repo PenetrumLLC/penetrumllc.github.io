@@ -1,21 +1,22 @@
-import json
-import time
 import datetime
-import subprocess
+import json
 import os
+import subprocess
+import time
 
 CANARY_PATH = "data/canary.json"
 TMP_JSON = "data/canary.tmp.json"
 TMP_SIG = "data/canary.sig"
-
 data = {
     "message": "BB has not received any FISA warrants, NSA letters, subpoenas, or gag orders."
 }
+
 
 def get_date():
     now = datetime.datetime.now(datetime.timezone.utc)
     data["published"] = now.strftime("%Y-%m-%d")
     data["timestamp"] = time.time()
+
 
 def sign_json():
     with open(TMP_JSON, "w") as f:
@@ -24,7 +25,7 @@ def sign_json():
         "gpg",
         "--batch",
         "--yes",
-        "--pinentry-mode", "loopback",  # ← add this line
+        "--pinentry-mode", "loopback",
         "--passphrase", os.getenv("GPG_PASSPHRASE", ""),
         "--armor",
         "--output", "data/canary.sig",
@@ -45,7 +46,7 @@ def get_signer_info():
     for line in result.stdout.splitlines():
         parts = line.strip().split(":")
         if parts[0] == "sec":
-            key_id = parts[4][-8:]  # short key ID
+            key_id = parts[4][-8:]
         elif parts[0] == "fpr":
             fingerprint = parts[9]
         elif parts[0] == "uid" and not uid:
@@ -58,9 +59,11 @@ def get_signer_info():
             "fingerprint": fingerprint
         }
 
+
 def save_canary():
     with open(CANARY_PATH, "w") as f:
         json.dump(data, f, indent=4)
+
 
 if __name__ == "__main__":
     data["enabled"] = True
