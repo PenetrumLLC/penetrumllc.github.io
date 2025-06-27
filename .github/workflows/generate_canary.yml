@@ -31,7 +31,13 @@ jobs:
           gpg --batch --yes --import private.key
 
       - name: Enable GPG loopback
-        run: echo "allow-loopback-pinentry" >> ~/.gnupg/gpg.conf
+        run: |
+          mkdir -p ~/.gnupg
+          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
+          echo "use-agent" >> ~/.gnupg/gpg.conf
+          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+          gpgconf --kill gpg-agent
+          gpgconf --launch gpg-agent
 
       - name: Generate and sign canary
         run: python scripts/generate_canary.py
