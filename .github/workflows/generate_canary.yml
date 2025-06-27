@@ -2,7 +2,7 @@ name: Update Warrant Canary
 
 on:
   schedule:
-    - cron: '0 0 1 * *' # Monthly
+    - cron: '0 0 * * 0'
   workflow_dispatch:
 
 jobs:
