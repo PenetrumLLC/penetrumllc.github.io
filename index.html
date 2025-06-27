@@ -1527,7 +1527,7 @@ __________                    .___       .__    .___ __  .__
         canaryDiv.style.borderTop = '1px solid #444';
 
         canaryDiv.innerHTML = `
-          <strong>Transparency Statement</strong><br/>
+          <strong>Transparency Statement (${data.published})</strong><br/>
           ${data.message}<br/>
           <small>Signed by ${data.signed_by.uid} (Key ID: ${data.signed_by.key_id}) on ${data.published}</small>
         `;
