@@ -9,7 +9,7 @@ TMP_JSON = "data/canary.tmp.json"
 TMP_SIG = "data/canary.sig"
 
 data = {
-    "message": "As of the mentioned date, BB has not received any FISA warrants, NSA letters, subpoenas, or gag orders."
+    "message": "BB has not received any FISA warrants, NSA letters, subpoenas, or gag orders."
 }
 
 def get_date():
