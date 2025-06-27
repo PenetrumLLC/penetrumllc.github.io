@@ -1512,6 +1512,33 @@ __________                    .___       .__    .___ __  .__
         </div>
     </div>
 </div>
+<script>
+  fetch('/data/canary.json')
+    .then(res => res.json())
+    .then(data => {
+      if (data.enabled) {
+        const footer = document.querySelector('footer');
 
+        const canaryDiv = document.createElement('div');
+        canaryDiv.style.backgroundColor = '#222';
+        canaryDiv.style.color = '#fff';
+        canaryDiv.style.padding = '1em';
+        canaryDiv.style.marginTop = '1em';
+        canaryDiv.style.fontSize = '0.9em';
+        canaryDiv.style.borderTop = '1px solid #444';
+
+        canaryDiv.innerHTML = `
+          <strong>Transparency Statement</strong><br/>
+          ${data.message}<br/>
+          <small>Signed by ${data.signed_by.uid} (Key ID: ${data.signed_by.key_id}) on ${data.published}</small>
+        `;
+
+        footer.appendChild(canaryDiv);
+      }
+    })
+    .catch(err => {
+      console.warn('Could not load canary.json:', err);
+    });
+</script>
 </body>
 </html>
