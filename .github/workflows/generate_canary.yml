@@ -30,6 +30,9 @@ jobs:
           echo "$GPG_KEY_B64" | base64 -d > private.key
           gpg --batch --yes --import private.key
 
+      - name: Enable GPG loopback
+        run: echo "allow-loopback-pinentry" >> ~/.gnupg/gpg.conf
+
       - name: Generate and sign canary
         run: python scripts/generate_canary.py
 

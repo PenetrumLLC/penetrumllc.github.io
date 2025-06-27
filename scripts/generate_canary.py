@@ -13,24 +13,24 @@ data = {
 }
 
 def get_date():
-    now = datetime.datetime.utcnow()
+    now = datetime.datetime.now(datetime.timezone.utc)
     data["published"] = now.strftime("%Y-%m-%d")
     data["timestamp"] = time.time()
 
 def sign_json():
     with open(TMP_JSON, "w") as f:
-        json.dump(data, f, separators=(",", ":"))  # compact for consistent signature
-
+        json.dump(data, f, separators=(",", ":"))
     subprocess.run([
         "gpg",
         "--batch",
         "--yes",
+        "--pinentry-mode", "loopback",  # ← add this line
         "--passphrase", os.getenv("GPG_PASSPHRASE", ""),
         "--armor",
-        "--output", TMP_SIG,
-        "--detach-sign",
-        TMP_JSON
+        "--output", "data/canary.sig",
+        "--detach-sign", TMP_JSON
     ], check=True)
+
 
 def get_signer_info():
     result = subprocess.run(
