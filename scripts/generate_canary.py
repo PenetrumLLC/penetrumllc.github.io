@@ -4,7 +4,7 @@ import datetime
 import subprocess
 import os
 
-CANARY_PATH = "data/canary.json"
+CANARY_PATH = "../data/canary.json"
 TMP_JSON = "data/canary.tmp.json"
 TMP_SIG = "data/canary.sig"
 

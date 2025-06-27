@@ -31,7 +31,7 @@ jobs:
           gpg --batch --yes --import private.key
 
       - name: Generate and sign canary
-        run: python generate_canary.py
+        run: python scripts/generate_canary.py
 
       - name: Commit and push
         run: |
