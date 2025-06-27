@@ -40,7 +40,7 @@ jobs:
           gpgconf --launch gpg-agent
 
       - name: Generate and sign canary
-        run: python scripts/generate_canary.py
+        run: python generate_canary.py
 
       - name: Commit and push
         run: |
