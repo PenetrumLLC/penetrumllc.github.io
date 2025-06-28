@@ -27,6 +27,119 @@
 
     <meta content="summary_large_image" name="twitter:card">
     <style>
+                .cash-pay-button {
+    width: 100%;
+    padding: 0.75em;
+    background-color: #c6920e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1em;
+    transition: background-color 0.3s ease;
+}
+        .crypto-button {
+    width: 100%;
+    padding: 0.75em;
+    background-color: #457b9d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1em;
+    transition: background-color 0.3s ease;
+}
+
+.crypto-button:hover {
+    background-color: #345a75;
+}
+
+.cash-pay-button:hover {
+    background-color: #aa7e0c;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-box {
+    background: white;
+    max-width: 600px;
+    width: 90%;
+    padding: 2em;
+    border-radius: 8px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    position: relative;
+    font-size: 1rem;
+}
+
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #999;
+}
+
+.modal-header {
+    margin-top: 0;
+    margin-bottom: 1em;
+    color: #333;
+}
+
+.modal-text {
+    margin-bottom: 1em;
+    color: #555;
+}
+
+.modal-steps {
+    padding-left: 1.2em;
+    color: #444;
+}
+
+.crypto-select {
+    margin-top: 0.5em;
+    padding: 0.5em;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.wallet-display {
+    margin-top: 0.5em;
+    font-weight: bold;
+    font-size: 0.95em;
+    word-break: break-all;
+    background: #f3f3f3;
+    padding: 0.5em;
+    border-radius: 4px;
+}
+
+.crypto-slider {
+    width: 100%;
+    margin: 1em 0;
+    cursor: pointer;
+}
+
+.price-summary {
+    font-weight: bold;
+    color: #222;
+}
+
+.crypto-contact {
+    color: #457b9d;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
         #accept-policy:checked::after {
             content: '✔';
             color: #6ec1e4;
@@ -499,12 +612,57 @@
                 <input id="email-input" placeholder="Enter your email"
                        style="width: 95%; padding: 0.5em; margin-bottom: 1em; border: 1px solid #ccc; border-radius: 4px;"
                        type="email">
-                <p>By clicking the purchase button you are accepting our <a href="terms.html">Terms of Service</a> and
+                <p>By clicking any form of "Pay with" button you are accepting our <a href="terms.html">Terms of Service</a> and
                     our <a href="fair-use.html">Fair Use Policy</a></p>
                 <button class="purchase-button" data-product="vpn"
-                        style="width: 100%; padding: 0.75em; background-color: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer;">
-                    Purchase
+                        style="width: 100%; padding: 0.75em; background-color: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer;"
+                    onmouseover="this.style.backgroundColor='#3d9542';"
+    onmouseout="this.style.backgroundColor='#4caf50';">
+                    Pay with Stripe
                 </button>
+                <!-- Pay in Crypto Button -->
+<button onclick="openCryptoModal()" class="crypto-button">
+    Pay with Crypto
+</button>
+
+<!-- Crypto Payment Modal -->
+<div id="cryptoModal" class="modal-overlay">
+    <div class="modal-box">
+        <span onclick="closeCryptoModal()" class="modal-close">&times;</span>
+        <h3 class="modal-header">Pay with Crypto</h3>
+        <p class="modal-text">
+            Crypto payments are manual to ensure control over service activation. All crypto payments require a minimum of 4 months plus a 3% processing fee.
+        </p>
+        <ol class="modal-steps">
+            <li>
+                Choose a cryptocurrency:
+                <select id="cryptoSelect" onchange="showWalletAddress()" class="crypto-select">
+                    <option value="">Loading...</option>
+                </select>
+                <p id="walletDisplay" class="wallet-display"></p>
+            </li>
+            <li>
+                Select months of service:
+                <input type="range" min="4" max="120" value="4" id="monthSlider" oninput="updatePrice()" class="crypto-slider">
+                <p class="price-summary">
+                    <span id="monthDisplay">4</span> months × $0.99 + 3% = <b>$<span id="totalPrice">6.14</span></b>
+                </p>
+            </li>
+            <li>
+                Send that amount to the wallet address shown above.
+            </li>
+            <li>
+                Email us your transaction confirmation, requested location, and months paid for:
+                <a href="index.html#contact" class="crypto-contact">Contact Form</a>
+            </li>
+        </ol>
+    </div>
+</div>
+
+                <button class="cash-pay-button" disabled>
+    Pay with Cash (coming soon...)
+</button>
+
                 <div id="lifetime-sale-div"></div>
                 <!--                <p style="color: #2a9d8f; font-size: 0.9em; margin-top: 0.5em; font-weight: bold;">-->
                 <!--                    <b>NOTE:</b> We're currently unable to offer subscriptions paid with cryptocurrency. If you're interested in using crypto for a one-time payment, there’s a 4-month commitment required along with a 3% surcharge. Feel free to <a href="#contact" style="color: #f4a261;">contact us</a> to discuss the details-->
@@ -1384,7 +1542,7 @@ __________                    .___       .__    .___ __  .__
             {logo: 'icons/crypto/ethereum.png'},
             {logo: 'icons/crypto/usdc.png'},
             {logo: 'icons/crypto/xrp.png'},
-            {logo: 'icons/crypto/monero.png'},
+            //{logo: 'icons/crypto/monero.png'},
             {logo: 'icons/crypto/solana.png'},
             {logo: 'icons/crypto/litecoin.png'},
             {logo: 'icons/crypto/avalanche.png'},
@@ -1539,6 +1697,49 @@ __________                    .___       .__    .___ __  .__
     .catch(err => {
       console.warn('Could not load canary.json:', err);
     });
+
+  function openCryptoModal() {
+    document.getElementById('cryptoModal').style.display = 'flex';
+    loadCryptoWallets();
+    updatePrice();
+}
+
+function closeCryptoModal() {
+    document.getElementById('cryptoModal').style.display = 'none';
+}
+
+function updatePrice() {
+    const months = parseInt(document.getElementById('monthSlider').value);
+    const base = months * 0.99;
+    const surchargePerMonth = 0.99 * 0.03; // 3% of 0.99
+    const final = (months * (0.99 + surchargePerMonth)).toFixed(2);
+    document.getElementById('monthDisplay').innerText = months;
+    document.getElementById('totalPrice').innerText = final;
+}
+
+
+async function loadCryptoWallets() {
+    const res = await fetch('data/crypto_wallets.json');
+    const wallets = await res.json();
+    const select = document.getElementById('cryptoSelect');
+    select.innerHTML = '<option disabled selected value="">Select a coin</option>';
+    wallets.forEach(entry => {
+        const coin = Object.keys(entry)[0];
+        const opt = document.createElement('option');
+        opt.value = JSON.stringify(entry);
+        opt.textContent = coin;
+        select.appendChild(opt);
+    });
+}
+
+function showWalletAddress() {
+    const val = document.getElementById('cryptoSelect').value;
+    if (!val) return;
+    const data = JSON.parse(val);
+    const coin = Object.keys(data)[0];
+    const addr = data[coin];
+    document.getElementById('walletDisplay').innerText = `${coin} Address:\n${addr}`;
+}
 </script>
 </body>
 </html>
