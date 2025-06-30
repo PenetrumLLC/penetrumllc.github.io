@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-mono">
+  <header class="w-full bg-black text-white flex items-center justify-between px-4 py-2 shadow-md">
+    <div class="flex items-center space-x-3">
+      <a href="../index.html">
+        <img src="../icons/icon.png" alt="Logo" class="max-h-14 w-auto object-contain">
+      </a>
+      <span class="text-lg font-bold tracking-wide">Admin Dashboard</span>
+    </div>
+  </header>
+
+  <main class="p-6 space-y-8">
+    <h1 class="text-xl font-bold">Welcome, Admin</h1>
+
+    <!-- User Search -->
+    <section class="bg-white p-4 rounded shadow">
+      <h2 class="text-lg font-semibold mb-2">Search for a User</h2>
+      <div class="flex gap-2">
+        <input type="text" id="search-query" placeholder="Enter username or ID" class="flex-1 border px-4 py-2 rounded">
+        <button onclick="searchUser()" class="bg-bLightBlue hover:bg-bLightBlueHover text-white px-4 py-2 rounded">Search</button>
+      </div>
+      <div id="search-result" class="mt-4 text-sm text-gray-700"></div>
+    </section>
+
+    <!-- All Users -->
+    <section class="bg-white p-4 rounded shadow">
+      <h2 class="text-lg font-semibold mb-2">All Users</h2>
+      <button onclick="loadAllUsers()" class="mb-4 bg-bDarkBlue hover:bg-bLightBlue text-white px-4 py-2 rounded">Refresh</button>
+      <div id="all-users" class="text-sm text-gray-700 space-y-2"></div>
+    </section>
+
+    <!-- Upload to Users -->
+    <section class="bg-white p-4 rounded shadow">
+      <h2 class="text-lg font-semibold mb-2">Upload to Users</h2>
+      <input type="file" id="upload-file" class="block mb-2">
+      <button onclick="uploadToUsers()" class="bg-bGreen hover:bg-bGreenHover text-white px-4 py-2 rounded">Upload</button>
+      <div id="upload-status" class="mt-2 text-sm"></div>
+    </section>
+  </main>
+
+  <script>
+    async function validateAdminToken() {
+      const token = localStorage.getItem("adminSessionToken");
+      if (!token) {
+        window.location.href = "/admin/index.html";
+        return;
+      }
+
+      try {
+        const res = await fetch("http://172.25.108.61:5132/admin/token/check", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ admin_session_id: token })
+        });
+
+        const result = await res.json();
+
+        if (!result.ok) {
+          window.location.href = "/admin/index.html";
+        }
+      } catch (err) {
+        console.error("Token validation failed", err);
+        window.location.href = "/admin/index.html";
+      }
+    }
+
+    function searchUser() {
+      const query = document.getElementById("search-query").value;
+      const resultDiv = document.getElementById("search-result");
+      // TODO: Implement search API call
+      resultDiv.textContent = `Searched for user: ${query}`;
+    }
+
+    function loadAllUsers() {
+      const allUsersDiv = document.getElementById("all-users");
+      // TODO: Implement all users API call
+      allUsersDiv.innerHTML = "<p>Loaded all users (placeholder)</p>";
+    }
+
+    function uploadToUsers() {
+      const fileInput = document.getElementById("upload-file");
+      const statusDiv = document.getElementById("upload-status");
+
+      if (!fileInput.files.length) {
+        statusDiv.textContent = "Please select a file.";
+        statusDiv.className = "text-red-500 text-sm";
+        return;
+      }
+
+      // TODO: Implement file upload logic
+      statusDiv.textContent = "Upload complete (placeholder).";
+      statusDiv.className = "text-green-500 text-sm";
+    }
+
+    window.onload = () => {
+      validateAdminToken();
+      setInterval(validateAdminToken, 30 * 60 * 1000); // Every 30 minutes
+    };
+  </script>
+</body>
+</html>

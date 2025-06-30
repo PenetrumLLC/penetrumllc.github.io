@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="../icons/icon.png" />
+  <title>Admin Login - Backyard Bandwidth</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bLightBlue: "#6ec1e4",
+            bLightBlueHover: "#008CCB",
+            bDarkBlue: "#2d6ea8",
+            bDarkGrey: "#1A1A1A",
+            bLightGrey: "#A8B1B7",
+            bGreen: "#4caf50",
+            bGreenHover: "#008000FF",
+            bRed: "#E33434",
+            bRedHover: "#972424"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100 font-mono">
+  <header class="w-full bg-black text-white flex items-center justify-between px-4 py-2 shadow-md">
+    <div class="flex items-center space-x-3">
+      <a href="../index.html">
+        <img src="../icons/icon.png" alt="Logo" class="max-h-14 w-auto object-contain" />
+      </a>
+      <span class="text-lg font-bold tracking-wide">Backyard Bandwidth Admin</span>
+    </div>
+  </header>
+
+  <div class="max-w-md mx-auto mt-10 bg-white p-6 rounded-lg shadow-md">
+    <form class="space-y-4" id="admin-login-form">
+      <input type="text" id="admin-username" placeholder="Admin Username" required class="w-full border px-4 py-2 rounded" />
+      <input type="password" id="admin-password" placeholder="Password" required class="w-full border px-4 py-2 rounded" />
+      <div class="flex space-x-2">
+        <input type="text" id="admin-token" placeholder="Admin Token" required class="flex-1 border px-4 py-2 rounded" />
+        <button type="button" id="get-admin-token" class="bg-bDarkGrey text-white px-4 py-2 rounded hover:bg-bLightGrey">Get Token</button>
+      </div>
+      <button type="button" onclick="submitAdminLogin()" class="w-full bg-bLightBlue hover:bg-bLightBlueHover text-white font-bold py-2 rounded">Login</button>
+      <div id="admin-login-error" class="text-red-500 text-sm"></div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("get-admin-token").addEventListener("click", async () => {
+      try {
+        const res = await fetch("http://172.25.108.61:5132/admin/token", { method: "POST" });
+        const data = await res.json();
+        if (data.token) {
+          document.getElementById("admin-token").value = data.token;
+        }
+      } catch (err) {
+        document.getElementById("admin-login-error").textContent = "Failed to retrieve token.";
+      }
+    });
+
+    async function submitAdminLogin() {
+      const username = document.getElementById("admin-username").value;
+      const password = document.getElementById("admin-password").value;
+      const token = document.getElementById("admin-token").value;
+      const errorDiv = document.getElementById("admin-login-error");
+
+      errorDiv.textContent = "";
+
+      try {
+        const res = await fetch("http://172.25.108.61:5132/admin/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ admin_token: token, admin_username: username, admin_password: password })
+        });
+
+        const result = await res.json();
+
+        if (result.success && result.session_token) {
+          localStorage.setItem("adminSession", JSON.stringify({ token: result.session_token }));
+          // Store the session token for future use
+          localStorage.setItem("adminSessionToken", result.session_token);
+          window.location.href = "/admin/dash.html";
+        } else {
+          errorDiv.textContent = result.error?.msg || "Login failed.";
+        }
+      } catch (err) {
+        errorDiv.textContent = "Server error. Please try again.";
+      }
+    }
+  </script>
+</body>
+</html>

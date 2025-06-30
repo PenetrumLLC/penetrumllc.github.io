@@ -627,37 +627,57 @@
 
 <!-- Crypto Payment Modal -->
 <div id="cryptoModal" class="modal-overlay">
-    <div class="modal-box">
-        <span onclick="closeCryptoModal()" class="modal-close">&times;</span>
-        <h3 class="modal-header">Pay with Crypto</h3>
-        <p class="modal-text">
-            Crypto payments are manual to ensure control over service activation. All crypto payments require a minimum of 4 months plus a 3% processing fee.
+  <div class="modal-box">
+    <span onclick="closeCryptoModal()" class="modal-close">&times;</span>
+    <h3 class="modal-header">Pay with Crypto</h3>
+
+    <p class="modal-text">
+      ⚠️ <strong>Manual Payment Required:</strong><br>
+      Crypto payments are processed manually to maintain full user control.<br>
+      <strong>Minimum: 4 months of service + 3% processing fee</strong>
+    </p>
+
+    <hr>
+
+    <ol class="modal-steps" style="list-style: none; padding-left: 0;">
+      <!-- Step 1 -->
+      <li style="margin-bottom: 1.5em;">
+        ✅ <strong>Step 1: Choose your cryptocurrency</strong><br>
+        <select id="cryptoSelect" onchange="showWalletAddress()" class="crypto-select" style="margin-top: 0.5em;">
+          <option value="">Select a coin...</option>
+        </select>
+        <div id="walletDisplay" class="wallet-display" style="margin-top: 0.5em;"></div>
+      </li>
+
+      <!-- Step 2 -->
+      <li style="margin-bottom: 1.5em;">
+        ✅ <strong>Step 2: Select how many months you want</strong><br>
+        <input type="range" min="4" max="120" value="4" id="monthSlider" oninput="updatePrice()" class="crypto-slider" style="width: 100%; margin-top: 0.5em;">
+        <p class="price-summary" style="margin-top: 0.5em;">
+          <span id="monthDisplay">4</span> months × $0.99 + 3% fee = <b>$<span id="totalPrice">4.08</span></b>
         </p>
-        <ol class="modal-steps">
-            <li>
-                Choose a cryptocurrency:
-                <select id="cryptoSelect" onchange="showWalletAddress()" class="crypto-select">
-                    <option value="">Loading...</option>
-                </select>
-                <p id="walletDisplay" class="wallet-display"></p>
-            </li>
-            <li>
-                Select months of service:
-                <input type="range" min="4" max="120" value="4" id="monthSlider" oninput="updatePrice()" class="crypto-slider">
-                <p class="price-summary">
-                    <span id="monthDisplay">4</span> months × $0.99 + 3% = <b>$<span id="totalPrice">6.14</span></b>
-                </p>
-            </li>
-            <li>
-                Send that amount to the wallet address shown above.
-            </li>
-            <li>
-                Email us your transaction confirmation, requested location, and months paid for:
-                <a href="index.html#contact" class="crypto-contact">Contact Form</a>
-            </li>
-        </ol>
-    </div>
+      </li>
+
+      <!-- Step 3 -->
+      <li style="margin-bottom: 1.5em;">
+        ✅ <strong>Step 3: Send EXACT amount to the wallet address</strong><br>
+        Make sure the full amount arrives after fees. Use a trusted wallet or exchange.
+      </li>
+
+      <!-- Step 4 -->
+      <li style="margin-bottom: 1.5em; border: 2px solid #e53935; padding: 1em; border-radius: 6px; background: #fff3f3;">
+        🔥 <strong style="color: #e53935;">FINAL STEP (REQUIRED): You MUST email us the following to activate service:</strong>
+        <ul style="margin-top: 0.5em; margin-bottom: 0.5em; list-style: disc; padding-left: 1.5em;">
+          <li>Transaction confirmation (TXID or screenshot)</li>
+          <li>Your requested VPN location</li>
+          <li>How many months you paid for</li>
+        </ul>
+        <a href="index.html#contact" class="crypto-contact" style="display: inline-block; font-weight: bold; font-size: 1.1em; color: #0077cc; text-decoration: underline;">→ Click here to open Contact Form</a>
+      </li>
+    </ol>
+  </div>
 </div>
+
 
                 <button class="cash-pay-button" disabled>
     Pay with Cash (coming soon...)
@@ -1739,6 +1759,15 @@ function showWalletAddress() {
     const coin = Object.keys(data)[0];
     const addr = data[coin];
     document.getElementById('walletDisplay').innerText = `${coin} Address:\n${addr}`;
+}
+
+  function toggleStep(step) {
+    if (step === 1) {
+        document.getElementById('cryptoSelect').disabled = false;
+    }
+    if (step === 2) {
+        document.getElementById('monthSlider').disabled = false;
+    }
 }
 </script>
 </body>
