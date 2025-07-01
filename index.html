@@ -1759,8 +1759,8 @@ function closeCryptoModal() {
 function updatePrice() {
     const months = parseInt(document.getElementById('monthSlider').value);
     const basePrice = 2.99;
-    const surchargePerMonth = basePrice * 0.09; // 3% of 2.99
-    const final = (months * (basePrice + surchargePerMonth)).toFixed(2);
+    const totalBeforeFee = months * basePrice;
+    const final = (totalBeforeFee * 1.03).toFixed(2); // Add 3% to total
     document.getElementById('monthDisplay').innerText = months;
     document.getElementById('totalPrice').innerText = final;
 }
