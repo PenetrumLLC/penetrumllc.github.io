@@ -596,7 +596,7 @@
 
             <div class="pricing-plan" id="vpn-service-link">
                 <h3 style="margin-bottom: 0.5em;">VPN/Proxy Service</h3>
-                <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">Starting at $0.99 per month</p>
+                <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">Starting at $2.99 per month</p>
                 <p style="margin-bottom: 1em;">Our VPN is fast, reliable, secure, and private, ensuring your online
                     activity stays safe and anonymous.</p>
                 <p style="margin-bottom: 1em;">Choose a location:</p>
@@ -654,7 +654,7 @@
         ✅ <strong>Step 2: Select how many months you want</strong><br>
         <input type="range" min="4" max="120" value="4" id="monthSlider" oninput="updatePrice()" class="crypto-slider" style="width: 100%; margin-top: 0.5em;">
         <p class="price-summary" style="margin-top: 0.5em;">
-          <span id="monthDisplay">4</span> months × $0.99 + 3% fee = <b>$<span id="totalPrice">4.08</span></b>
+          <span id="monthDisplay">4</span> months × $2.99 + 3% fee = <b>$<span id="totalPrice">4.08</span></b>
         </p>
       </li>
 
@@ -1758,12 +1758,13 @@ function closeCryptoModal() {
 
 function updatePrice() {
     const months = parseInt(document.getElementById('monthSlider').value);
-    const base = months * 0.99;
-    const surchargePerMonth = 0.99 * 0.03; // 3% of 0.99
-    const final = (months * (0.99 + surchargePerMonth)).toFixed(2);
+    const basePrice = 2.99;
+    const surchargePerMonth = basePrice * 0.09; // 3% of 2.99
+    const final = (months * (basePrice + surchargePerMonth)).toFixed(2);
     document.getElementById('monthDisplay').innerText = months;
     document.getElementById('totalPrice').innerText = final;
 }
+
 
 
 async function loadCryptoWallets() {
