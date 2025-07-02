@@ -677,10 +677,60 @@
     </ol>
   </div>
 </div>
+                <!-- Cash Payment Modal -->
+<div id="cashModal" class="modal-overlay">
+  <div class="modal-box">
+    <span onclick="closeCashModal()" class="modal-close">&times;</span>
+    <h3 class="modal-header">Pay with Cash</h3>
+
+    <p class="modal-text">
+      ⚠️ <strong>This is a temporary solution</strong> while we create the user account uploads.<br>
+      <strong>Paying with cash guarantees anonymity and drops the price to $2.00/month.</strong><br>
+      Minimum of <strong>12 months</strong> of service at a time.
+    </p>
+
+    <hr>
+
+    <ol class="modal-steps" style="list-style: none; padding-left: 0;">
+      <!-- Step 1 -->
+      <li style="margin-bottom: 1.5em;">
+        ✅ <strong>Step 1: Choose service duration</strong><br>
+        <input type="range" min="12" max="148" value="12" id="cashMonthSlider" oninput="updateCashPrice()" class="crypto-slider" style="width: 100%; margin-top: 0.5em;">
+        <p class="price-summary" style="margin-top: 0.5em;">
+          <span id="cashMonthDisplay">12</span> months × $2.00 = <b>$<span id="cashTotalPrice">24.00</span></b>
+        </p>
+      </li>
+
+      <!-- Step 2 -->
+      <li style="margin-bottom: 1.5em;">
+        ✅ <strong>Step 2: Write a note with your email address</strong><br>
+        This is the email we’ll send your profile to.<br>
+        <strong>Tip:</strong> Use a one-time email address for maximum anonymity.
+      </li>
+
+      <!-- Step 3 -->
+      <li style="margin-bottom: 1.5em;">
+        ✅ <strong>Step 3: Send exact cash amount</strong><br>
+        Send <strong>the exact amount</strong> shown above to:<br><br>
+        <pre style="background: #f4f4f4; padding: 1em; border-radius: 6px;">
+Penetrum LLC
+1319 F St NW Ste 301 PMB 365
+Washington, DC 20004
+        </pre>
+      </li>
+    </ol>
+
+    <p style="margin-top: 1em; font-size: 0.95em; color: #555;">
+      <strong>Note:</strong> Cash payments may take up to 2 weeks to process.
+      If you do not receive your profile within two weeks, please <a href="#contact" style="color: #0077cc; text-decoration: underline;">contact us</a>.
+    </p>
+  </div>
+</div>
 
 
-                <button class="cash-pay-button" disabled>
-    Pay with Cash (coming soon...)
+
+<button onclick="openCashModal()" class="cash-pay-button">
+    Pay with Cash
 </button>
 
                 <div id="lifetime-sale-div"></div>
@@ -1798,6 +1848,21 @@ function showWalletAddress() {
         document.getElementById('monthSlider').disabled = false;
     }
 }
+
+  function openCashModal() {
+    document.getElementById('cashModal').style.display = 'flex';
+  }
+
+  function closeCashModal() {
+    document.getElementById('cashModal').style.display = 'none';
+  }
+
+  function updateCashPrice() {
+    const months = parseInt(document.getElementById('cashMonthSlider').value);
+    const total = months * 2;
+    document.getElementById('cashMonthDisplay').innerText = months;
+    document.getElementById('cashTotalPrice').innerText = total.toFixed(2);
+  }
 </script>
 </body>
 </html>
