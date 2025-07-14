@@ -2,10 +2,10 @@
     "message": "BB has not received any FISA warrants, NSA letters, subpoenas, or gag orders.",
     "enabled": true,
     "published": "2025-07-14",
-    "timestamp": 1752522515.410401,
+    "timestamp": 1752523994.1190856,
     "signed_by": {
         "uid": "Backyard Bandwidth (Canary) <penetrumcorp@gmail.com>",
-        "key_id": "66F70382",
-        "fingerprint": "41EB31FB76DC55B9E7026BFDFAC5F685248AC91C"
+        "key_id": "5F72BAC8",
+        "fingerprint": "67034F10887D1107C59531DE9622B503808BE9E0"
     }
 }
