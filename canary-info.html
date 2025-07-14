@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Warrant Canary Policy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#f3f0f0] text-gray-800">
+  <div class="max-w-3xl mx-auto mt-10 p-8 bg-white rounded-lg border-4 border-gray-400 shadow-xl">
+    <h1 class="text-3xl font-bold text-center text-gray-700 mb-6">Warrant Canary Policy</h1>
+
+    <p class="mb-4">Last updated: July 14th, 2025</p>
+
+    <p class="mb-6">
+      Backyard Bandwidth maintains a regularly updated warrant canary to signal that we have not received any secret legal demands, such as FISA court orders, National Security Letters (NSLs), or gag orders. Should this canary be altered, omitted, or stop updating, it should be interpreted as a silent indication that such a demand may have been received.
+    </p>
+
+    <h2 class="text-xl font-semibold mt-8 mb-2">1. Update Schedule</h2>
+    <p class="mb-4">The warrant canary is updated automatically every 8 hours. If it is not updated for more than 24 hours, it should be considered invalid.</p>
+
+    <h2 class="text-xl font-semibold mt-8 mb-2">2. Canary Location</h2>
+    <p class="mb-4">The canary JSON can be found at: <a href="https://backyardbandwidth.com/data/canary.json" class="text-blue-600 underline">https://backyardbandwidth.com/data/canary.json</a></p>
+
+    <h2 class="text-xl font-semibold mt-8 mb-2">3. Canary Contents</h2>
+    <p class="mb-4">The JSON file includes:</p>
+    <ul class="list-disc list-inside mb-4">
+      <li>Human-readable timestamp</li>
+      <li>Epoch timestamp</li>
+      <li>Signed canary message</li>
+      <li>PGP key ID, UID, and full fingerprint</li>
+    </ul>
+
+    <h2 class="text-xl font-semibold mt-8 mb-2">4. Public Key</h2>
+    <p class="mb-2">Our public key can be downloaded here:</p>
+    <a href="/pubkey.asc" class="text-blue-600 underline mb-4 inline-block">https://backyardbandwidth.com/pubkey.asc</a>
+    <p class="mb-4">Fingerprint:</p>
+    <pre class="bg-gray-100 p-3 rounded text-sm overflow-x-auto">41EB 31FB 76DC C55B 9E70 26BF DFAC 5F68 5248 AC91C</pre>
+
+    <h2 class="text-xl font-semibold mt-8 mb-2">5. Verification Instructions</h2>
+    <p class="mb-4">To verify the canary:</p>
+    <pre class="bg-gray-100 p-3 rounded text-sm overflow-x-auto">
+# 1. Import our public key
+curl https://backyardbandwidth.com/pubkey.asc | gpg --import
+
+# 2. Download canary JSON and detached signature
+curl -O https://backyardbandwidth.com/data/canary.json
+curl -O https://backyardbandwidth.com/data/canary.sig
+
+# 3. Verify the signature
+gpg --verify canary.sig canary.json
+    </pre>
+
+    <h2 class="text-xl font-semibold mt-8 mb-2">6. What It Means If the Canary Fails</h2>
+    <p class="mb-4">
+      If the canary is not updated on schedule, or the signature fails verification, you should assume Backyard Bandwidth may have received a classified legal order and is legally prohibited from disclosing it.
+    </p>
+
+    <h2 class="text-xl font-semibold mt-8 mb-2">7. Disclaimer</h2>
+    <p class="mb-4">
+      Warrant canaries are not guaranteed legal protection under U.S. law. This mechanism is provided in good faith as a transparency tool and may not be upheld by courts in all jurisdictions.
+    </p>
+
+    <h2 class="text-xl font-semibold mt-8 mb-2">8. Contact</h2>
+    <p>If you have questions about our warrant canary, please reach out via the contact options listed on our homepage.</p>
+  </div>
+
+  <div class="text-center mt-10">
+    <a href="index.html" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">Back to Homepage</a>
+  </div>
+</body>
+</html>
