@@ -49,7 +49,6 @@ jobs:
           git add data/canary.json
           git add data/canary.sig
           git add data/fingerprint.txt
-          git add data/publickey.asc
           git add data/uid.txt
           git commit -m "Automated canary update"
           git push
