@@ -18,6 +18,13 @@ def get_date():
     data["timestamp"] = time.time()
 
 
+def get_public_key():
+    subprocess.run([
+        "gpg", "--armor", "--export", "penetrumcorp@gmail.com", ">", "data/publickey.asc"
+    ])
+
+
+
 def sign_json():
     with open(TMP_JSON, "w") as f:
         json.dump(data, f, separators=(",", ":"))
@@ -74,4 +81,5 @@ if __name__ == "__main__":
     get_date()
     sign_json()
     get_signer_info()
+    get_public_key()
     save_canary()
