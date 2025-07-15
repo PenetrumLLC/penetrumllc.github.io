@@ -1,386 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>VPS Documentation</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7f9;
-            color: #333;
-        }
-
-        .container {
-            background: white;
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .accordion-item {
-            background: #e9f5fc;
-            margin: 10px 0;
-            padding: 15px;
-            border-left: 4px solid #3498db;
-            border-radius: 5px;
-            transition: transform 0.3s;
-            cursor: pointer;
-        }
-
-        .accordion-item:hover {
-            transform: scale(1.02);
-        }
-
-        .accordion-item.active {
-            background: #d8eff8;
-        }
-
-        .accordion-title {
-            font-weight: bold;
-            color: #2c3e50;
-        }
-
-        .accordion-content {
-            display: none;
-            margin-top: 10px;
-            padding-left: 20px;
-            color: #555;
-        }
-
-        .accordion-content ul {
-            list-style: disc;
-            padding-left: 25px;
-            margin-top: 10px;
-            line-height: 1.6;
-        }
-
-        .accordion-content ul ul {
-            list-style: circle;
-            padding-left: 20px;
-        }
-
-        .accordion-content ul ul ul {
-            list-style: square;
-            padding-left: 20px;
-        }
-
-        code {
-            background: #f4f4f4;
-            padding: 3px 6px;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-            color: #c7254e;
-        }
-
-        a {
-            color: #3498db;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        .back-button {
-            display: inline-block;
-            margin: 30px auto;
-            padding: 10px 20px;
-            background-color: #5da9e9;
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            border-radius: 5px;
-            border: none;
-            font-weight: bold;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-            transition: background 0.3s;
-        }
-
-        .back-button:hover {
-            background-color: #4a90d9;
-        }
-
-        .button-container {
-            text-align: center;
-        }
-
-        .help-section {
-            background: #f8f9fa;
-            border-left: 4px solid #fd7e14;
-            padding: 20px;
-            border-radius: 5px;
-            margin-top: 30px;
-        }
-
-        .help-section h3 {
-            color: #fd7e14;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VPS Documentation | Backyard Bandwidth</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<div class="container" id="vps">
-    <h2>VPS Documentation</h2>
+<body class="bg-gray-100 text-gray-800">
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed top-4 right-4 bg-gray-800 text-white text-sm px-4 py-2 rounded shadow-lg opacity-0 transition-opacity duration-300 z-50 pointer-events-none">
+    Copied to clipboard!
+  </div>
 
-    <div class="accordion-item" onclick="toggleAccordion(this)">
-        <div class="accordion-title">IPv6 Tunneling to IPv4</div>
-        <div class="accordion-content">
-            <p>Learn how to tunnel IPv6 traffic through an IPv4 network using different techniques such as 6to4, Teredo,
-                and Cloudflare tunnels. These methods allow IPv6 connectivity even if your ISP only provides IPv4
-                support.</p>
-            <ul>
-                <li><strong>Using 6to4:</strong>
-                    <p>6to4 is an automatic tunneling mechanism that allows IPv6 traffic to be transported over an IPv4
-                        network. It assigns IPv6 addresses from the 2002::/16 block based on your IPv4 address.</p>
-                    <ul>
-                        <li><strong>Check System Support:</strong> Ensure your system supports 6to4 tunneling. Most
-                            modern Linux distributions and Windows versions do.
-                        </li>
-                        <li><strong>Enable the 6to4 Interface:</strong> Run the following command to create the tunnel
-                            interface:
-                        </li>
-                        <pre><code>ip tunnel add tun6to4 mode sit remote any local YOUR_IPV4_ADDRESS ttl 255</code></pre>
-                        <li><strong>Assign an IPv6 Address:</strong> Use your IPv4 address to generate a 6to4 address:
-                        </li>
-                        <pre><code>ip addr add 2002:YOUR_IPV4_HEX::1/16 dev tun6to4</code></pre>
-                        <li><strong>Set Up Routing:</strong> Ensure IPv6 traffic is routed through the tunnel:</li>
-                        <pre><code>ip link set tun6to4 up
+  <div class="max-w-5xl mx-auto my-12 p-6 bg-white rounded-2xl shadow-lg">
+    <h1 class="text-3xl font-bold text-center mb-6">📡 VPS Documentation</h1>
+
+    <div class="space-y-4">
+      <div class="accordion-item border-l-4 border-blue-500 bg-blue-50 rounded-md shadow hover:shadow-md transition">
+        <button onclick="toggleAccordion(this)" class="w-full text-left px-4 py-3 font-semibold text-lg text-blue-700">IPv6 Tunneling to IPv4</button>
+        <div class="hidden px-4 pb-4 text-sm space-y-4">
+          <h3 class="font-semibold">Using 6to4</h3>
+          <p>6to4 allows IPv6 traffic over IPv4 networks.</p>
+          <div class="relative">
+            <pre id="code1" class="bg-gray-100 p-3 rounded text-sm text-red-600 overflow-x-auto"><code>ip tunnel add tun6to4 mode sit remote any local YOUR_IPV4_ADDRESS ttl 255</code></pre>
+            <button onclick="copyCode('code1')" class="absolute top-2 right-2 text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700">Copy</button>
+          </div>
+          <div class="relative">
+            <pre id="code2" class="bg-gray-100 p-3 rounded text-sm text-red-600 overflow-x-auto"><code>ip addr add 2002:YOUR_IPV4_HEX::1/16 dev tun6to4</code></pre>
+            <button onclick="copyCode('code2')" class="absolute top-2 right-2 text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700">Copy</button>
+          </div>
+          <div class="relative">
+            <pre id="code3" class="bg-gray-100 p-3 rounded text-sm text-red-600 overflow-x-auto"><code>ip link set tun6to4 up
 ip -6 route add ::/0 dev tun6to4</code></pre>
-                        <li><strong>Test Connectivity:</strong> Use <code>ping6 google.com</code> to confirm IPv6
-                            access.
-                        </li>
-                    </ul>
-                </li>
+            <button onclick="copyCode('code3')" class="absolute top-2 right-2 text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700">Copy</button>
+          </div>
 
-                <li><strong>Using Teredo:</strong>
-                    <p>Teredo is a tunneling protocol that allows IPv6 connectivity even when behind NAT. It
-                        encapsulates IPv6 packets inside UDP.</p>
-                    <ul>
-                        <li><strong>Install and Enable Teredo:</strong> Different operating systems handle Teredo
-                            differently.
-                        </li>
-                        <li><strong>For Windows:</strong> Open a command prompt as Administrator and run:</li>
-                        <pre><code>netsh interface teredo set state client</code></pre>
-                        <li>Check Teredo status with:</li>
-                        <pre><code>netsh interface teredo show state</code></pre>
-                        <li><strong>For Linux:</strong> Install <code>miredo</code> (Teredo client) with:</li>
-                        <pre><code>sudo apt install miredo</code></pre>
-                        <li>Start the service:</li>
-                        <pre><code>sudo systemctl start miredo</code></pre>
-                        <li><strong>Ensure Firewall Allows Teredo:</strong> UDP port 3544 must be open:</li>
-                        <pre><code>sudo ufw allow 3544/udp</code></pre>
-                        <li><strong>Test IPv6 Connectivity:</strong> Run:</li>
-                        <pre><code>ping6 ipv6.google.com</code></pre>
-                    </ul>
-                </li>
+          <h3 class="font-semibold">Using Teredo</h3>
+          <div class="relative">
+            <pre id="code4" class="bg-gray-100 p-3 rounded text-sm text-red-600 overflow-x-auto"><code>netsh interface teredo set state client</code></pre>
+            <button onclick="copyCode('code4')" class="absolute top-2 right-2 text-xs bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700">Copy</button>
+          </div>
+          <div class="relative">
+            <pre id="code5" class="bg-gray-100 p-3 rounded text-sm text-red-600 overflow-x-auto"><code>netsh interface teredo show state</code></pre>
+            <button onclick="copyCode('code5')" class="absolute top-2 right-2 text-xs bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700">Copy</button>
+          </div>
+          <div class="relative">
+            <pre id="code6" class="bg-gray-100 p-3 rounded text-sm text-red-600 overflow-x-auto"><code>sudo apt install miredo
+sudo systemctl start miredo
+sudo ufw allow 3544/udp</code></pre>
+            <button onclick="copyCode('code6')" class="absolute top-2 right-2 text-xs bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700">Copy</button>
+          </div>
 
-                <li><strong>Using Cloudflare Tunnels for SSH:</strong>
-                    <p>Cloudflare's Argo Tunnel allows you to securely expose your SSH service via a domain, eliminating
-                        the need for port forwarding.</p>
-                    <ul>
-                        <li><strong>Sign Up for Cloudflare:</strong> Create an account at <a
-                                href="https://www.cloudflare.com">Cloudflare</a> and add your domain.
-                        </li>
-                        <li><strong>Install Cloudflared on Your Server:</strong></li>
-                        <pre><code>sudo apt install cloudflared</code></pre>
-                        <li><strong>Authenticate Cloudflared:</strong> Run:</li>
-                        <pre><code>cloudflared tunnel login</code></pre>
-                        <li>Follow the authentication link provided in the output.</li>
-                        <li><strong>Create a Tunnel for SSH:</strong></li>
-                        <pre><code>cloudflared tunnel create my-ssh-tunnel</code></pre>
-                        <li><strong>Route the Tunnel to Your SSH Server:</strong></li>
-                        <pre><code>cloudflared tunnel route ip my-ssh-tunnel 127.0.0.1</code></pre>
-                        <li><strong>Configure the Tunnel in a Config File:</strong></li>
-                        <pre><code>sudo mkdir -p /etc/cloudflared/
+          <h3 class="font-semibold">Using Cloudflare Tunnels for SSH</h3>
+          <div class="relative">
+            <pre id="code7" class="bg-gray-100 p-3 rounded text-sm text-red-600 overflow-x-auto"><code>sudo apt install cloudflared
+cloudflared tunnel login
+cloudflared tunnel create my-ssh-tunnel
+cloudflared tunnel route ip my-ssh-tunnel 127.0.0.1</code></pre>
+            <button onclick="copyCode('code7')" class="absolute top-2 right-2 text-xs bg-purple-600 text-white px-2 py-1 rounded hover:bg-purple-700">Copy</button>
+          </div>
+          <div class="relative">
+            <pre id="code8" class="bg-gray-100 p-3 rounded text-sm text-red-600 overflow-x-auto"><code>sudo mkdir -p /etc/cloudflared/
 sudo nano /etc/cloudflared/config.yml</code></pre>
-                        <p>Add the following content to the config file:</p>
-                        <pre><code>tunnel: my-ssh-tunnel
+            <button onclick="copyCode('code8')" class="absolute top-2 right-2 text-xs bg-purple-600 text-white px-2 py-1 rounded hover:bg-purple-700">Copy</button>
+          </div>
+          <div class="relative">
+            <pre id="code9" class="bg-gray-100 p-3 rounded text-sm text-red-600 overflow-x-auto"><code>tunnel: my-ssh-tunnel
 credentials-file: /root/.cloudflared/my-ssh-tunnel.json
 
 ingress:
   - hostname: ssh.example.com
     service: ssh://localhost:22
   - service: http_status:404</code></pre>
-                        <li><strong>Start the Cloudflare Tunnel:</strong></li>
-                        <pre><code>cloudflared tunnel run my-ssh-tunnel</code></pre>
-                        <li><strong>Update Cloudflare DNS:</strong> Add a CNAME record in Cloudflare pointing <code>ssh.example.com</code>
-                            to <code>my-ssh-tunnel</code>.
-                        </li>
-                        <li><strong>Connect to SSH via Cloudflare Tunnel:</strong> Use the following command from a
-                            client machine:
-                        </li>
-                        <pre><code>ssh -o ProxyCommand="cloudflared access ssh --hostname ssh.example.com" user@ssh.example.com</code></pre>
-                        <li><strong>Verify Connection:</strong> If successful, you should now be able to SSH into your
-                            server using the Cloudflare tunnel.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
+            <button onclick="copyCode('code9')" class="absolute top-2 right-2 text-xs bg-purple-600 text-white px-2 py-1 rounded hover:bg-purple-700">Copy</button>
+          </div>
+          <div class="relative">
+            <pre id="code10" class="bg-gray-100 p-3 rounded text-sm text-red-600 overflow-x-auto"><code>cloudflared tunnel run my-ssh-tunnel</code></pre>
+            <button onclick="copyCode('code10')" class="absolute top-2 right-2 text-xs bg-purple-600 text-white px-2 py-1 rounded hover:bg-purple-700">Copy</button>
+          </div>
+          <div class="relative">
+            <pre id="code11" class="bg-gray-100 p-3 rounded text-sm text-red-600 overflow-x-auto"><code>ssh -o ProxyCommand="cloudflared access ssh --hostname ssh.example.com" user@ssh.example.com</code></pre>
+            <button onclick="copyCode('code11')" class="absolute top-2 right-2 text-xs bg-purple-600 text-white px-2 py-1 rounded hover:bg-purple-700">Copy</button>
+          </div>
         </div>
+      </div>
     </div>
 
-    <div class="accordion-item" onclick="toggleAccordion(this)">
-        <div class="accordion-title">Generating an SSH Key</div>
-        <div class="accordion-content">
-            <p>Follow these steps to generate an SSH key pair for secure authentication:</p>
-            <ul>
-                <li><strong>Using OpenSSH (Linux/macOS/Windows with OpenSSH):</strong>
-                    <ul>
-                        <li>Open a terminal and run:
-                            <pre><code>ssh-keygen -t rsa -b 4096 -C "your_email@example.com"</code></pre>
-                        </li>
-                        <li>Press <kbd>Enter</kbd> to save the key in the default location (<code>~/.ssh/id_rsa</code>),
-                            or specify a custom path.
-                        </li>
-                        <li>Optionally, enter a passphrase for extra security (recommended).</li>
-                        <li>Your public key is stored as <code>~/.ssh/id_rsa.pub</code>. Share this key securely with
-                            the remote server.
-                        </li>
-                    </ul>
-                    <strong>Troubleshooting:</strong>
-                    <ul>
-                        <li><strong>Command not found?</strong> Install OpenSSH:
-                            <pre><code>sudo apt install openssh-client  # Debian/Ubuntu</code></pre>
-                            <pre><code>brew install openssh  # macOS (Homebrew)</code></pre>
-                        </li>
-                        <li><strong>Permission issues?</strong> Ensure your <code>~/.ssh</code> directory has the
-                            correct permissions:
-                            <pre><code>chmod 700 ~/.ssh && chmod 600 ~/.ssh/id_rsa</code></pre>
-                        </li>
-                    </ul>
-                </li>
-                <li><strong>Using PuTTY (Windows):</strong>
-                    <ul>
-                        <li>Download and open <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTYgen</a>.
-                        </li>
-                        <li>Select <strong>RSA</strong> and set the key size to <strong>4096 bits</strong>.</li>
-                        <li>Click "Generate" and move your mouse randomly in the blank area to create entropy.</li>
-                        <li>Once generated, save the private key as a <code>.ppk</code> file.</li>
-                        <li>Copy and save the public key for use on the server.</li>
-                    </ul>
-                    <strong>Troubleshooting:</strong>
-                    <ul>
-                        <li><strong>Cannot connect with PuTTY?</strong> Ensure your private key is converted to OpenSSH
-                            format:
-                            <pre><code>puttygen private.ppk -O private-openssh -o id_rsa</code></pre>
-                        </li>
-                        <li><strong>Key authentication failing?</strong> Verify that the public key is correctly added
-                            to <code>~/.ssh/authorized_keys</code> on the remote server.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+    <div class="mt-10 bg-orange-50 border-l-4 border-orange-500 p-6 rounded-lg">
+      <h3 class="text-xl font-bold text-orange-600 mb-2">Still Need Help?</h3>
+      <p class="mb-3">Include the following when contacting us:</p>
+      <ul class="list-disc pl-6 text-gray-700 space-y-1">
+        <li>Operating system and version</li>
+        <li>Commands executed and output (or screenshots)</li>
+        <li>Full error messages and steps to reproduce</li>
+      </ul>
+      <p class="mt-3">Visit our <a href="../index.html#contact" class="text-blue-600 underline hover:text-blue-800">Contact Us</a> page.</p>
     </div>
 
-    <div class="accordion-item" onclick="toggleAccordion(this)">
-        <div class="accordion-title">Using Your SSH Key</div>
-        <div class="accordion-content">
-            <p>Follow these steps to SSH into a server using your key:</p>
-            <ul>
-                <li><strong>Connect to the Server:</strong>
-                    <ul>
-                        <li>Use the following command: <code>ssh -i ~/.ssh/id_rsa username@your-server-ip</code></li>
-                        <li>If your key is stored in the default location, you can simply run: <code>ssh
-                            username@your-server-ip</code></li>
-                    </ul>
-                </li>
-                <li><strong>Using PuTTY (Windows):</strong>
-                    <ul>
-                        <li>Download <a href="https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html">PuTTY</a>
-                            if you haven’t already.
-                        </li>
-                        <li>Open PuTTY and navigate to <code>Connection → SSH → Auth</code>.</li>
-                        <li>Click "Browse" and select your private key file (.ppk).</li>
-                        <li>Go back to "Session", enter your server IP, and click "Open".</li>
-                        <li>Log in with your username when prompted.</li>
-                    </ul>
-                </li>
-                <li><strong>Verify Connection:</strong>
-                    <ul>
-                        <li>If successful, you should see a shell prompt on the server.</li>
-                        <li>If denied, ensure your public key is added to <code>~/.ssh/authorized_keys</code> on the
-                            server:
-                        </li>
-                        <ul>
-                            <li>Run: <code>cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys</code></li>
-                            <li>Ensure correct permissions: <code>chmod 600 ~/.ssh/authorized_keys</code></li>
-                        </ul>
-                        <li>Check SSH folder permissions:</li>
-                        <ul>
-                            <li>Run: <code>chmod 700 ~/.ssh</code> (makes sure the directory is secure).</li>
-                            <li>Run: <code>chmod 600 ~/.ssh/id_rsa</code> (restricts private key access).</li>
-                        </ul>
-                        <li>Restart SSH service on the server (if you have access): <code>sudo systemctl restart
-                            ssh</code></li>
-                        <li>Ensure the SSH server is listening on the correct port (default is 22):</li>
-                        <ul>
-                            <li>Check with: <code>sudo netstat -tulnp | grep ssh</code></li>
-                            <li>If SSH is running on a different port, connect using: <code>ssh -p PORT
-                                username@your-server-ip</code></li>
-                        </ul>
-                        <li>Check for any firewall rules blocking SSH:</li>
-                        <ul>
-                            <li>On Ubuntu/Debian: <code>sudo ufw status</code></li>
-                            <li>On CentOS/RHEL: <code>sudo firewall-cmd --list-all</code></li>
-                            <li>Ensure SSH is allowed: <code>sudo ufw allow OpenSSH</code></li>
-                        </ul>
-                        <li>Confirm the SSH daemon is configured correctly:</li>
-                        <ul>
-                            <li>Check <code>/etc/ssh/sshd_config</code> for settings like <code>PermitRootLogin</code>
-                                and <code>PubkeyAuthentication</code>.
-                            </li>
-                            <li>Restart SSH after changes: <code>sudo systemctl restart ssh</code></li>
-                        </ul>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+    <div class="mt-8 text-center">
+      <a href="../docs.html" class="inline-block px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition">← Back to Docs Selection</a>
     </div>
+  </div>
 
-    <!-- Still Need Help Section -->
-    <div class="help-section">
-        <h3>Still Need Help?</h3>
-        <p>If you're still experiencing issues, please reach out to us for further assistance. It helps us troubleshoot
-            faster if you can provide the following information:</p>
-        <ul>
-            <li>Your operating system and version (e.g., Ubuntu 20.04, CentOS 8, Windows 10).</li>
-            <li>The commands you executed and the output (screenshots are helpful).</li>
-            <li>A detailed description of the issue you're experiencing.</li>
-            <li>Any error messages you are seeing.</li>
-        </ul>
-        <p>For more help, visit our <a href="../index.html#contact">Contact Us</a> page.</p>
-    </div>
-</div>
-
-<div class="button-container">
-    <a class="back-button" href="../docs.html">Back to Docs Selection</a>
-</div>
-
-<script>
-    function toggleAccordion(element) {
-        var content = element.querySelector(".accordion-content");
-        var isActive = element.classList.contains("active");
-
-        var allItems = document.querySelectorAll(".accordion-item");
-        allItems.forEach(function (item) {
-            item.classList.remove("active");
-            item.querySelector(".accordion-content").style.display = "none";
-        });
-
-        if (!isActive) {
-            element.classList.add("active");
-            content.style.display = "block";
-        }
+  <script>
+    function toggleAccordion(button) {
+      const content = button.nextElementSibling;
+      const allContents = document.querySelectorAll('.accordion-item > div:nth-child(2)');
+      allContents.forEach(c => c.classList.add('hidden'));
+      content.classList.toggle('hidden');
     }
-</script>
+
+    function copyCode(id) {
+      const code = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        showToast("Copied to clipboard!");
+      }).catch(() => {
+        showToast("Failed to copy.");
+      });
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+      }, 2000);
+    }
+  </script>
 </body>
 </html>
