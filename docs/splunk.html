@@ -1,219 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Splunk User Documentation</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7f9;
-            color: #333;
-        }
-        .container {
-            background: white;
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .accordion-item {
-            background: #e9f5fc;
-            margin: 10px 0;
-            padding: 15px;
-            border-left: 4px solid #3498db;
-            border-radius: 5px;
-            transition: transform 0.3s;
-            cursor: pointer;
-        }
-        .accordion-item:hover {
-            transform: scale(1.02);
-        }
-        .accordion-item.active {
-            background: #d8eff8;
-        }
-        .accordion-title {
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        .accordion-content {
-            display: none;
-            margin-top: 10px;
-            padding-left: 20px;
-            color: #555;
-        }
-        .accordion-content ul {
-            list-style: disc;
-            padding-left: 25px;
-            margin-top: 10px;
-            line-height: 1.6;
-        }
-        code {
-            background: #f4f4f4;
-            padding: 3px 6px;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-            color: #c7254e;
-        }
-        pre {
-            background: #f4f4f4;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
-            font-size: 14px;
-            line-height: 1.5;
-            text-align: left;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        .back-button {
-            display: inline-block;
-            margin: 30px auto;
-            padding: 10px 20px;
-            background-color: #5da9e9;
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            border-radius: 5px;
-            border: none;
-            font-weight: bold;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-            transition: background 0.3s;
-        }
-        .back-button:hover {
-            background-color: #4a90d9;
-        }
-
-                .help-section {
-            background: #f8f9fa;
-            border-left: 4px solid #fd7e14;
-            padding: 20px;
-            border-radius: 5px;
-            margin-top: 30px;
-        }
-        .help-section h3 {
-            color: #fd7e14;
-        }
-
-                .button-container {
-            text-align: center;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Splunk User Documentation | Backyard Bandwidth</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <h2>Splunk User Documentation</h2>
+<body class="bg-gray-100 text-gray-800">
 
-        <div class="accordion-item" onclick="toggleAccordion(this)">
-            <div class="accordion-title">1. What is Splunk?</div>
-            <div class="accordion-content">
-                <p>Splunk is a powerful platform used for searching, monitoring, and analyzing machine-generated big data via a web-style interface. It helps you visualize and make sense of data from various sources such as application logs, system metrics, and network traffic.</p>
+  <!-- Toast -->
+  <div id="toast" class="fixed top-4 right-4 bg-gray-800 text-white text-sm px-4 py-2 rounded shadow-lg opacity-0 transition-opacity duration-300 z-50 pointer-events-none">
+    Copied to clipboard!
+  </div>
+
+  <div class="max-w-4xl mx-auto my-12 p-6 bg-white rounded-2xl shadow-lg">
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Splunk User Documentation</h1>
+
+    <!-- Accordion Item Template -->
+    <div class="space-y-4">
+
+      <div class="accordion-item border-l-4 border-blue-500 bg-blue-50 rounded-md shadow hover:shadow-md transition">
+        <button onclick="toggleAccordion(this)" class="w-full text-left px-4 py-3 font-semibold text-lg text-blue-700">1. What is Splunk?</button>
+        <div class="hidden px-4 pb-4">
+          <p>Splunk is a powerful platform used for searching, monitoring, and analyzing machine-generated big data via a web-style interface. It helps you visualize and make sense of data from various sources such as application logs, system metrics, and network traffic.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item border-l-4 border-green-500 bg-green-50 rounded-md shadow hover:shadow-md transition">
+        <button onclick="toggleAccordion(this)" class="w-full text-left px-4 py-3 font-semibold text-lg text-green-700">2. How to Log In</button>
+        <div class="hidden px-4 pb-4">
+          <ul class="list-disc pl-6">
+            <li>Open your browser and visit: <code class="bg-gray-200 px-1 rounded">https://splunk.backyardbandwidth.com:8000</code></li>
+            <li>Enter your username and password provided at time of purchase.</li>
+            <li>Click <strong>Login</strong> to access your dashboard.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion-item border-l-4 border-yellow-500 bg-yellow-50 rounded-md shadow hover:shadow-md transition">
+        <button onclick="toggleAccordion(this)" class="w-full text-left px-4 py-3 font-semibold text-lg text-yellow-700">3. Understanding Ingestion</button>
+        <div class="hidden px-4 pb-4">
+          <p><strong>Ingestion</strong> means collecting and storing data from sources like logs or traffic.</p>
+          <ul class="list-disc pl-6">
+            <li>Data is broken into events and stored in indexes.</li>
+            <li>Only ingested data is searchable or visualized in Splunk.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion-item border-l-4 border-purple-500 bg-purple-50 rounded-md shadow hover:shadow-md transition">
+        <button onclick="toggleAccordion(this)" class="w-full text-left px-4 py-3 font-semibold text-lg text-purple-700">4. How to Search Data</button>
+        <div class="hidden px-4 pb-4">
+          <ul class="list-disc pl-6">
+            <li>Go to the Search & Reporting app.</li>
+            <li>Run a query like:</li>
+            <div class="relative mb-2">
+              <pre id="code1" class="bg-gray-100 text-red-600 p-3 rounded text-sm overflow-x-auto"><code>index=[PROVIDED INDEX NAME] [SEARCH QUERY]</code></pre>
+              <button onclick="copyCode('code1')" class="absolute top-2 right-2 text-xs bg-purple-600 text-white px-2 py-1 rounded hover:bg-purple-700">Copy</button>
             </div>
-        </div>
-
-        <div class="accordion-item" onclick="toggleAccordion(this)">
-            <div class="accordion-title">2. How to Log In</div>
-            <div class="accordion-content">
-                <ul>
-                    <li>Open your web browser and go to the Splunk URL provided by your organization (e.g., <code>https://splunk.backyardbandwidth.com:8000</code>).</li>
-                    <li>Enter your username and password that was provided to you at time of purchase.</li>
-                    <li>Click on <strong>Login</strong> to access the Splunk dashboard.</li>
-                </ul>
+            <li>Example:</li>
+            <div class="relative">
+              <pre id="code2" class="bg-gray-100 text-red-600 p-3 rounded text-sm overflow-x-auto"><code>index=abc application</code></pre>
+              <button onclick="copyCode('code2')" class="absolute top-2 right-2 text-xs bg-purple-600 text-white px-2 py-1 rounded hover:bg-purple-700">Copy</button>
             </div>
+          </ul>
         </div>
+      </div>
 
-        <div class="accordion-item" onclick="toggleAccordion(this)">
-            <div class="accordion-title">3. Understanding Ingestion</div>
-            <div class="accordion-content">
-                <p><strong>Ingestion</strong> in Splunk means collecting and storing data from different sources, like application logs or network traffic, into the Splunk index for searching and analysis.</p>
-                <ul>
-                    <li>Data is broken down into events and stored in indexes for efficient searching.</li>
-                    <li>Only data that is ingested can be searched or visualized in Splunk.</li>
-                </ul>
+      <div class="accordion-item border-l-4 border-pink-500 bg-pink-50 rounded-md shadow hover:shadow-md transition">
+        <button onclick="toggleAccordion(this)" class="w-full text-left px-4 py-3 font-semibold text-lg text-pink-700">5. How to Ingest a Certain Amount of Data</button>
+        <div class="hidden px-4 pb-4">
+          <ul class="list-disc pl-6">
+            <li>Admins configure source ingestion.</li>
+            <li>To limit search results:</li>
+            <div class="relative">
+              <pre id="code3" class="bg-gray-100 text-red-600 p-3 rounded text-sm overflow-x-auto"><code>index=main | head 100</code></pre>
+              <button onclick="copyCode('code3')" class="absolute top-2 right-2 text-xs bg-pink-600 text-white px-2 py-1 rounded hover:bg-pink-700">Copy</button>
             </div>
+            <li>This shows the first 100 events.</li>
+          </ul>
         </div>
+      </div>
 
-        <div class="accordion-item" onclick="toggleAccordion(this)">
-            <div class="accordion-title">4. How to Search Data</div>
-            <div class="accordion-content">
-                <ul>
-                    <li>Go to the Search & Reporting app from the main dashboard.</li>
-                    <li>In the search bar, type the query to find the data you need, such as:
-                        <pre><code>index=[PROVIDED INDEX NAME] [SEARCH QUERY]</code></pre> for example searching through index abc for the query "application": <pre><code>index=abc application</code></pre>
-                    </li>
-                    <li>To search within a time range, use the time picker on the top right corner.</li>
-                    <li>Use filters and fields to refine your search results.</li>
-                </ul>
-            </div>
+      <div class="accordion-item border-l-4 border-indigo-500 bg-indigo-50 rounded-md shadow hover:shadow-md transition">
+        <button onclick="toggleAccordion(this)" class="w-full text-left px-4 py-3 font-semibold text-lg text-indigo-700">6. Creating Simple Dashboards</button>
+        <div class="hidden px-4 pb-4">
+          <ul class="list-disc pl-6">
+            <li>Run a search in the Search & Reporting app.</li>
+            <li>Click "Save As" → "Dashboard Panel".</li>
+            <li>Name it and choose/create a dashboard.</li>
+            <li>Click Save.</li>
+          </ul>
         </div>
-
-        <div class="accordion-item" onclick="toggleAccordion(this)">
-            <div class="accordion-title">5. How to Ingest a Certain Amount of Data</div>
-            <div class="accordion-content">
-                <ul>
-                    <li>Splunk ingests data based on the sources configured by the administrator.</li>
-                    <li>As a user, you can limit search results to a specific amount using:
-                        <pre><code>index=main | head 100</code></pre>
-                    </li>
-                    <li>This command shows the first 100 events matching the search criteria.</li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="accordion-item" onclick="toggleAccordion(this)">
-            <div class="accordion-title">6. Creating Simple Dashboards</div>
-            <div class="accordion-content">
-                <ul>
-                    <li>From the Search & Reporting app, run your search query.</li>
-                    <li>Click on "Save As" and select "Dashboard Panel."</li>
-                    <li>Provide a title and description, then choose an existing dashboard or create a new one.</li>
-                    <li>Click on "Save" to add the visualization to your dashboard.</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Still Need Help Section -->
-        <div class="help-section">
-            <h3>Still Need Help?</h3>
-            <p>If you're still experiencing issues, please reach out to us. It helps to provide:</p>
-            <ul>
-                <li>A description of the issue you're experiencing.</li>
-                <li>The search query you're using, if applicable.</li>
-                <li>Any error messages you're seeing.</li>
-            </ul>
-            <p>For more help, visit our <a href="../index.html#contact">Contact Us</a> page.</p>
-        </div>
-
+      </div>
     </div>
 
-        <div class="button-container">
-        <a href="../docs.html" class="back-button">Back to Docs Selection</a>
+    <!-- Help Section -->
+    <div class="mt-10 bg-orange-50 border-l-4 border-orange-500 p-6 rounded-lg">
+      <h3 class="text-xl font-bold text-orange-600 mb-2">Still Need Help?</h3>
+      <p class="mb-3">Please reach out and include:</p>
+      <ul class="list-disc pl-6 space-y-1 text-gray-700">
+        <li>A description of the issue.</li>
+        <li>The search query used, if applicable.</li>
+        <li>Any error messages seen.</li>
+      </ul>
+      <p class="mt-3">Visit our <a class="text-blue-600 underline hover:text-blue-800" href="../index.html#contact">Contact Us</a> page for support.</p>
     </div>
 
-    <script>
-        function toggleAccordion(element) {
-            var content = element.querySelector(".accordion-content");
-            var isActive = element.classList.contains("active");
+    <div class="mt-8 text-center">
+      <a href="../docs.html" class="inline-block px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition">← Back to Docs Selection</a>
+    </div>
+  </div>
 
-            // Close all accordion items
-            var allItems = document.querySelectorAll(".accordion-item");
-            allItems.forEach(function(item) {
-                item.classList.remove("active");
-                item.querySelector(".accordion-content").style.display = "none";
-            });
+  <!-- Scripts -->
+  <script>
+    function toggleAccordion(button) {
+      const content = button.nextElementSibling;
+      const allContents = document.querySelectorAll('.accordion-item > div:nth-child(2)');
+      allContents.forEach(c => c.classList.add('hidden'));
+      content.classList.toggle('hidden');
+    }
 
-            // Toggle current item
-            if (!isActive) {
-                element.classList.add("active");
-                content.style.display = "block";
-            }
-        }
-    </script>
+    function copyCode(id) {
+      const code = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        showToast("Copied to clipboard!");
+      }).catch(() => {
+        showToast("Failed to copy.");
+      });
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+      }, 2000);
+    }
+  </script>
 </body>
 </html>
