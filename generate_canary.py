@@ -53,6 +53,10 @@ def get_signer_info():
             uid = parts[9]
 
     if key_id and fingerprint and uid:
+        with open("data/fingerprint.txt", "w") as fh:
+            fh.write(fingerprint)
+        with open("data/uid.txt", "w") as fh:
+            fh.write(uid)
         data["signed_by"] = {
             "uid": uid,
             "key_id": key_id,
