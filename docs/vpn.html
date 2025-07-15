@@ -1,206 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VPN Documentation</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7f9;
-            color: #333;
-        }
-        .container {
-            background: white;
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .accordion-item {
-            background: #e9f5fc;
-            margin: 10px 0;
-            padding: 15px;
-            border-left: 4px solid #3498db;
-            border-radius: 5px;
-            transition: transform 0.3s;
-            cursor: pointer;
-        }
-        .accordion-item:hover {
-            transform: scale(1.02);
-        }
-        .accordion-item.active {
-            background: #d8eff8;
-        }
-        .accordion-title {
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        .accordion-content {
-            display: none;
-            margin-top: 10px;
-            padding-left: 20px;
-            color: #555;
-        }
-        .accordion-content ul {
-            list-style: disc;
-            padding-left: 25px;
-            margin-top: 10px;
-            line-height: 1.6;
-        }
-        .accordion-content ul ul {
-            list-style: circle;
-            padding-left: 20px;
-        }
-        .accordion-content ul ul ul {
-            list-style: square;
-            padding-left: 20px;
-        }
-        code {
-            background: #f4f4f4;
-            padding: 3px 6px;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-            color: #c7254e;
-        }
-        pre {
-            background: #f4f4f4;
-            padding: 10px;
-            border-radius: 5px;
-            overflow-x: auto;
-            font-size: 14px;
-            line-height: 1.5;
-            text-align: left;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-        a {
-            color: #3498db;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        .back-button {
-            display: inline-block;
-            margin: 30px auto;
-            padding: 10px 20px;
-            background-color: #5da9e9;
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            border-radius: 5px;
-            border: none;
-            font-weight: bold;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
-            transition: background 0.3s;
-        }
-        .back-button:hover {
-            background-color: #4a90d9;
-        }
-        .button-container {
-            text-align: center;
-        }
-        .help-section {
-            background: #f8f9fa;
-            border-left: 4px solid #fd7e14;
-            padding: 20px;
-            border-radius: 5px;
-            margin-top: 30px;
-        }
-        .help-section h3 {
-            color: #fd7e14;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VPN Documentation | Backyard Bandwidth</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div id="vpn" class="container">
-        <h2>VPN Documentation</h2>
+<body class="bg-gray-100 text-gray-800">
 
-        <div class="accordion-item" onclick="toggleAccordion(this)">
-            <div class="accordion-title">1. Downloading the VPN Profile</div>
-            <div class="accordion-content">
-                <p>Visit <a href="../index.html#vpn-service-link">this link</a> to purchase and download a VPN profile from the Backyard Bandwidth website.</p>
-            </div>
-        </div>
+  <!-- Toast -->
+  <div id="toast" class="fixed top-4 right-4 bg-gray-800 text-white text-sm px-4 py-2 rounded shadow-lg opacity-0 transition-opacity duration-300 z-50 pointer-events-none">
+    Copied to clipboard!
+  </div>
 
-        <div class="accordion-item" onclick="toggleAccordion(this)">
-            <div class="accordion-title">2. Installing OpenVPN</div>
-            <div class="accordion-content">
-                <ul>
-                    <li>Windows: Download and install <a href="https://openvpn.net/community-downloads/">OpenVPN</a> or use our experimental <a href="https://github.com/PenetrumLLC/Backyard-Bandwidth-VPN-GUI/releases/download/v1/backyard-bandwidth-installer.exe">Backyard Bandwidth VPN GUI</a>.</li>
-                    <li>Linux: Install OpenVPN with: <code>sudo apt install openvpn</code> (Debian/Ubuntu) or <code>sudo yum install openvpn</code> (CentOS).</li>
-                    <li>Mac: Install using Homebrew: <code>brew install openvpn</code>.</li>
-                    <li>Android/iOS: Use <a href="https://play.google.com/store/apps/details?id=net.openvpn.openvpn">OpenVPN Connect</a> (Android) or <a href="https://apps.apple.com/us/app/openvpn-connect/id590379981">OpenVPN Connect</a> (iOS).</li>
-                </ul>
-            </div>
-        </div>
+  <div class="max-w-4xl mx-auto my-12 p-6 bg-white rounded-2xl shadow-lg">
+    <h1 class="text-3xl font-bold text-center mb-6">VPN Documentation</h1>
 
-        <div class="accordion-item" onclick="toggleAccordion(this)">
-            <div class="accordion-title">3. Configuring the VPN Client</div>
-            <div class="accordion-content">
-                <ul>
-                    <li>Windows: Place the .ovpn file in <code>C:\Program Files\OpenVPN\config\</code> and launch OpenVPN GUI or use our Backyard Bandwidth VPN GUI.</li>
-                    <li>Linux/Mac: Run <code>sudo openvpn --config /path/to/your-profile.ovpn</code>.</li>
-                    <li>Android/iOS: Import the .ovpn profile into OpenVPN Connect.</li>
-                </ul>
-            </div>
-        </div>
+    <!-- Accordion Section -->
+    <div class="space-y-4">
 
-        <div class="accordion-item" onclick="toggleAccordion(this)">
-            <div class="accordion-title">4. Connecting to the VPN</div>
-            <div class="accordion-content">
-                <ul>
-                    <li>Windows: Right-click OpenVPN GUI or Backyard Bandwidth VPN GUI and select "Connect."</li>
-                    <li>Linux/Mac: Run <code>sudo openvpn --config /path/to/your-profile.ovpn</code>.</li>
-                    <li>Android/iOS: Open the OpenVPN app and tap "Connect."</li>
-                </ul>
-            </div>
+      <div class="accordion-item border-l-4 border-blue-500 bg-blue-50 rounded-md shadow hover:shadow-md transition">
+        <button onclick="toggleAccordion(this)" class="w-full text-left px-4 py-3 font-semibold text-lg text-blue-700">1. Downloading the VPN Profile</button>
+        <div class="hidden px-4 pb-4">
+          <p>Visit <a href="../index.html#vpn-service-link" class="text-blue-600 underline hover:text-blue-800">this link</a> to purchase and download a VPN profile from the Backyard Bandwidth website.</p>
         </div>
+      </div>
 
-        <!-- Still Need Help Section -->
-        <div class="help-section">
-            <h3>Still Need Help?</h3>
-            <p>If you're still experiencing issues, please reach out to us for further assistance. It helps us troubleshoot faster if you can provide the following information:</p>
-            <ul>
-                <li>Your operating system and version (e.g., Windows 10, Ubuntu 20.04, macOS Monterey).</li>
-                <li>The version of OpenVPN or the VPN client you are using.</li>
-                <li>A detailed description of the issue you're experiencing.</li>
-                <li>Any error messages you are seeing.</li>
-            </ul>
-            <p>For more help, visit our <a href="../index.html#contact">Contact Us</a> page.</p>
+      <div class="accordion-item border-l-4 border-green-500 bg-green-50 rounded-md shadow hover:shadow-md transition">
+        <button onclick="toggleAccordion(this)" class="w-full text-left px-4 py-3 font-semibold text-lg text-green-700">2. Installing OpenVPN</button>
+        <div class="hidden px-4 pb-4">
+          <ul class="list-disc pl-6 space-y-2">
+            <li>Windows: Download from <a href="https://openvpn.net/community-downloads/" class="text-blue-600 underline hover:text-blue-800">OpenVPN</a> or use our <a href="https://github.com/PenetrumLLC/Backyard-Bandwidth-VPN-GUI/releases/download/v1/backyard-bandwidth-installer.exe" class="text-blue-600 underline">VPN GUI</a>.</li>
+            <li>Linux: Install with:
+              <div class="relative">
+                <pre id="code1" class="bg-gray-100 p-2 rounded text-sm text-red-600 overflow-x-auto"><code>sudo apt install openvpn</code></pre>
+                <button onclick="copyCode('code1')" class="absolute top-1 right-2 text-xs bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700">Copy</button>
+              </div>
+              or
+              <div class="relative mt-2">
+                <pre id="code2" class="bg-gray-100 p-2 rounded text-sm text-red-600 overflow-x-auto"><code>sudo yum install openvpn</code></pre>
+                <button onclick="copyCode('code2')" class="absolute top-1 right-2 text-xs bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700">Copy</button>
+              </div>
+            </li>
+            <li>Mac: <code class="bg-gray-200 px-1 rounded">brew install openvpn</code></li>
+            <li>Android/iOS: Use <a href="https://play.google.com/store/apps/details?id=net.openvpn.openvpn" class="text-blue-600 underline">OpenVPN Connect</a>.</li>
+          </ul>
         </div>
+      </div>
+
+      <div class="accordion-item border-l-4 border-yellow-500 bg-yellow-50 rounded-md shadow hover:shadow-md transition">
+        <button onclick="toggleAccordion(this)" class="w-full text-left px-4 py-3 font-semibold text-lg text-yellow-700">3. Configuring the VPN Client</button>
+        <div class="hidden px-4 pb-4">
+          <ul class="list-disc pl-6 space-y-2">
+            <li>Windows: Place the `.ovpn` file in:
+              <div class="relative">
+                <pre id="code3" class="bg-gray-100 p-2 rounded text-sm text-red-600 overflow-x-auto"><code>C:\Program Files\OpenVPN\config\</code></pre>
+                <button onclick="copyCode('code3')" class="absolute top-1 right-2 text-xs bg-yellow-600 text-white px-2 py-1 rounded hover:bg-yellow-700">Copy</button>
+              </div>
+            </li>
+            <li>Linux/Mac:
+              <div class="relative">
+                <pre id="code4" class="bg-gray-100 p-2 rounded text-sm text-red-600 overflow-x-auto"><code>sudo openvpn --config /path/to/your-profile.ovpn</code></pre>
+                <button onclick="copyCode('code4')" class="absolute top-1 right-2 text-xs bg-yellow-600 text-white px-2 py-1 rounded hover:bg-yellow-700">Copy</button>
+              </div>
+            </li>
+            <li>Android/iOS: Import into OpenVPN Connect.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion-item border-l-4 border-indigo-500 bg-indigo-50 rounded-md shadow hover:shadow-md transition">
+        <button onclick="toggleAccordion(this)" class="w-full text-left px-4 py-3 font-semibold text-lg text-indigo-700">4. Connecting to the VPN</button>
+        <div class="hidden px-4 pb-4">
+          <ul class="list-disc pl-6 space-y-2">
+            <li>Windows: Right-click the GUI and select "Connect."</li>
+            <li>Linux/Mac:
+              <div class="relative">
+                <pre id="code5" class="bg-gray-100 p-2 rounded text-sm text-red-600 overflow-x-auto"><code>sudo openvpn --config /path/to/your-profile.ovpn</code></pre>
+                <button onclick="copyCode('code5')" class="absolute top-1 right-2 text-xs bg-indigo-600 text-white px-2 py-1 rounded hover:bg-indigo-700">Copy</button>
+              </div>
+            </li>
+            <li>Android/iOS: Tap "Connect" in the app.</li>
+          </ul>
+        </div>
+      </div>
     </div>
 
-    <!-- Button to go back to Documentation Selection -->
-    <div class="button-container">
-        <a href="../docs.html" class="back-button">Back to Docs Selection</a>
+    <!-- Help Section -->
+    <div class="mt-10 bg-orange-50 border-l-4 border-orange-500 p-6 rounded-lg">
+      <h3 class="text-xl font-bold text-orange-600 mb-2">Still Need Help?</h3>
+      <p class="mb-3">Provide the following when contacting support:</p>
+      <ul class="list-disc pl-6 text-gray-700 space-y-1">
+        <li>Your OS and version (e.g., Windows 11, Ubuntu 22.04).</li>
+        <li>Version of OpenVPN or VPN client used.</li>
+        <li>A detailed description of the problem.</li>
+        <li>Any error messages you received.</li>
+      </ul>
+      <p class="mt-3">Visit our <a href="../index.html#contact" class="text-blue-600 underline hover:text-blue-800">Contact Us</a> page.</p>
     </div>
 
-    <script>
-        function toggleAccordion(element) {
-            var content = element.querySelector(".accordion-content");
-            var isActive = element.classList.contains("active");
+    <div class="mt-8 text-center">
+      <a href="../docs.html" class="inline-block px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-900 transition">← Back to Docs Selection</a>
+    </div>
+  </div>
 
-            // Close all accordion items
-            var allItems = document.querySelectorAll(".accordion-item");
-            allItems.forEach(function(item) {
-                item.classList.remove("active");
-                item.querySelector(".accordion-content").style.display = "none";
-            });
+  <!-- Scripts -->
+  <script>
+    function toggleAccordion(button) {
+      const content = button.nextElementSibling;
+      const allContents = document.querySelectorAll('.accordion-item > div:nth-child(2)');
+      allContents.forEach(c => c.classList.add('hidden'));
+      content.classList.toggle('hidden');
+    }
 
-            // Toggle current item
-            if (!isActive) {
-                element.classList.add("active");
-                content.style.display = "block";
-            }
-        }
-    </script>
+    function copyCode(id) {
+      const code = document.getElementById(id).innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        showToast("Copied to clipboard!");
+      }).catch(() => {
+        showToast("Failed to copy.");
+      });
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+      }, 2000);
+    }
+  </script>
 </body>
 </html>
