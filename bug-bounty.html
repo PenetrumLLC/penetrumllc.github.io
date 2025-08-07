@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bug Bounty Program | Backyard Bandwidth</title>
+  <link rel="icon" href="/icons/icon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body class="bg-white text-black font-sans">
+
+  <header class="bg-black text-white py-6 text-center">
+    <h1 class="text-3xl font-bold">Backyard Bandwidth Bug Bounty Program</h1>
+    <p class="mt-2 text-gray-300 text-sm">Privacy is our foundation. Help us keep it strong.</p>
+  </header>
+
+  <main class="max-w-3xl mx-auto p-6 space-y-10">
+
+    <section>
+      <h2 class="text-2xl font-bold mb-4">Scope</h2>
+      <p>We reward high-impact vulnerabilities affecting critical Backyard Bandwidth infrastructure. The following domains are currently in-scope:</p>
+      <ul class="list-disc list-inside mt-2 ml-4 text-gray-800">
+        <li><code>backyardbandwidth.com</code></li>
+        <li><code>api.backyardbandwidth.com</code></li>
+      </ul>
+      <p class="mt-2 text-sm text-gray-600">All other domains, systems, and assets are considered out-of-scope.</p>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-bold mb-4">Program Rules</h2>
+      <ul class="list-disc list-inside space-y-2 text-gray-800">
+        <li>Only impactful, real-world vulnerabilities will be considered for rewards.</li>
+        <li>Each submission must include steps to reproduce, affected systems, and a clear explanation of impact.</li>
+        <li>Automated tools are permitted, provided they do not disrupt or degrade service availability.</li>
+        <li>Do not engage in denial-of-service, brute-force, or attacks on systems you do not own.</li>
+        <li>Only the first valid report of a vulnerability is eligible for a reward.</li>
+        <li>The following are not eligible for rewards:
+          <ul class="list-disc list-inside ml-6 text-sm text-gray-700">
+            <li>Reflected XSS without demonstrable impact</li>
+            <li>Clickjacking with no sensitive action</li>
+            <li>Missing HTTP headers unless exploitable</li>
+            <li>Generic or scanner-generated results without validation</li>
+          </ul>
+        </li>
+        <li>All reward determinations are final and based on severity, impact, and originality.</li>
+      </ul>
+      <p class="text-sm text-gray-600 mt-2">CVSS scores and vectors are appreciated, but not required.</p>
+      <p class="text-sm text-gray-600 mt-2">We are unable to issue rewards to individuals or entities located in sanctioned countries or on government watchlists.</p>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-bold mb-4">Out-of-Scope Submissions</h2>
+      <ul class="list-disc list-inside text-gray-800">
+        <li>Social engineering, phishing, or physical attacks</li>
+        <li>Denial-of-service or rate-limiting tests</li>
+        <li>Reports that are speculative or not reproducible</li>
+        <li>Legally prohibited activities</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-bold mb-4">Safe Harbor</h2>
+      <p>
+        We value responsible disclosure and will not pursue legal action against security researchers acting in good faith and in accordance with this policy. If you accidentally access sensitive data, do not store, use, or share it — report it to us immediately.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-bold mb-4">Disclosure Policy</h2>
+      <p>
+        Please keep all bug reports confidential until we have acknowledged and remediated the issue. Our typical patch timeline is within 15 business days of acknowledgment.
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-bold mb-4">Rewards</h2>
+      <p>
+        Reward amounts are based on severity, impact, and originality. In general:
+      </p>
+      <ul class="list-disc list-inside ml-4 mt-2 text-gray-800">
+        <li>Low impact: $50–$150</li>
+        <li>Moderate: $200–$500</li>
+        <li>High: $750–$1,000+</li>
+      </ul>
+      <p class="mt-4 text-sm text-gray-700">
+        As a lean operation, some rewards may be issued as free service credits (VPN, VPS, or S3) at equivalent value. If a cash reward is promised and you’re eligible, we’ll work to honor it. However, please understand that budget constraints can sometimes delay or limit cash payouts.
+      </p>
+      <p class="mt-2 text-sm text-gray-600">
+        All valid reports are recognized on our Wall of Fame (anonymity optional).
+      </p>
+    </section>
+
+    <section>
+      <h2 class="text-2xl font-bold mb-4">Submit a Report</h2>
+      <form id="contact-form" class="space-y-4 bg-gray-50 border border-gray-200 p-6 rounded-lg shadow">
+        <div>
+          <label class="block font-medium mb-1" for="name">Your Name</label>
+          <input id="name" name="name" type="text" required class="w-full border border-gray-300 rounded px-3 py-2" />
+        </div>
+
+        <div>
+          <label class="block font-medium mb-1" for="email">Your Email</label>
+          <input id="email" name="email" type="email" required class="w-full border border-gray-300 rounded px-3 py-2" />
+        </div>
+
+        <div>
+          <input type="hidden" name="service" value="Bug Bounty">
+        </div>
+
+        <div>
+          <label class="block font-medium mb-1" for="message">Bug Description</label>
+          <textarea id="message" name="message" rows="6" required placeholder="Include reproduction steps, impact, affected components, and proof-of-concept if possible." class="w-full border border-gray-300 rounded px-3 py-2"></textarea>
+        </div>
+
+        <button type="submit" class="bg-black text-white px-6 py-2 rounded hover:bg-gray-900 transition">
+          Submit Report
+        </button>
+      </form>
+    </section>
+
+  </main>
+
+  <footer class="text-center text-sm text-gray-500 mt-12 mb-6">
+    &copy; Backyard Bandwidth. All rights reserved.
+  </footer>
+
+<script>
+  (function () {
+    emailjs.init("eQ0-mr5lNTl3d-Pdj");
+  })();
+
+  const form = document.getElementById("contact-form");
+  const submitButton = form.querySelector('button[type="submit"]');
+
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const message = document.getElementById("message").value.trim() || "N/A";
+    const selectedService = "Bug Bounty";
+
+    const templateParams = {
+      name: name,
+      email: email,
+      message: message,
+      subject: `Bug Bounty Submission - ${selectedService}`
+    };
+
+    submitButton.disabled = true;
+    submitButton.classList.add("bg-gray-400", "cursor-not-allowed");
+    submitButton.classList.remove("hover:bg-gray-900");
+    submitButton.textContent = "Please wait...";
+
+    const serviceId = "service_0qmh393";
+    const templateId = "template_7wznujh";
+
+    emailjs.send(serviceId, templateId, templateParams)
+      .then(() => {
+        alert("Your message has been sent successfully. We’ll be in touch shortly.");
+        form.reset();
+      })
+      .catch(() => {
+        alert("Failed to send. Please try again or email us directly at penetrumcorp@gmail.com.");
+      })
+      .finally(() => {
+        setTimeout(() => {
+          submitButton.disabled = false;
+          submitButton.classList.remove("bg-gray-400", "cursor-not-allowed");
+          submitButton.classList.add("hover:bg-gray-900");
+          submitButton.textContent = "Submit Report";
+        }, 30000);
+      });
+</script>
+
+</body>
+</html>

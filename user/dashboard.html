@@ -26,8 +26,6 @@
             }
         }
     </script>
-    <script defer data-domain="backyardbandwidth.com" src="https://plausible.io/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js"></script>
-<script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
 
 </head>
 <body class="bg-gray-100 font-mono" onload="renderDashboard()">
@@ -46,6 +44,9 @@
 
 
     <div class="flex items-center space-x-2">
+                <button class="bg-bGreen hover:bg-bGreenHover text-white px-4 py-2 rounded text-sm font-semibold" onclick="window.open('../policy-list.html', '_blank')">
+            Our Policies
+        </button>
 
         <!-- Reset password button -->
         <button class="bg-bLightBlue hover:bg-bLightBlueHover text-white px-4 py-2 rounded text-sm font-semibold"
@@ -78,56 +79,31 @@
 <div class="max-w-md mx-auto bg-white p-6 mt-6 rounded shadow hidden" id="reset-password-form">
     <h2 class="text-lg font-bold mb-4">Reset Password</h2>
     <div class="space-y-3">
-        <div class="relative">
-            <input class="w-full px-3 py-2 border rounded" id="reset-username" placeholder="Username" type="text"/>
-
-        </div>
-
-        <div class="relative">
-            <input class="w-full px-3 py-2 border rounded pr-10" id="reset-password" placeholder="New Password"
-                   type="password"/>
-            <span class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer hidden"
-                  id="password-toggle-wrapper"
-                  onclick="toggleBothPasswords(this)">
-  <img alt="Show Password" class="eye-open w-5 h-5 hidden" src="../icons/eye-open.webp">
-  <img alt="Hide Password" class="eye-closed w-5 h-5 inline" src="../icons/eye-closed.webp">
-</span>
-
-        </div>
-
-        <div class="relative">
-            <input class="w-full px-3 py-2 border rounded pr-10" id="reset-password-confirm"
-                   placeholder="Confirm Password"
-                   type="password"/>
-            <!--<span class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"-->
-            <!--      onclick="toggleVisibility(this, 'reset-password-confirm')">-->
-            <!--  <img src="icons/eye-open.webp" alt="Show Password" class="eye-open w-5 h-5">-->
-            <!--  <img src="icons/eye-closed.webp" alt="Hide Password" class="eye-closed w-5 h-5 hidden">-->
-            <!--</span>-->
-        </div>
+        <input class="w-full px-3 py-2 border rounded" id="reset-username" placeholder="Username" type="text" />
+        <input class="w-full px-3 py-2 border rounded" id="reset-password" placeholder="New Password" type="password" />
+        <input class="w-full px-3 py-2 border rounded" id="reset-password-confirm" placeholder="Confirm Password" type="password" />
 
         <div class="text-sm text-red-600" id="reset-error"></div>
         <div class="text-sm text-green-600" id="reset-success"></div>
-        <form onsubmit="submitPasswordReset(event)">
-            <div class="relative">
-                <button class="w-full bg-bLightBlueHover hover:bg-bDarkBlue text-white py-2 px-4 rounded font-semibold flex justify-center items-center gap-2"
-                        id="reset-btn"
-                        type="submit">
-                    <span id="reset-btn-text">Change Password</span>
-                    <svg class="hidden animate-spin h-5 w-5 text-white" fill="none"
-                         id="reset-spinner" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <circle class="opacity-25" cx="12" cy="12" r="10"
-                                stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 100 16 8 8 0 01-8-8z"
-                              fill="currentColor">
-                        </path>
-                    </svg>
-                </button>
-            </div>
-        </form>
 
+        <div class="relative">
+            <button class="w-full bg-bLightBlueHover hover:bg-bDarkBlue text-white py-2 px-4 rounded font-semibold flex justify-center items-center gap-2"
+                    id="reset-btn"
+                    onclick="submitPasswordReset()">
+                <span id="reset-btn-text">Change Password</span>
+                <svg class="hidden animate-spin h-5 w-5 text-white" fill="none"
+                     id="reset-spinner" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="opacity-25" cx="12" cy="12" r="10"
+                            stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 100 16 8 8 0 01-8-8z"
+                          fill="currentColor">
+                    </path>
+                </svg>
+            </button>
+        </div>
     </div>
 </div>
+
 
 <div class="flex justify-center space-x-4 mt-10">
     <button class="tab-button bg-black text-white px-4 py-2 rounded font-semibold" id="tab-invoices"
@@ -138,8 +114,16 @@
     </button>
     <button class="tab-button bg-bLightGrey hover:bg-bGreyHover px-4 py-2 rounded font-semibold"
             id="tab-shop" onclick="switchTab('shop')">
-        Marketplace
+        Coming Soon ...
     </button>
+<button class="tab-button bg-bLightGrey hover:bg-bGreyHover px-4 py-2 rounded font-semibold"
+        id="tab-downloads" onclick="window.open('downloads.html', '_blank')">
+    Downloads
+</button>
+    <button class="tab-button bg-bLightGrey hover:bg-bGreyHover px-4 py-2 rounded font-semibold"
+        id="tab-analysis" onclick="window.open('analyze.html', '_blank')">
+    File Analysis
+</button>
 
 </div>
 
@@ -172,10 +156,10 @@
     <section class="tab-content hidden col-span-1 md:col-span-2 bg-white p-8 rounded-2xl shadow-lg text-center space-y-6"
              id="tab-content-shop">
 
-        <h2 class="text-3xl font-bold text-bDarkBlue">🚧 Marketplace Coming Soon ...</h2>
+        <h2 class="text-3xl font-bold text-bDarkBlue">🚧 Coming Soon ...</h2>
 
         <p class="text-gray-600 max-w-xl mx-auto">
-            We're hard at work building the Marketplace. Here’s a preview of what we plan to offer (in no particular
+            We're hard at work building these. Here’s a preview of what we plan to offer (in no particular
             order):
         </p>
 
@@ -279,8 +263,17 @@
 
 </main>
 
-
 <script>
+(async () => {
+  let API_BASE_URL = "";
+  const res = await fetch("../data/env.json");
+  const config = await res.json();
+  const isDev = location.hostname.includes("localhost") || location.hostname === "127.0.0.1";
+  API_BASE_URL = isDev ? config.dev : config.prod;
+
+  // now call your renderDashboard safely
+  renderDashboard();
+})();
     const ITEMS_PER_PAGE = 10;
 
     function paginate(items, page, search = "") {
@@ -520,71 +513,101 @@
     }
 
 
-    function submitPasswordReset(event) {
-        if (event) event.preventDefault();
+async function submitPasswordReset() {
+    const username = document.getElementById("reset-username").value.trim();
+    const password = document.getElementById("reset-password").value;
+    const confirm = document.getElementById("reset-password-confirm").value;
+    const errorDiv = document.getElementById("reset-error");
+    const sucDiv = document.getElementById("reset-success");
+    const realCustomerUsername = document.getElementById("customer-username").textContent.trim();
 
-        const username = document.getElementById("reset-username").value.trim();
-        const password = document.getElementById("reset-password").value;
-        const confirm = document.getElementById("reset-password-confirm").value;
-        const errorDiv = document.getElementById("reset-error");
-        const sucDiv = document.getElementById("reset-success");
-        const realCustomerUsername = document.getElementById("customer-username").textContent.trim();
+    const btn = document.getElementById("reset-btn");
+    const spinner = document.getElementById("reset-spinner");
+    const btnText = document.getElementById("reset-btn-text");
 
-        const btn = document.getElementById("reset-btn");
-        const spinner = document.getElementById("reset-spinner");
-        const btnText = document.getElementById("reset-btn-text");
+    // Clear messages
+    errorDiv.textContent = "";
+    sucDiv.textContent = "";
 
-        // Clear old messages
-        errorDiv.textContent = "";
-        sucDiv.textContent = "";
-
-        // Basic validation
-        if (!username || !password || !confirm) {
-            errorDiv.textContent = "All fields are required.";
-            return;
-        }
-
-        if (password !== confirm) {
-            errorDiv.textContent = "Passwords do not match.";
-            return;
-        }
-
-        if (username !== realCustomerUsername.trim()) {
-            errorDiv.textContent = "That's not your username?";
-            return;
-        }
-
-        // Disable button and show spinner
-        btn.disabled = true;
-        spinner.classList.remove("hidden");
-        btnText.textContent = "Changing...";
-
-        fetch("https://api.backyardbandwidth.com/user/password", {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({username, password})
-        })
-            .then(res => {
-                if (!res.ok) throw new Error("Reset failed");
-                return res.json();
-            })
-            .then(data => {
-                if (data.success) {
-                    sucDiv.textContent = "Password reset successfully!";
-                } else {
-                    errorDiv.textContent = data.error?.msg || "Reset failed.";
-                }
-            })
-            .catch(err => {
-                console.error(err);
-                errorDiv.textContent = "Failed to reset password.";
-            })
-            .finally(() => {
-                btn.disabled = false;
-                spinner.classList.add("hidden");
-                btnText.textContent = "Change Password";
-            });
+    if (!username || !password || !confirm) {
+        errorDiv.textContent = "All fields are required.";
+        return;
     }
+
+    if (password !== confirm) {
+        errorDiv.textContent = "Passwords do not match.";
+        return;
+    }
+
+    if (username !== realCustomerUsername) {
+        errorDiv.textContent = "That's not your username?";
+        return;
+    }
+
+    // Show spinner
+    btn.disabled = true;
+    spinner.classList.remove("hidden");
+    btnText.textContent = "Changing...";
+
+    try {
+        // Get API base URL
+        const envRes = await fetch("../data/env.json");
+        const config = await envRes.json();
+        const isDev = location.hostname.includes("localhost") || location.hostname === "127.0.0.1";
+        const API_BASE_URL = isDev ? config.dev : config.prod;
+
+        // Parse token from localStorage
+        const raw = localStorage.getItem("dashboardData");
+        if (!raw) throw new Error("Not logged in.");
+        const token = JSON.parse(raw).data.token;
+
+        // Step 1: Get CSRF token with Authorization header
+        const csrfRes = await fetch(`${API_BASE_URL}/user/csrf`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${token}`
+            },
+            body: JSON.stringify({ username })
+        });
+
+        const csrfJson = await csrfRes.json();
+
+        if (!csrfJson.success || !csrfJson.data?.token) {
+            throw new Error(csrfJson.error?.msg || "Failed to get CSRF token");
+        }
+
+        const csrfToken = csrfJson.data.token;
+
+        // Step 2: Submit password reset
+        const res = await fetch(`${API_BASE_URL}/user/password`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${token}`,
+                "X-CSRF-Token": csrfToken
+            },
+            body: JSON.stringify({ username, password, csrf_token: csrfToken })
+        });
+
+        const result = await res.json();
+
+        if (result.success) {
+            sucDiv.textContent = "Password reset successfully!";
+        } else {
+            errorDiv.textContent = result.error?.msg || "Reset failed.";
+        }
+    } catch (err) {
+        console.error(err);
+        errorDiv.textContent = err.message || "An error occurred.";
+    } finally {
+        btn.disabled = false;
+        spinner.classList.add("hidden");
+        btnText.textContent = "Change Password";
+    }
+}
+
+
 
     function toggleVisibility(toggleElement, inputId) {
         const field = document.getElementById(inputId);
@@ -600,7 +623,7 @@
 
 
     function switchTab(tab) {
-        const tabs = ["invoices", "subscriptions", "shop"];
+        const tabs = ["invoices", "subscriptions", "shop", "downloads"];
 
         tabs.forEach(id => {
             const tabButton = document.getElementById(`tab-${id}`);
@@ -653,5 +676,6 @@
     }
 
 </script>
+<script src="../assets/js/session.js"></script>
 </body>
 </html>

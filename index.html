@@ -564,6 +564,7 @@
         <li><a href="#faq">FAQ</a></li>
         <li><a href="https://merch.backyardbandwidth.com/">Merch</a></li>
         <li><a href="user/login.html">Dashboard</a></li>
+        <li><a href="bug-bounty.html">Bug Bounty</a></li>
     </ul>
 </nav>
 
@@ -682,51 +683,56 @@
 <div id="cashModal" class="modal-overlay">
   <div class="modal-box">
     <span onclick="closeCashModal()" class="modal-close">&times;</span>
-    <h3 class="modal-header">Pay with Cash</h3>
+    <h3 class="modal-header">Pay with Cash (Step-by-Step)</h3>
 
-    <p class="modal-text">
-      ⚠️ <strong>This is a temporary solution</strong> while we create the user account uploads.<br>
-      <strong>Paying with cash guarantees anonymity and drops the price to $2.00/month.</strong><br>
-      Minimum of <strong>12 months</strong> of service at a time.
-    </p>
+    <hr style="margin-top: 1em; margin-bottom: 1em;">
 
-    <hr>
-
-    <ol class="modal-steps" style="list-style: none; padding-left: 0;">
+    <ol class="modal-steps" style="list-style: none; padding-left: 0; font-size: 1.05em;">
       <!-- Step 1 -->
       <li style="margin-bottom: 1.5em;">
-        ✅ <strong>Step 1: Choose service duration</strong><br>
+        ✅ <strong>Step 1: Pick how many months you want</strong><br>
+        (You MUST pay for at least <strong>12 months</strong>)<br>
         <input type="range" min="12" max="148" value="12" id="cashMonthSlider" oninput="updateCashPrice()" class="crypto-slider" style="width: 100%; margin-top: 0.5em;">
         <p class="price-summary" style="margin-top: 0.5em;">
-          <span id="cashMonthDisplay">12</span> months × $2.00 = <b>$<span id="cashTotalPrice">24.00</span></b>
+          You selected <b><span id="cashMonthDisplay">12</span> months</b> × $2.00 = <b>$<span id="cashTotalPrice">24.00</span></b>
         </p>
       </li>
 
       <!-- Step 2 -->
       <li style="margin-bottom: 1.5em;">
-        ✅ <strong>Step 2: Write a note with your email address</strong><br>
-        This is the email we’ll send your profile to.<br>
-        <strong>Tip:</strong> Use a one-time email address for maximum anonymity.
+        ✅ <strong>Step 2: Create or log in to your account</strong><br>
+        👉 <a href="https://backyardbandwidth.com/user/login" target="_blank" style="color: #0077cc; text-decoration: underline;">https://backyardbandwidth.com/user/login</a><br>
+        Your access profile will be uploaded there once payment is confirmed.
       </li>
 
       <!-- Step 3 -->
       <li style="margin-bottom: 1.5em;">
-        ✅ <strong>Step 3: Send exact cash amount</strong><br>
-        Send <strong>the exact amount</strong> shown above to:<br><br>
+        ✅ <strong>Step 3: Write a short note</strong><br>
+        On a piece of paper, write:<br>
+        Your <strong>username</strong><br>
+        How many <strong>months</strong> you're paying for<br>
+        Which <strong>server location</strong> you want access to<br>
+      </li>
+
+      <!-- Step 4 -->
+      <li style="margin-bottom: 1.5em">
+        ✅ <strong>Step 4: Mail your note + exact cash amount to:</strong><br><br>
         <pre style="background: #f4f4f4; padding: 1em; border-radius: 6px;">
 Penetrum LLC
 1319 F St NW Ste 301 PMB 365
 Washington, DC 20004
         </pre>
+        Be sure the cash matches the total shown above exactly (no coins).
       </li>
     </ol>
 
     <p style="margin-top: 1em; font-size: 0.95em; color: #555;">
-      <strong>Note:</strong> Cash payments may take up to 2 weeks to process.
-      If you do not receive your profile within two weeks, please <a href="#contact" style="color: #0077cc; text-decoration: underline;">contact us</a>.
+      <strong>Note:</strong> Cash takes time. We’ll upload your profile within <strong>2 weeks</strong> of receiving payment.<br>
+      If it’s been longer than 2 weeks, <a href="#contact" style="color: #0077cc; text-decoration: underline;">click here to contact us</a>.
     </p>
   </div>
 </div>
+
 
 
 

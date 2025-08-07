@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>View User - Backyard Bandwidth</title>
+  <link rel="icon" href="../icons/icon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bLightBlue: "#6ec1e4",
+            bLightBlueHover: "#008CCB",
+            bDarkBlue: "#2d6ea8",
+            bDarkGrey: "#1A1A1A",
+            bLightGrey: "#A8B1B7",
+            bGreen: "#4caf50",
+            bGreenHover: "#008000FF",
+            bRed: "#E33434",
+            bRedHover: "#972424"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100 font-mono">
+  <header class="w-full bg-black text-white flex items-center justify-between px-4 py-2 shadow-md">
+    <div class="flex items-center space-x-3">
+      <a href="admin-dashboard.html">
+        <img src="../icons/icon.png" alt="Logo" class="max-h-14 w-auto object-contain" />
+      </a>
+      <span class="text-lg font-bold tracking-wide">View User</span>
+    </div>
+  </header>
+
+  <main class="max-w-3xl mx-auto mt-10 bg-white p-6 rounded shadow space-y-6">
+    <div id="user-container" class="space-y-4 text-gray-800"></div>
+    <div id="error-msg" class="text-red-600 text-sm font-semibold"></div>
+    <a href="view.html" class="inline-block bg-bDarkGrey hover:bg-bDarkBlue text-white px-4 py-2 rounded mt-4">← Back to All Users</a>
+  </main>
+
+    <script src="assets/js/admin_session.js"></script>
+  <script>
+    const username = new URLSearchParams(window.location.search).get("u");
+    let API_BASE_URL = "";
+
+    async function init() {
+      if (!username) return showError("No username provided.");
+
+      try {
+        const res = await fetch("../data/env.json");
+        const config = await res.json();
+        API_BASE_URL = location.hostname.includes("localhost") || location.hostname === "127.0.0.1"
+          ? config.dev
+          : config.prod;
+      } catch (err) {
+        return showError("Failed to load configuration.");
+      }
+
+      const raw = localStorage.getItem("adminSession");
+      if (!raw) return showError("Admin session missing.");
+
+      const parsed = JSON.parse(raw);
+      const token = parsed?.token;
+      if (!token) return showError("Invalid admin token.");
+
+      try {
+        const result = await fetch(`${API_BASE_URL}/admin/users/view/single`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-token": token },
+          body: JSON.stringify({ username })
+        });
+
+        const data = await result.json();
+        if (!data.success) {
+          return showError(data.error?.msg || "Failed to load user data.");
+        }
+
+        renderUser(data.results);
+      } catch (err) {
+        showError("Network error occurred.");
+      }
+    }
+
+function renderUser(results) {
+  const { user_info, misc_info } = results;
+  const container = document.getElementById("user-container");
+  container.innerHTML = `
+    <h1 class="text-xl font-semibold"><u>User Info</u></h1>
+    <p><strong>Username:</strong> ${user_info.username}</p>
+    <p><strong>Email Hash:</strong> ${user_info.email_hash}</p>
+    <p><strong>Stripe ID:</strong> ${user_info.stripe_id}</p>
+
+    <h1 class="text-lg font-semibold mt-4"><u>Misc Info</u></h1>
+    <p><strong>Allowed Dev Actions:</strong> ${misc_info.allowed_dev_actions}</p>
+    <p><strong>Inbox Space:</strong> ${misc_info.inbox_space}</p>
+    <p><strong>Webhooks Allowed:</strong> ${misc_info.webhooks_allowed}</p>
+
+    <button
+      onclick="location.href='upload.html?u=${encodeURIComponent(user_info.username)}'"
+      class="mt-6 bg-bGreen hover:bg-bGreenHover text-white px-4 py-2 rounded shadow"
+    >
+      Upload to User
+    </button>
+  `;
+}
+
+
+    function showError(msg) {
+      document.getElementById("error-msg").textContent = msg;
+    }
+
+    init();
+  </script>
+</body>
+</html>

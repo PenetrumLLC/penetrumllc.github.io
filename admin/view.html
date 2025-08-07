@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View All Users - Backyard Bandwidth</title>
+  <link rel="icon" href="../icons/icon.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bLightBlue: "#6ec1e4",
+            bLightBlueHover: "#008CCB",
+            bDarkBlue: "#2d6ea8",
+            bDarkGrey: "#1A1A1A",
+            bLightGrey: "#A8B1B7",
+            bGreen: "#4caf50",
+            bGreenHover: "#008000FF",
+            bRed: "#E33434",
+            bRedHover: "#972424"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100 font-mono">
+  <header class="w-full bg-black text-white flex items-center justify-between px-4 py-2 shadow-md">
+    <div class="flex items-center space-x-3">
+      <a href="admin-dashboard.html">
+        <img src="../icons/icon.png" alt="Logo" class="max-h-14 w-auto object-contain" />
+      </a>
+      <span class="text-lg font-bold tracking-wide">View Users</span>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto mt-10 bg-white p-6 rounded shadow space-y-6">
+    <input type="text" id="search-box" placeholder="Search username..." class="w-full border px-4 py-2 rounded" />
+
+    <div id="user-list" class="space-y-4"></div>
+
+    <div class="flex justify-between items-center mt-6">
+      <button id="prev-btn" class="bg-bDarkGrey text-white px-4 py-2 rounded disabled:opacity-50">Previous</button>
+      <span id="page-info" class="text-sm text-gray-600"></span>
+      <button id="next-btn" class="bg-bDarkGrey text-white px-4 py-2 rounded disabled:opacity-50">Next</button>
+    </div>
+
+    <div id="error-msg" class="text-red-600 text-sm"></div>
+  </main>
+
+
+  <script src="assets/js/admin_session.js"></script>
+  <script>
+    let API_BASE_URL = "";
+    let allUsers = [];
+    let currentPage = 1;
+    const pageSize = 10;
+
+    async function init() {
+      const res = await fetch("../data/env.json");
+      const config = await res.json();
+      API_BASE_URL = location.hostname.includes("localhost") || location.hostname === "127.0.0.1"
+        ? config.dev
+        : config.prod;
+
+      const raw = localStorage.getItem("adminSession");
+      if (!raw) return showError("No session found.");
+
+      const parsed = JSON.parse(raw);
+      const token = parsed?.token;
+      if (!token) return showError("Invalid token.");
+
+      const result = await fetch(`${API_BASE_URL}/admin/users/view/all`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token })
+      });
+
+      const data = await result.json();
+      if (!data.success) return showError(data.error?.msg || "Failed to load users.");
+
+      allUsers = data.data.users;
+      renderUsers();
+    }
+
+    function renderUsers() {
+      const userList = document.getElementById("user-list");
+      const pageInfo = document.getElementById("page-info");
+      const searchVal = document.getElementById("search-box").value.toLowerCase();
+
+      const filtered = allUsers.filter(user =>
+        user.username.toLowerCase().includes(searchVal)
+      );
+
+      const totalPages = Math.ceil(filtered.length / pageSize);
+      if (currentPage > totalPages) currentPage = totalPages;
+
+      const start = (currentPage - 1) * pageSize;
+      const paginated = filtered.slice(start, start + pageSize);
+
+userList.innerHTML = paginated
+  .map(u => `
+    <div class="border rounded p-4 flex flex-col md:flex-row md:justify-between md:items-center gap-4">
+      <div>
+        <p><strong>Username:</strong> ${u.username}</p>
+        <p><strong>Stripe ID:</strong> ${u.stripe_id}</p>
+      </div>
+      <div class="flex flex-col sm:flex-row gap-2 sm:gap-4">
+        <a href="upload.html?u=${encodeURIComponent(u.username)}"
+           class="bg-bLightBlue hover:bg-bLightBlueHover text-white px-4 py-2 rounded text-center">
+          Upload to User
+        </a>
+        <a href="info.html?u=${encodeURIComponent(u.username)}"
+           class="bg-bLightGrey hover:bg-bDarkGrey text-white px-4 py-2 rounded text-center">
+          User Info
+        </a>
+      </div>
+    </div>
+  `)
+  .join("");
+
+
+      pageInfo.textContent = `Page ${currentPage} of ${totalPages || 1}`;
+      document.getElementById("prev-btn").disabled = currentPage === 1;
+      document.getElementById("next-btn").disabled = currentPage === totalPages || totalPages === 0;
+    }
+
+    function showError(msg) {
+      document.getElementById("error-msg").textContent = msg;
+    }
+
+    document.getElementById("search-box").addEventListener("input", () => {
+      currentPage = 1;
+      renderUsers();
+    });
+
+    document.getElementById("prev-btn").addEventListener("click", () => {
+      if (currentPage > 1) {
+        currentPage--;
+        renderUsers();
+      }
+    });
+
+    document.getElementById("next-btn").addEventListener("click", () => {
+      currentPage++;
+      renderUsers();
+    });
+
+    init();
+  </script>
+</body>
+</html>

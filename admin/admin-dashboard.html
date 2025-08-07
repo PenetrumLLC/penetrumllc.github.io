@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="../icons/icon.png" />
+  <title>Admin Dashboard - Backyard Bandwidth</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bLightBlue: "#6ec1e4",
+            bLightBlueHover: "#008CCB",
+            bDarkBlue: "#2d6ea8",
+            bDarkGrey: "#1A1A1A",
+            bLightGrey: "#A8B1B7",
+            bGreen: "#4caf50",
+            bGreenHover: "#008000FF",
+            bRed: "#E33434",
+            bRedHover: "#972424"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100 font-mono">
+  <header class="w-full bg-black text-white flex items-center justify-between px-4 py-2 shadow-md">
+    <div class="flex items-center space-x-3">
+      <a href="../index.html">
+        <img src="../icons/icon.png" alt="Logo" class="max-h-14 w-auto object-contain" />
+      </a>
+      <span class="text-lg font-bold tracking-wide">Backyard Bandwidth Admin</span>
+    </div>
+  </header>
+
+  <div class="flex justify-end px-4 mt-4">
+  <button onclick="logoutAdmin()" class="bg-bRed hover:bg-bRedHover text-white font-bold py-2 px-4 rounded">
+    Logout
+  </button>
+</div>
+
+
+  <main class="max-w-3xl mx-auto mt-12 p-6 bg-white rounded-lg shadow space-y-6">
+    <h1 class="text-2xl font-bold text-bDarkBlue">Welcome to the Admin Dashboard</h1>
+
+    <div class="space-y-4">
+<button onclick="uploadToUser()" class="w-full bg-bGreen hover:bg-bGreenHover text-white font-bold py-3 rounded">
+  Upload File
+</button>
+      <p class="text-sm text-gray-600">Upload files to the user profile, this requires you to input the username manually.</p>
+
+      <button onclick="location.href='view.html'" class="w-full bg-bDarkGrey hover:bg-bLightGrey text-white font-bold py-3 rounded">
+        View User
+      </button>
+      <p class="text-sm text-gray-600">View and manage individual user profiles and permissions.</p>
+
+      <button onclick="deleteUserPrompt()" class="w-full bg-bRed hover:bg-bRedHover text-white font-bold py-3 rounded">
+  Delete User
+</button>
+<p class="text-sm text-gray-600">Permanently delete a user account. You must confirm by typing <strong>yes</strong>.</p>
+
+    </div>
+  </main>
+
+  <script src="assets/js/admin_session.js"></script>
+<script>
+   let API_BASE_URL = "";
+
+  (async () => {
+    try {
+      const res = await fetch("../data/env.json");
+      const config = await res.json();
+      const isDev = location.hostname.includes("localhost") || location.hostname === "127.0.0.1";
+      API_BASE_URL = isDev ? config.dev : config.prod;
+    } catch (err) {
+      console.error("Failed to load API base URL:", err);
+    }
+  })();
+
+  function uploadToUser() {
+    const username = prompt("Enter the username:");
+    if (username && username.trim() !== "") {
+      location.href = `upload.html?u=${encodeURIComponent(username.trim())}`;
+    }
+  }
+
+  function logoutAdmin() {
+    localStorage.removeItem("adminSession");
+    localStorage.removeItem("adminSessionToken");
+    window.location.href = "login.html";
+  }
+
+  async function deleteUserPrompt() {
+    const username = prompt("Enter the username to delete:");
+    if (!username || username.trim() === "") return;
+
+    const confirmDelete = prompt(`Type "yes" to confirm deleting "${username}":`);
+    if (confirmDelete?.toLowerCase() !== "yes") {
+      alert("Deletion cancelled.");
+      return;
+    }
+
+    const token = localStorage.getItem("adminSessionToken");
+    if (!token) {
+      alert("No admin token found. Please log in again.");
+      return;
+    }
+
+    if (!API_BASE_URL) {
+      alert("API base URL not loaded yet. Please try again in a moment.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/admin/users/delete`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-token": token
+        },
+        body: JSON.stringify({ username: username.trim() })
+      });
+
+      const result = await response.json();
+
+      if (result.success && result.data.deleted) {
+        alert(`User "${username}" deleted successfully.`);
+      } else {
+        alert(`Failed to delete user: ${result.error?.msg || "Unknown error"}`);
+      }
+    } catch (error) {
+      console.error("Delete request failed:", error);
+      alert("An error occurred while trying to delete the user.");
+    }
+  }
+</script>
+</body>
+</html>
