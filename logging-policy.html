@@ -13,7 +13,6 @@
             color: #333;
             line-height: 1.6;
         }
-
         .container {
             max-width: 800px;
             margin: 2em auto;
@@ -23,20 +22,16 @@
             border: 3px solid #949393;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         }
-
         h1 {
             text-align: center;
             color: #444;
         }
-
         p {
             margin-bottom: 1em;
         }
-
         ul {
             margin-left: 1.5em;
         }
-
         .back-button {
             display: block;
             margin: 2em auto;
@@ -50,7 +45,6 @@
             font-weight: bold;
             transition: background-color 0.3s;
         }
-
         .back-button:hover {
             background-color: #5aafc8;
         }
@@ -60,94 +54,87 @@
 <div class="container">
     <h1>No Logs Policy</h1>
 
-    <p>Last updated: Saturday, February 15th, 2025<br><br>
+    <p>Last updated: Friday, August 8th, 2025<br><br>
         This No Logs Policy ("Policy") outlines Backyard Bandwidth’s strict commitment to
-        <b>not collecting, storing, or retaining logs</b> of any user activity across our VPN, VPS, and S3 storage services.
+        <b>not collecting, storing, or retaining persistent logs</b> of any user activity across our VPN, VPS, and S3 storage services.
         By using our services, you acknowledge and accept that we do <b>not store logs</b> and that we <b>cannot provide data that does not exist</b>
         in response to law enforcement requests.
     </p>
 
-    <h2>1. No Logging Commitment</h2>
-    <p>Backyard Bandwidth does not store logs in any form, at any time, and for any purpose. Specifically:</p>
+    <h2>1. No Activity Logging Commitment</h2>
+    <p>Backyard Bandwidth does not store any persistent logs of user activity. Specifically:</p>
     <ul>
         <li>We <b>do not</b> store or retain VPN traffic logs.</li>
         <li>We <b>do not</b> log or track which websites users visit.</li>
-        <li>We <b>do not</b> log VPN session durations or timestamps.</li>
-        <li>We <b>do not</b> retain IP addresses for longer than <b>24 hours</b>.</li>
+        <li>We <b>do not</b> log VPN session durations or browsing history.</li>
         <li>We <b>do not</b> log VPS server activity.</li>
         <li>We <b>do not</b> maintain logs of S3 storage access or file activity.</li>
-        <li>All log information is <b>immediately sent to /dev/null</b> upon generation.</li>
     </ul>
 
-    <h2>2. Data Shredding and Immediate Deletion</h2>
+    <h2>2. Operational Session Data (Transparency Statement)</h2>
     <p>
-        Backyard Bandwidth operates a <b>zero-retention</b> infrastructure for all log-related data:
+        Our VPN servers, like all network services, must temporarily maintain minimal connection state
+        (e.g., current session IP address, routing tables, handshake status) in <b>volatile memory only</b>
+        to keep your connection active. This data:
     </p>
     <ul>
-        <li>All temporary connection logs are automatically deleted within <b>24 hours</b>.</li>
-        <li>Once a VPS service is terminated, all associated data is <b>forensically shredded and permanently deleted</b>.</li>
-        <li>VPN session data is <b>never written to disk</b> and is permanently discarded after session termination.</li>
-        <li>There are <b>no log files</b> stored on VPN, VPS, or S3 storage servers.</li>
+        <li>Exists solely in RAM while the connection is active.</li>
+        <li>Is <b>never written to disk</b> under any circumstances.</li>
+        <li>Contains no browsing history, traffic content, or file access data.</li>
+        <li>Is automatically and irreversibly erased from memory upon disconnection.</li>
     </ul>
 
-    <h2>3. Law Enforcement and Legal Compliance</h2>
+    <h2>3. Data Shredding and Permanent Deletion</h2>
+    <ul>
+        <li>Once a VPS service is terminated, all associated data is <b>forensically shredded</b> and permanently deleted.</li>
+        <li>VPN session data is <b>never stored on disk</b> and ceases to exist the moment the session ends.</li>
+        <li>There are <b>no persistent log files</b> stored on VPN, VPS, or S3 storage servers.</li>
+    </ul>
+
+    <h2>4. Law Enforcement and Legal Compliance</h2>
     <p>
         Backyard Bandwidth operates under <b>United States jurisdiction</b> and complies with all applicable laws.
-        However, our strict <b>No Logs Policy</b> means that we <b>cannot provide</b> any of the following data upon request from law enforcement, government agencies, or third parties:
+        Our infrastructure design means we <b>cannot provide</b>:
     </p>
     <ul>
         <li>VPN usage logs</li>
         <li>Browsing history</li>
-        <li>VPN session timestamps</li>
-        <li>Original or assigned IP addresses beyond the last 24 hours</li>
+        <li>VPN session timestamps after disconnection</li>
+        <li>Original or assigned IP addresses after the session ends</li>
         <li>VPS activity logs</li>
         <li>S3 storage activity logs</li>
     </ul>
     <p>
         We will cooperate with legally binding requests <b>only to the extent we are technically and physically capable</b>.
-        If we receive a subpoena, warrant, or other legal request for user data, our response will be limited to confirming that
-        <b>we do not store logs and, therefore, have no information to provide</b>.
-    </p>
-
-    <h2>4. Limited Data Retention</h2>
-    <p>
-        The only information Backyard Bandwidth temporarily retains is:
-    </p>
-    <ul>
-        <li>Half of the user's email address for account verification and customer support purposes.</li>
-        <li>The user's IP address for up to <b>24 hours</b> to prevent abuse and ensure security.</li>
-    </ul>
-    <p>
-        After this <b>24-hour period</b>, all stored IP address data is <b>automatically and permanently deleted</b>.
+        If served with a valid request, our response will be limited to confirming that <b>we have no persistent logs to provide</b>.
     </p>
 
     <h2>5. No Backups or Shadow Logging</h2>
     <p>
-        Backyard Bandwidth does <b>not</b> maintain backups of deleted logs, and we do <b>not</b> engage in shadow logging.
-        Our <b>entire infrastructure is designed</b> to prevent the storage of log data. Any attempt to retrieve user data beyond
-        what is outlined in this policy is <b>technically impossible</b>.
+        Backyard Bandwidth does <b>not</b> maintain backups of any operational session data and does <b>not</b> engage in hidden or “shadow” logging.
+        Our systems are engineered so that operational data never persists beyond the active session.
     </p>
 
     <h2>6. No Third-Party Tracking</h2>
     <p>
-        We do <b>not</b> use third-party tracking, analytics, or logging services. Backyard Bandwidth does not partner with any
+        We do <b>not</b> use third-party tracking, analytics, or logging services. Backyard Bandwidth does not partner with
         <b>data brokers</b>, <b>advertising agencies</b>, or <b>analytics platforms</b> that collect, share, or store user data.
     </p>
 
     <h2>7. Acceptance of No Logs Policy</h2>
     <p>
-        By accessing or using the Service, you acknowledge that you have read, understood, and agree to this No Logs Policy.
+        By using the Service, you acknowledge that you have read, understood, and agree to this Policy.
         If you do not agree with these terms, you must discontinue use of the Service immediately.
     </p>
 
     <h2>8. Changes to This Policy</h2>
     <p>
-        Backyard Bandwidth reserves the right to modify or update this No Logs Policy at any time. Any changes will be effective immediately upon posting to this website.
+        Backyard Bandwidth may update this No Logs Policy at any time. Any changes will be effective immediately upon posting to this website.
     </p>
 
     <h2>9. Disclaimer</h2>
     <p>
-        We strive to maintain a secure and private infrastructure. However, users are responsible for ensuring their own compliance with applicable laws and best security practices when using our platform.
+        We strive to maintain a secure and private infrastructure. Users are responsible for ensuring their own compliance with applicable laws and best security practices when using our platform.
     </p>
 
     <h2>Contact Us</h2>
@@ -156,6 +143,6 @@
     </p>
 
 </div>
-    <a href="index.html" class="back-button">Back to Homepage</a>
+<a href="index.html" class="back-button">Back to Homepage</a>
 </body>
 </html>
