@@ -308,25 +308,59 @@
       body: JSON.stringify({username, password})
     })
       .then(res => res.json())
-      .then(data => {
-        btn.disabled = false;
-        spinner.classList.add("hidden");
-        btnText.textContent = "Register";
+.then(data => {
+  btn.disabled = false;
+  spinner.classList.add("hidden");
+  btnText.textContent = "Register";
 
-        if (data.success) {
-          errorDiv.innerText = "";
-          succDiv.innerHTML = `
-            <div class="text-center">
-              <p>Registration successful, your username is:</p>
-              <code id="registered-username" class="bg-gray-100 px-2 py-1 rounded cursor-pointer inline-block mt-2" onclick="copyUsername('${data.data.username}')">${data.data.username}</code>
-              <p class="text-sm text-gray-500 mt-1">(Click to copy)</p>
-              <p class="text-sm text-red-600 font-semibold mt-1">We cannot recover this username later — please save it now.</p>
-              <p class="mt-2">Please login using your username and password.</p>
-            </div>`;
-        } else {
-          errorDiv.textContent = data.error.msg || "Registration failed.";
-        }
-      })
+  if (data.success) {
+    errorDiv.innerText = "";
+
+    const icons = [
+      "assets/icons/giraffe.png",
+      "assets/icons/panda.png",
+      "assets/icons/elephant.png",
+      "assets/icons/snake.png",
+      "assets/icons/eagle.png",
+      "assets/icons/owl.png",
+      "assets/icons/hippo.png"
+    ];
+    const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+
+succDiv.innerHTML = `
+  <div class="text-center">
+    <p>Registration successful, your username is:</p>
+    <code id="registered-username" class="bg-gray-100 px-2 py-1 rounded cursor-pointer inline-block mt-2"
+          onclick="copyUsername('${data.data.username}')">${data.data.username}</code>
+    <p class="text-sm text-gray-500 mt-1">(Click to copy)</p>
+    <p class="text-sm text-red-600 font-semibold mt-1">
+      We cannot recover this username later — please save it now.
+    </p>
+    <p class="mt-2">Please login using your username and password.</p>
+    <hr>
+    <div class="mt-4 flex flex-col items-center">
+      <img src="${randomIcon}" alt="Animal Icon" class="w-10 h-10 mb-2">
+      <p class="text-xs text-gray-600 max-w-xs">
+        This username was generated using <strong>Outdoor Entropy</strong> —
+        randomness derived from the unpredictable movements of animals on live
+        video streams from the
+        <a href="https://sdzsafaripark.org/live-cameras" target="_blank" rel="noopener noreferrer" class="underline">
+          San Diego Zoo Safari Park
+        </a>.
+        <br>
+        Please consider
+        <a href="https://sandiegozoowildlifealliance.org/support-us" target="_blank" rel="noopener noreferrer" class="underline">
+          donating to them
+        </a>
+        to support their conservation efforts.
+      </p>
+    </div>
+  </div>`;
+  } else {
+    errorDiv.textContent = data.error.msg || "Registration failed.";
+  }
+})
+
       .catch(() => {
         btn.disabled = false;
         spinner.classList.add("hidden");
