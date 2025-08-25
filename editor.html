@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Code Editor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme: { extend: {} } };
+  </script>
+  <style>
+    html, body { height: 100%; }
+    #editor { height: calc(100vh - 56px); }
+  </style>
+</head>
+<body class="bg-gray-100">
+  <header class="h-14 bg-black text-white flex items-center justify-between px-4">
+    <div class="font-semibold">Backyard Bandwidth • Code Editor</div>
+    <div class="flex gap-2">
+<select id="langSelect" class="text-black rounded px-2 py-1">
+  <option>python</option>
+  <option>javascript</option>
+  <option>java</option>
+  <option>c++</option>
+  <option>c</option>
+  <option>ruby</option>
+  <option>objective-c</option>
+  <option>swift</option>
+  <option>.net</option>
+  <option>asp.net</option>
+  <option>node.js</option>
+  <option>r</option>
+  <option>sql</option>
+  <option>php</option>
+</select>
+      <button id="formatBtn" class="bg-white/10 hover:bg-white/20 px-3 py-1 rounded">Format</button>
+      <button id="saveBtn" class="bg-bLightBlue hover:bg-bLightBlueHover px-3 py-1 rounded font-semibold">Save & Close</button>
+    </div>
+  </header>
+
+  <div id="editor"></div>
+
+  <!-- Monaco Editor -->
+  <script src="https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs/loader.min.js"></script>
+
+  <!-- Prettier (standalone + plugins for JS/TS/HTML/CSS/JSON) -->
+  <script src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/standalone.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/plugins/babel.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/plugins/estree.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/plugins/typescript.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/plugins/html.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/plugins/postcss.js"></script>
+
+<script>
+  let editor;
+  let currentLanguage = "javascript";
+
+  // Configure Monaco paths
+  require.config({
+    paths: { vs: "https://cdn.jsdelivr.net/npm/monaco-editor@0.45.0/min/vs" }
+  });
+
+  // Load Monaco
+  require(["vs/editor/editor.main"], function () {
+    editor = monaco.editor.create(document.getElementById("editor"), {
+      value: "",
+      language: currentLanguage,
+      theme: "vs-dark",
+      automaticLayout: true,
+      minimap: { enabled: false },
+      fontLigatures: true,
+      fontSize: 14
+    });
+  });
+
+  // Map UI labels -> Monaco language IDs (+ fallbacks)
+  const LANG_MAP = {
+    "python":       "python",
+    "javascript":   "javascript",
+    "node.js":      "javascript",   // same highlighter
+    "typescript":   "typescript",   // not in menu but kept for opener init
+    "html":         "html",
+    "css":          "css",
+    "json":         "json",
+    "java":         "java",
+    "c++":          "cpp",
+    "c":            "c",
+    "ruby":         "ruby",
+    "objective-c":  "objective-c",  // if missing, we’ll fall back to cpp
+    "swift":        "swift",
+    ".net":         "csharp",       // .NET -> C#
+    "asp.net":      "razor",        // if missing, we’ll fall back to html
+    "r":            "r",
+    "sql":          "sql",
+    "php":          "php"
+  };
+
+  const FALLBACKS = {
+    "objective-c": "cpp",
+    "razor":       "html"
+  };
+
+  function resolveMonacoLang(id) {
+    const available = monaco.languages.getLanguages().map(l => l.id);
+    if (available.includes(id)) return id;
+    if (FALLBACKS[id] && available.includes(FALLBACKS[id])) return FALLBACKS[id];
+    // final safe default
+    return "plaintext";
+  }
+
+  // Receive initial code and language from opener
+  window.addEventListener("message", (event) => {
+    try {
+      if (event.origin !== window.location.origin) return;
+      const msg = event.data || {};
+      if (msg.type === "code-init") {
+        if (msg.language) {
+          currentLanguage = normalizeLang(msg.language);
+          setLanguage(currentLanguage);
+        }
+        if (typeof msg.code === "string") {
+          editor?.setValue(msg.code);
+        }
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  });
+
+  function normalizeLang(lang) {
+    if (!lang) return "javascript";
+    const l = String(lang).toLowerCase().trim();
+
+    // direct hits from the menu
+    if (LANG_MAP[l]) return l;
+
+    // common aliases from opener
+    if (/\bnode\b/.test(l)) return "node.js";
+    if (/\bts\b|typescript/.test(l)) return "typescript";
+    if (/c#|csharp|\.net/.test(l)) return ".net";
+    if (/objc|objective\-c/.test(l)) return "objective-c";
+    if (/razor|asp\.net/.test(l)) return "asp.net";
+
+    // default
+    return "javascript";
+  }
+
+  function setLanguage(label) {
+    // label is one of our menu labels; get monaco id then resolve with fallbacks
+    const wantedId = LANG_MAP[label] || "javascript";
+    const monacoId = resolveMonacoLang(wantedId);
+
+    currentLanguage = label;
+    monaco.editor.setModelLanguage(editor.getModel(), monacoId);
+
+    // keep the select in sync (it uses the label values)
+    const sel = document.getElementById("langSelect");
+    if (Array.from(sel.options).some(o => o.value === label || o.text === label)) {
+      sel.value = label;
+    }
+  }
+
+  // Prettier supports only JS/TS/HTML/CSS/JSON here; others use Monaco’s formatter
+  function prettierParserFor(label) {
+    switch (label) {
+      case "javascript":
+      case "node.js":
+        return "babel";
+      case "typescript":
+        return "typescript";
+      case "html":
+      case "asp.net":   // treat as HTML for formatting
+        return "html";
+      case "css":
+        return "css";
+      case "json":
+        return "json";
+      default:
+        return null;
+    }
+  }
+
+  async function formatCode() {
+    if (!editor) return;
+    const code = editor.getValue();
+    const parser = prettierParserFor(currentLanguage);
+
+    if (parser) {
+      try {
+        const formatted = await prettier.format(code, { parser, plugins: prettierPlugins });
+        editor.setValue(formatted.trimEnd());
+        return;
+      } catch (e) {
+        console.warn("Prettier failed, falling back to Monaco formatter:", e);
+      }
+    }
+
+    // Fallback: Monaco format (best effort)
+    try {
+      await editor.getAction("editor.action.formatDocument")?.run();
+    } catch {}
+  }
+
+  document.getElementById("formatBtn").addEventListener("click", formatCode);
+
+  document.getElementById("saveBtn").addEventListener("click", async () => {
+    await formatCode(); // auto-format on save when possible
+    const payload = {
+      type: "code-save",
+      code: editor ? editor.getValue() : "",
+      language: currentLanguage
+    };
+    try {
+      window.opener?.postMessage(payload, window.location.origin);
+    } catch {}
+    window.close();
+  });
+
+  // Manual language switch (menu uses labels; we map to Monaco IDs)
+  document.getElementById("langSelect").addEventListener("change", (e) => {
+    setLanguage(e.target.value);
+  });
+
+  // If opened directly (no init), seed empty value
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      if (!editor) return;
+      if (!editor.getValue()) editor.setValue("");
+    }, 300);
+  });
+</script>
+
+</body>
+</html>

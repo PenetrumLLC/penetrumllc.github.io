@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>No Logs Policy – Stateless LLM</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f3f0f0;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 2em auto;
+            padding: 2em;
+            background-color: white;
+            border-radius: 8px;
+            border: 3px solid #949393;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+        p {
+            margin-bottom: 1em;
+        }
+        ul {
+            margin-left: 1.5em;
+        }
+        .back-button {
+            display: block;
+            margin: 2em auto;
+            padding: 0.75em 1.5em;
+            background-color: #6ec1e4;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            width: fit-content;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        .back-button:hover {
+            background-color: #5aafc8;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Stateless LLM – No Logs Policy</h1>
+
+    <p>Last updated: August 19th, 2025<br><br>
+        This No Logs Policy ("Policy") describes how our Stateless LLM service operates with respect to
+        <b>privacy, data handling, and liability</b>. By interacting with our LLM through the UI or API,
+        you acknowledge and accept the terms of this Policy.
+    </p>
+
+    <h2>1. No Prompt Logging</h2>
+    <p>Our Stateless LLM does not log, store, or persist user prompts. Specifically:</p>
+    <ul>
+        <li>User prompts are <b>sent directly to /dev/null</b> after processing.</li>
+        <li>All prompts and responses are held only in <b>volatile memory (RAM)</b> while the interaction occurs.</li>
+        <li>All session data is <b>wiped from memory immediately</b> after a response is delivered.</li>
+        <li>There are <b>no backups</b> or shadow logs of any interactions.</li>
+    </ul>
+
+    <h2>2. Stateless by Design</h2>
+    <p>
+        Our LLM is <b>stateless</b>. This means:
+    </p>
+    <ul>
+        <li>It has <b>no ability to remember past conversations</b> across sessions.</li>
+        <li>Each request is processed in isolation.</li>
+        <li>There is no continuity or memory between different user interactions.</li>
+    </ul>
+
+    <h2>3. Accuracy and Verification</h2>
+    <p>
+        While we strive for accurate and useful responses, the LLM can make mistakes. Users should:
+    </p>
+    <ul>
+        <li>Independently verify all information provided.</li>
+        <li>Not rely solely on responses for critical, financial, medical, legal, or security-related decisions.</li>
+    </ul>
+
+    <h2>4. Liability Disclaimer</h2>
+    <p>
+        By using our LLM, you acknowledge and accept:
+    </p>
+    <ul>
+        <li>We are <b>not liable</b> for any outcomes, damages, or issues arising from reliance on the LLM’s responses.</li>
+        <li>All responsibility rests with the user when acting on advice or information provided by the LLM.</li>
+        <li>You are the <b>responsible party</b> when interacting with the LLM via our UI or API.</li>
+    </ul>
+
+    <h2>5. No Third-Party Tracking</h2>
+    <p>
+        We do not integrate third-party analytics, trackers, or data collection tools into the LLM.
+        Your interactions are private and not shared with advertisers, data brokers, or analytics platforms.
+    </p>
+
+    <h2>6. Acceptance of This Policy</h2>
+    <p>
+        By continuing to use the LLM, you confirm that you have read, understood, and agreed to this Policy.
+        If you do not agree, you must discontinue use immediately.
+    </p>
+
+    <h2>7. Changes to This Policy</h2>
+    <p>
+        We may update this No Logs Policy at any time. Updates will be posted to this page with a revised "Last updated" date.
+    </p>
+
+    <h2>Contact Us</h2>
+    <p>
+        For questions or concerns regarding this Policy, please contact us through the official methods provided on our website.
+    </p>
+
+</div>
+<a href="index.html" class="back-button">Back to Homepage</a>
+</body>
+</html>

@@ -53,6 +53,7 @@
 
   <script src="assets/js/admin_session.js"></script>
   <script>
+    let adminToken = "";
     let API_BASE_URL = "";
     let allUsers = [];
     let currentPage = 1;
@@ -71,6 +72,7 @@
       const parsed = JSON.parse(raw);
       const token = parsed?.token;
       if (!token) return showError("Invalid token.");
+      adminToken = token;
 
       const result = await fetch(`${API_BASE_URL}/admin/users/view/all`, {
         method: "POST",
@@ -116,6 +118,11 @@ userList.innerHTML = paginated
            class="bg-bLightGrey hover:bg-bDarkGrey text-white px-4 py-2 rounded text-center">
           User Info
         </a>
+        <button
+         class="alpha-btn bg-bGreen hover:bg-bGreenHover text-white px-4 py-2 rounded"
+         data-username="${u.username}">
+         Alpha
+       </button>
       </div>
     </div>
   `)
@@ -147,6 +154,56 @@ userList.innerHTML = paginated
       currentPage++;
       renderUsers();
     });
+
+    document.getElementById("user-list").addEventListener("click", async (e) => {
+  const btn = e.target.closest(".alpha-btn");
+  if (!btn) return;
+
+  const username = btn.dataset.username;
+  await setAlpha(username, btn);
+});
+
+async function setAlpha(username, btn) {
+  try {
+    clearError();
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = "Setting…";
+
+    const resp = await fetch(`${API_BASE_URL}/admin/users/alpha`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        token: adminToken,
+        username
+      })
+    });
+
+    const data = await resp.json();
+
+    if (data?.success) {
+      // Success UI
+      btn.textContent = "Alpha ✓";
+      btn.classList.remove("bg-bGreen", "hover:bg-bGreenHover");
+      btn.classList.add("bg-bDarkGrey");
+      // keep disabled to prevent repeat
+      btn.disabled = true;
+    } else {
+      // Server returned an error shape
+      btn.disabled = false;
+      btn.textContent = originalText;
+      showError(data?.error?.msg || "Unable to set user to alpha.");
+    }
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = "Set Alpha";
+    showError("Network error setting alpha.");
+  }
+}
+
+function clearError() {
+  document.getElementById("error-msg").textContent = "";
+}
 
     init();
   </script>
