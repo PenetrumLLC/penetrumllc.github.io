@@ -258,7 +258,7 @@
         if (response.success && response.data) {
           const payload = {
             data: response.data,
-            expires: Date.now() + 3 * 60 * 60 * 1000
+            expires: Date.now() + 3 * 60 * 60 * 604800
           };
           localStorage.setItem("dashboardData", JSON.stringify(payload));
           try {

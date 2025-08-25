@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link href="../icons/icon.png" rel="icon" type="image/png" />
+  <title>Backyard Bandwidth • Fine-Tuning Lab</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bLightBlue: "#6ec1e4",
+            bLightBlueHover: "#008CCB",
+            bDarkBlue: "#2d6ea8",
+            bDarkGrey: "#1A1A1A",
+            bLightGrey: "#aaa",
+            bGreyHover: "#81868c",
+            bGreen: "#4caf50",
+            bGreenHover: "#008000FF",
+            bRed: "#E33434",
+            bRedHover: "#972424",
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    .question-body p { margin: 0.75rem 0; }
+    .question-body pre { overflow:auto; padding:1rem; border-radius:0.5rem; background:#0b1020; color:#e5e7eb; }
+    .question-body code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .kbd { border:1px solid #e5e7eb; border-bottom-width:2px; padding:0 .35rem; border-radius:.375rem; font-size:.8rem; background:#fff; }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/@solana/web3.js@1.95.3/lib/index.iife.min.js"></script>
+
+</head>
+
+<body class="bg-gray-100 font-mono">
+  <!-- Header -->
+  <header class="w-full bg-black text-white flex items-center justify-between px-6 py-2 shadow-md">
+    <div class="flex items-center space-x-3">
+        <a href="../index.html">
+            <img alt="Logo"
+                 class="max-h-14 w-auto object-contain"
+                 src="data:image/png;base64,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"/>
+        </a>
+      <span class="text-lg font-bold tracking-wide">Backyard Bandwidth — Fine-Tuning Lab</span>
+    </div>
+    <div class="flex items-center gap-2">
+<button class="bg-bGreen hover:bg-bGreenHover text-white px-4 py-2 rounded text-sm font-semibold"
+        title="Read our payout rules and content guidelines"
+        onclick="window.open('policy-list.html', '_blank')">
+  View Policies & Guidelines
+</button>
+
+<button class="bg-bLightBlue hover:bg-bLightBlueHover text-white px-4 py-2 rounded text-sm font-semibold"
+        title="Return to the main page"
+        onclick="window.location.href='index.html'">
+  Back to Home
+</button>    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto p-4 md:p-8">
+
+<!-- Intro -->
+<section class="bg-white rounded-lg shadow p-5 md:p-6 mb-6">
+  <h1 class="text-2xl md:text-3xl font-bold text-bDarkBlue mb-2">
+    Help us fine-tune our model
+  </h1>
+
+  <p class="text-gray-700 text-sm md:text-base">
+    Pick a category, fetch a real question or code review, then craft your best answer. This page is
+    <span class="font-semibold">free</span>—no login required (a verified $BB wallet is required to submit and receive payouts).
+  </p>
+
+  <ul class="mt-3 text-gray-700 text-sm md:text-base list-disc pl-5 space-y-1">
+    <li>
+      <span class="font-semibold">Questions:</span>
+      Answer to the best of your knowledge and include code when it helps.
+    </li>
+    <li>
+      <span class="font-semibold">Code reviews:</span>
+      Improve or rewrite the code as needed and explain what you changed and why.
+    </li>
+  </ul>
+
+  <p class="mt-3 text-gray-700 text-sm md:text-base">
+    Payouts are based on the complexity of both the prompt and your response. Funds are sent to the
+    <span class="font-semibold">verified $BB wallet</span> you provide below after the question is verified and your answer is tested.
+    <a href="../policy-list.html" class="underline text-bDarkBlue hover:text-bLightBlueHover" target="_blank" rel="noopener">See our policies</a>.
+  </p>
+
+  <div class="mt-3 text-xs text-gray-600">
+    Pro Tip: Press <span class="kbd">R</span> to fetch another question in the same category.
+  </div>
+</section>
+
+
+
+    <!-- Wallet Gate (must be verified before anything else works) -->
+<section class="bg-white rounded-lg shadow p-5 md:p-6 mb-6">
+  <h2 class="text-lg md:text-xl font-bold text-gray-900 mb-2">Your Wallet (required)</h2>
+
+  <div class="space-y-2">
+    <label class="block text-sm font-semibold text-gray-700" for="walletInput">
+      $BB wallet address
+    </label>
+
+    <!-- Input + buttons on the same row -->
+    <div class="flex flex-col sm:flex-row gap-2 sm:items-center">
+      <input
+        id="walletInput"
+        type="text"
+        inputmode="text"
+        autocomplete="off"
+        spellcheck="false"
+        class="flex-1 border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-bLightBlue"
+        placeholder="e.g. 4Nd1mCq... (Base58 $BB address)"
+      />
+
+      <div class="flex gap-2 sm:shrink-0">
+<button id="saveWalletBtn"
+        class="bg-black hover:bg-bDarkBlue text-white px-4 py-2 rounded font-semibold"
+        title="Check this address and unlock the page">
+  Verify Wallet Address
+</button>
+<button id="clearWalletBtn"
+        class="px-4 py-2 rounded border border-gray-300 hover:bg-gray-50 font-semibold"
+        title="Remove the saved address and lock actions again">
+  Remove Wallet
+</button>
+      </div>
+    </div>
+
+    <p id="walletHelp" class="text-xs text-gray-500">
+      Enter a valid $BB wallet address to participate.
+    </p>
+  </div>
+</section>
+
+
+
+    <!-- Controls -->
+    <section class="bg-white rounded-lg shadow p-5 md:p-6 mb-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-1">Question Type</label>
+          <select id="tagSelect" class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-bLightBlue">
+            <option value="" disabled selected>Loading tags…</option>
+          </select>
+          <p id="tagHelp" class="text-xs text-gray-500 mt-1"></p>
+        </div>
+        <div class="flex gap-2">
+<button id="fetchBtn"
+        class="flex-1 bg-black hover:bg-bDarkBlue text-white px-4 py-2 rounded font-semibold disabled:opacity-50"
+        title="Get a new random question from the selected category">
+  Get Question
+</button>
+
+<button id="nextBtn"
+        class="hidden md:inline-flex items-center justify-center px-4 py-2 rounded border border-gray-300 hover:bg-gray-50 font-semibold"
+        title="Load another question from the same category">
+  Next Question
+</button>        </div>
+        <!-- API display removed -->
+        <div class="hidden"></div>
+      </div>
+      <div id="errorBox" class="hidden mt-4 p-3 rounded border border-bRed bg-red-50 text-bRed text-sm"></div>
+    </section>
+
+    <!-- Question Card -->
+    <section id="questionCard" class="bg-white rounded-lg shadow p-5 md:p-6 hidden">
+      <div class="flex items-start justify-between gap-4">
+        <h2 id="qTitle" class="text-xl md:text-2xl font-bold text-gray-900">&nbsp;</h2>
+        <a id="qSource" class="text-sm text-bDarkBlue underline hover:text-bLightBlueHover" target="_blank" rel="noopener">source</a>
+      </div>
+
+      <div class="mt-4 flex flex-wrap gap-2" id="qTags"></div>
+
+      <article id="qBody" class="question-body mt-6 text-gray-800 leading-relaxed"></article>
+    </section>
+
+    <!-- Answer Section (always present; becomes visible with question) -->
+    <section id="answerSection" class="bg-white rounded-lg shadow p-5 md:p-6 mt-6 hidden">
+      <h3 class="text-lg md:text-xl font-bold text-gray-900">Your Answer</h3>
+
+      <label class="block text-sm font-semibold text-gray-700 mt-4 mb-1" for="answerNotes">Notes / Explanation</label>
+      <textarea id="answerNotes" class="w-full border rounded px-3 py-2 min-h-[140px] focus:outline-none focus:ring-2 focus:ring-bLightBlue" placeholder="Explain your reasoning, outline your approach, list trade-offs, etc."></textarea>
+      <div class="mt-1 text-xs text-gray-500"><span id="notesCount">0</span> characters</div>
+
+      <label class="block text-sm font-semibold text-gray-700 mt-4 mb-1" for="answerCode">Code (optional)</label>
+      <div class="mt-2 flex gap-2">
+<button id="openCodeEditor"
+        class="bg-bLightBlue hover:bg-bLightBlueHover text-white px-3 py-1.5 rounded font-semibold"
+        title="Open a full code editor in a new window">
+  Open Code Editor (pop-out)
+</button>
+<button id="formatInline"
+        class="px-3 py-1.5 rounded border border-gray-300 hover:bg-gray-50 font-semibold"
+        title="Auto-format the code block below">
+  Auto-format Code
+</button>
+</div>
+      <pre id="answerCode" class="w-full border rounded px-3 py-2 min-h-[160px] bg-gray-50 overflow-auto" contenteditable="true" spellcheck="false" placeholder="Write code here…"></pre>
+
+
+      <div class="mt-4 flex flex-wrap gap-2">
+<button id="clearAnswer"
+        class="px-4 py-2 rounded border border-gray-300 hover:bg-gray-50 font-semibold"
+        title="Erase your notes and code">
+  Clear Answer
+</button>
+        <span class="text-xs text-gray-500"></span>
+      </div>
+
+      <div class="mt-4 flex flex-wrap gap-2 items-center">
+<button id="submitBtn"
+        class="bg-bGreen hover:bg-bGreenHover text-white px-4 py-2 rounded font-semibold disabled:opacity-50"
+        title="Submit your answer and immediately load a new question"
+        disabled>
+  Submit Answer & Load Next
+</button>
+  <div id="submitStatus" class="text-sm text-gray-600"></div>
+</div>
+
+    </section>
+  </main>
+
+  <script>
+    let API_BASE_URL = "";
+
+    async function detectApiBase() {
+      try {
+        const res = await fetch("../data/env.json");
+        if (res.ok) {
+          const cfg = await res.json();
+          const isDev = location.hostname.includes("localhost") || location.hostname === "127.0.0.1";
+          API_BASE_URL = isDev ? (cfg.dev || "http://192.168.1.119:5132") : (cfg.prod || window.location.origin);
+          return;
+        }
+      } catch (e) {}
+      const isDev = location.hostname.includes("localhost") || location.hostname === "127.0.0.1";
+      API_BASE_URL = isDev ? "http://192.168.1.119:5132" : window.location.origin;
+    }
+
+    function scrollToTop() {
+  try {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } catch {
+    window.scrollTo(0, 0);
+  }
+}
+
+    // --- UI helpers ---
+    const $ = (sel) => document.querySelector(sel);
+    function showError(msg) {
+      const box = $("#errorBox");
+      box.textContent = msg || "Something went wrong.";
+      box.classList.remove("hidden");
+      setTimeout(() => box.classList.add("hidden"), 5000);
+    }
+    function setLoading(btn, loading) {
+      btn.disabled = !!loading;
+      btn.textContent = loading ? "Loading…" : (btn.dataset.label || btn.textContent);
+    }
+
+    // --- Data fetchers ---
+    async function loadTags() {
+      const url = `${API_BASE_URL}/user/tuning/question/get/tags`;
+      const sel = $("#tagSelect");
+      sel.innerHTML = `<option disabled selected>Loading tags…</option>`;
+      try {
+        const r = await fetch(url);
+        const j = await r.json();
+        if (!j.success || !Array.isArray(j.data)) throw new Error("Unable to load tags");
+        sel.innerHTML = `<option value="" disabled selected>Select a type…</option>` +
+          j.data.map(t => `<option value="${t}">${t}</option>`).join("");
+        $("#tagHelp").innerHTML = ``;
+      } catch (e) {
+        sel.innerHTML = `<option disabled selected>Failed to load tags</option>`;
+        showError(e.message);
+      }
+    }
+
+    async function loadQuestion(tag) {
+      if (!tag) return showError("Choose a question type first.");
+      const fetchBtn = $("#fetchBtn");
+      setLoading(fetchBtn, true);
+      try {
+        const url = `${API_BASE_URL}/user/tuning/question/get/${encodeURIComponent(tag)}`;
+        const r = await fetch(url);
+        const j = await r.json();
+        if (!j.success || !j.data) throw new Error("No question returned, please try again");
+        renderQuestion(j.data);
+      } catch (e) {
+        showError(e.message);
+      } finally {
+        setLoading(fetchBtn, false);
+      }
+    }
+
+    // --- Renderers ---
+  function renderQuestion(data) {
+    // Title (decode entities but keep as text for safety)
+    const title = decodeEntities(data.title || "(untitled)");
+    $("#qTitle").textContent = title;
+
+    // Body (decode; if it’s HTML, lightly sanitize; else layout as text)
+    $("#qBody").innerHTML = normalizeBody(data.body || "");
+
+    // Tags (decode each)
+    const tagWrap = $("#qTags");
+    tagWrap.innerHTML = "";
+    (data.tags || []).forEach(t => {
+      const s = document.createElement("span");
+      s.className = "text-xs px-2 py-1 rounded-full border bg-gray-50 text-gray-700";
+      s.textContent = decodeEntities(t);
+      tagWrap.appendChild(s);
+    });
+
+    // Source link label unchanged
+    const src = $("#qSource");
+    src.href = data.found_on || "#";
+    src.textContent = `Question found on: ${data.found_on ? new URL(data.found_on).hostname : "source"}`;
+
+    // Show sections
+    $("#questionCard").classList.remove("hidden");
+    $("#answerSection").classList.remove("hidden");
+    $("#nextBtn").classList.remove("hidden");
+
+    // Reset answer fields for new question
+    $("#answerNotes").value = "";
+    $("#answerCode").textContent = "";
+    updateNotesCount();
+
+    // Track current question (if you use it elsewhere)
+    currentQuestion = data || null;
+    updateSubmitEnabled?.();
+  }
+
+    // --- Answer helpers ---
+    function updateNotesCount() {
+      $("#notesCount").textContent = ($("#answerNotes").value || "").length;
+    }
+
+    // --- Boot ---
+    (async function init() {
+      await detectApiBase();
+      $("#fetchBtn").dataset.label = "Fetch Question";
+
+      await loadTags();
+
+      // events
+      $("#fetchBtn").addEventListener("click", () => loadQuestion($("#tagSelect").value));
+      $("#nextBtn").addEventListener("click", () => loadQuestion($("#tagSelect").value));
+      document.addEventListener("keydown", (e) => {
+        if (e.key.toLowerCase() === "r") loadQuestion($("#tagSelect").value);
+      });
+
+      $("#answerNotes").addEventListener("input", updateNotesCount);
+      $("#clearAnswer").addEventListener("click", () => {
+        $("#answerNotes").value = "";
+        $("#answerCode").textContent = "";
+        updateNotesCount();
+      });
+    })();
+      // --- Pop-out Monaco editor integration ---
+  let codePopup = null;
+  const CODE_POPUP_NAME = "bb_code_editor_popup";
+  const CODE_POPUP_URL  = "editor.html"; // make sure this path is correct relative to this page
+
+  function openCodeEditor() {
+    // Open (or focus) the editor pop-up
+    const w = 1100, h = 800;
+    const y = window.top.outerHeight / 2 + window.top.screenY - (h / 2);
+    const x = window.top.outerWidth  / 2 + window.top.screenX - (w / 2);
+    codePopup = window.open(
+      CODE_POPUP_URL,
+      CODE_POPUP_NAME,
+      `width=${w},height=${h},left=${x},top=${y},menubar=no,toolbar=no,location=no,status=no,resizable=yes`
+    );
+    if (!codePopup) return showError("Popup blocked. Allow popups for this site.");
+
+    // Send initial code after the popup is ready
+    const initialCode = ($("#answerCode").textContent || "").trim();
+    const preferredLang = detectLangFromTagsOrTitle();
+    const payload = { type: "code-init", code: initialCode, language: preferredLang };
+
+    // Retry postMessage a few times until the child is ready
+    let tries = 0;
+    const sendInit = setInterval(() => {
+      if (!codePopup || codePopup.closed) return clearInterval(sendInit);
+      try {
+        codePopup.postMessage(payload, window.location.origin);
+        clearInterval(sendInit);
+      } catch (e) {
+        if (++tries > 10) clearInterval(sendInit);
+      }
+    }, 200);
+  }
+
+  function detectLangFromTagsOrTitle() {
+    // naive hinting (fallback to 'javascript')
+    const tagTexts = Array.from(document.querySelectorAll("#qTags span")).map(s => s.textContent.toLowerCase());
+    if (tagTexts.some(t => /python|py/.test(t))) return "python";
+    if (tagTexts.some(t => /typescript|ts/.test(t))) return "typescript";
+    if (tagTexts.some(t => /html/.test(t))) return "html";
+    if (tagTexts.some(t => /css/.test(t))) return "css";
+    if (tagTexts.some(t => /json/.test(t))) return "json";
+    return "javascript";
+  }
+
+  // Receive formatted code back from the popup
+  window.addEventListener("message", (event) => {
+    if (event.origin !== window.location.origin) return; // security
+    const msg = event.data || {};
+    if (msg.type === "code-save") {
+      $("#answerCode").textContent = msg.code || "";
+      // Optional small visual feedback
+      $("#answerCode").classList.add("ring-2", "ring-bLightBlue");
+      setTimeout(() => $("#answerCode").classList.remove("ring-2", "ring-bLightBlue"), 800);
+    }
+  });
+
+  $("#openCodeEditor").addEventListener("click", openCodeEditor);
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/standalone.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/plugins/babel.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/plugins/estree.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/plugins/typescript.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/plugins/html.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/prettier@3.3.3/plugins/postcss.js"></script>
+<script>
+  function guessPrettierParser(lang) {
+    switch (lang) {
+      case "typescript": return "typescript";
+      case "json":       return "json";
+      case "css":        return "css";
+      case "html":       return "html";
+      default:           return "babel"; // javascript
+    }
+  }
+  document.querySelector("#formatInline").addEventListener("click", async () => {
+    const raw = ($("#answerCode").textContent || "");
+    if (!raw.trim()) return showError("No code to format.");
+    const lang = detectLangFromTagsOrTitle();
+    try {
+      const formatted = await prettier.format(raw, {
+        parser: guessPrettierParser(lang),
+        plugins: prettierPlugins
+      });
+      $("#answerCode").textContent = formatted.trimEnd();
+    } catch (e) {
+      showError("Formatter error: " + (e?.message || e));
+    }
+  });
+
+    // --- Gate & submit state ---
+   const WALLET_KEY = "bb_user_wallet";
+  const WALLET_TTL_MS = 12 * 60 * 60 * 1000; // 12 hours
+
+  let userWallet = "";
+  let walletValid = false;
+  let currentQuestion = null;
+  let walletExpiryTimer = null;
+
+  function clearWalletExpiryTimer() {
+    if (walletExpiryTimer) {
+      clearTimeout(walletExpiryTimer);
+      walletExpiryTimer = null;
+    }
+  }
+
+  function scheduleWalletExpiry(expiresAtMs) {
+    clearWalletExpiryTimer();
+    const ms = Math.max(0, expiresAtMs - Date.now());
+    walletExpiryTimer = setTimeout(() => {
+      // Auto-expire in UI
+      handleClearWallet(true);
+      showError("Your wallet session expired. Please verify again.");
+    }, ms);
+  }
+
+  function fmtRemaining(ms) {
+    if (ms <= 0) return "expired";
+    const min = Math.floor(ms / 60000);
+    const h = Math.floor(min / 60);
+    const m = min % 60;
+    return h ? `${h}h ${m}m` : `${m}m`;
+  }
+
+  function setStoredWallet(address) {
+    const savedAt = Date.now();
+    const expiresAt = savedAt + WALLET_TTL_MS;
+    const obj = { address, savedAt, expiresAt };
+    localStorage.setItem(WALLET_KEY, JSON.stringify(obj));
+    return obj;
+  }
+
+  function purgeStoredWallet() {
+    localStorage.removeItem(WALLET_KEY);
+  }
+
+  function getStoredWallet() {
+    const raw = localStorage.getItem(WALLET_KEY);
+    if (!raw) return null;
+
+    // New JSON shape?
+    try {
+      const obj = JSON.parse(raw);
+      if (obj && typeof obj === "object" && typeof obj.address === "string") {
+        return obj;
+      }
+    } catch {}
+
+    // Migration: old plain string address
+    if (validateSolanaAddress(raw)) {
+      return setStoredWallet(raw);
+    }
+    return null;
+  }
+
+  function isExpiredWallet(obj) {
+    return !obj || typeof obj.expiresAt !== "number" || Date.now() > obj.expiresAt;
+  }
+
+  // Keep a few action elements gated until wallet is valid
+  const GATED_IDS = ["#fetchBtn", "#nextBtn", "#openCodeEditor", "#formatInline", "#clearAnswer", "#submitBtn"];
+
+  function setGateEnabled(enabled) {
+    // enabled=true means user can act (wallet verified)
+    for (const sel of GATED_IDS) {
+      const el = document.querySelector(sel);
+      if (!el) continue;
+      el.disabled = !enabled;
+      el.classList.toggle("opacity-50", !enabled && el.tagName === "BUTTON"); // small visual cue
+    }
+  }
+
+  function validateSolanaAddress(addr) {
+    try {
+      const pk = new solanaWeb3.PublicKey(addr.trim());
+      // require canonical base58 form to match
+      return pk.toBase58() === addr.trim();
+    } catch {
+      return false;
+    }
+  }
+
+  function loadWalletFromStorage() {
+    const storedObj = getStoredWallet();
+
+    if (storedObj && validateSolanaAddress(storedObj.address) && !isExpiredWallet(storedObj)) {
+      userWallet = storedObj.address;
+      walletValid = true;
+      $("#walletInput").value = storedObj.address;
+
+      const remaining = storedObj.expiresAt - Date.now();
+      $("#walletHelp").textContent = `Wallet verified ✓ ${shorten(storedObj.address)} — expires in ${fmtRemaining(remaining)}`;
+      $("#walletHelp").className = "text-xs mt-1 text-green-600";
+
+      setGateEnabled(true);
+      scheduleWalletExpiry(storedObj.expiresAt);
+    } else {
+      // Expired or invalid → clear
+      purgeStoredWallet();
+      userWallet = "";
+      walletValid = false;
+      $("#walletInput").value = "";
+      $("#walletHelp").textContent = "Enter a valid wallet address to participate.";
+      $("#walletHelp").className = "text-xs mt-1 text-gray-500";
+      setGateEnabled(false);
+      clearWalletExpiryTimer();
+    }
+
+    updateSubmitEnabled();
+  }
+
+  function shorten(s) {
+    return s.length > 16 ? `${s.slice(0,6)}…${s.slice(-6)}` : s;
+  }
+
+ async function handleSaveWallet() {
+    const val = ($("#walletInput").value || "").trim();
+    if (!val) return showError("Please paste your wallet address.");
+    if (!validateSolanaAddress(val)) {
+      $("#walletHelp").textContent = "That doesn't look like a valid address.";
+      $("#walletHelp").className = "text-xs mt-1 text-bRed";
+      setGateEnabled(false);
+      return;
+    }
+
+    const saved = setStoredWallet(val); // writes address + TTL
+    userWallet = saved.address;
+    walletValid = true;
+
+    const remaining = saved.expiresAt - Date.now();
+    $("#walletHelp").textContent = `Wallet verified ✓ ${shorten(val)} — expires in ${fmtRemaining(remaining)}`;
+    $("#walletHelp").className = "text-xs mt-1 text-green-600";
+
+    setGateEnabled(true);
+    updateSubmitEnabled();
+    scheduleWalletExpiry(saved.expiresAt);
+  }
+
+ function handleClearWallet(isAuto = false) {
+    purgeStoredWallet();
+    $("#walletInput").value = "";
+    userWallet = "";
+    walletValid = false;
+
+    $("#walletHelp").textContent = isAuto
+      ? "Wallet expired. Please verify again."
+      : "Enter a valid wallet address to participate.";
+    $("#walletHelp").className = isAuto
+      ? "text-xs mt-1 text-bRed"
+      : "text-xs mt-1 text-gray-500";
+
+    setGateEnabled(false);
+    updateSubmitEnabled();
+    clearWalletExpiryTimer();
+  }
+
+    // Safely parse JSON; return null if it fails
+  async function parseJsonSafe(res) {
+    try { return await res.json(); } catch { return null; }
+  }
+
+  // Validate the exact acceptance shape you described
+  function isAcceptedResponse(j) {
+    // Must be an object with success === true and error is an empty object
+    if (!j || typeof j !== "object") return false;
+    if (j.success !== true) return false;
+    // Treat absent error as not strictly accepted
+    if (!("error" in j)) return false;
+    const err = j.error;
+    if (err && typeof err === "object" && Object.keys(err).length === 0) return true;
+    return false;
+  }
+
+  // Turn an API response into a user-facing message
+  function acceptanceMessage(j, fallbackStatus) {
+    if (isAcceptedResponse(j)) return "Submitted ✓";
+    const apiMsg = j?.error?.msg || j?.message || j?.error || "";
+    return apiMsg ? `Submit failed: ${apiMsg}` : (fallbackStatus || "Submit failed.");
+  }
+
+  // Re-enable submit when there is content + wallet + a loaded question
+  function updateSubmitEnabled() {
+    const hasAnswer = ($("#answerNotes").value || "").trim().length > 0;
+    const hasCode = ($("#answerCode").textContent || "").trim().length > 0;
+    const ready = walletValid && currentQuestion && (hasAnswer || hasCode);
+    const btn = $("#submitBtn");
+    if (btn) btn.disabled = !ready;
+  }
+
+  function htmlToPlainText(html) {
+    const tmp = document.createElement("div");
+    tmp.innerHTML = html || "";
+    return tmp.textContent || tmp.innerText || "";
+  }
+
+  function getSelectedTag() {
+    return ($("#tagSelect").value || "").trim();
+  }
+
+  async function submitAnswer() {
+    if (!walletValid) return showError("Add a valid SOL wallet first.");
+    if (!currentQuestion) return showError("Fetch a question first.");
+
+    const written_answer = ($("#answerNotes").value || "").trim();
+    const written_code   = ($("#answerCode").textContent || "").trim();
+    if (!written_answer && !written_code) {
+      return showError("Please write an answer or some code.");
+    }
+
+    const questionText = [
+      currentQuestion.title || "",
+      htmlToPlainText(currentQuestion.body || "")
+    ].filter(Boolean).join("\n\n");
+
+    const payload = {
+      question: questionText,
+      written_answer,
+      written_code,
+      user_wallet_id: userWallet
+    };
+
+    const submitBtn = $("#submitBtn");
+    submitBtn.dataset.label = submitBtn.dataset.label || submitBtn.textContent;
+    setLoading(submitBtn, true);
+    const statusEl = $("#submitStatus");
+    statusEl.textContent = "";
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/user/tuning/question/send`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      const j = await parseJsonSafe(res);
+      const ok = res.ok && isAcceptedResponse(j);
+
+      // Always show a user-visible status
+      statusEl.textContent = acceptanceMessage(j, `Submit failed (HTTP ${res.status})`);
+      statusEl.className = ok
+        ? "text-sm text-green-700"
+        : "text-sm text-bRed";
+
+      if (!ok) {
+        // Do NOT clear user input; let them adjust and retry
+        showError(statusEl.textContent);
+        return;
+      }
+
+      // Success → clear answer & fetch next
+      $("#answerNotes").value = "";
+      $("#answerCode").textContent = "";
+      updateNotesCount();
+      currentQuestion = null; // prevent re-submit of the same prompt
+      updateSubmitEnabled();
+
+      statusEl.textContent = "Submitted ✓ Fetching a new question…";
+      scrollToTop();
+
+      const tag = getSelectedTag();
+      if (tag) {
+        await loadQuestion(tag);
+      } else {
+        $("#questionCard").classList.add("hidden");
+        $("#answerSection").classList.add("hidden");
+      }
+    } catch (e) {
+      const msg = (e && e.message) ? e.message : "Submit failed.";
+      statusEl.textContent = `Submit failed: ${msg}`;
+      statusEl.className = "text-sm text-bRed";
+      showError(msg);
+    } finally {
+      setLoading(submitBtn, false);
+    }
+  }
+
+  // --- Wire up new UI once your page boot finishes ---
+  document.addEventListener("DOMContentLoaded", () => {
+    // Wallet buttons
+    $("#saveWalletBtn").addEventListener("click", handleSaveWallet);
+    $("#clearWalletBtn").addEventListener("click", handleClearWallet);
+    $("#walletInput").addEventListener("input", () => {
+      // live hinting color only; not final validation until click
+      const val = $("#walletInput").value.trim();
+      const ok = val && validateSolanaAddress(val);
+      $("#walletInput").classList.toggle("ring-2", !!val);
+      $("#walletInput").classList.toggle("ring-bGreen", ok);
+      $("#walletInput").classList.toggle("ring-bRed", !!val && !ok);
+    });
+
+    // Submit button
+    $("#submitBtn").addEventListener("click", submitAnswer);
+
+    // Recompute submit enabled on content changes
+    $("#answerNotes").addEventListener("input", updateSubmitEnabled);
+    $("#answerCode").addEventListener("input", updateSubmitEnabled);
+
+    // Load wallet from storage on first paint
+    loadWalletFromStorage();
+  });
+
+  // Hook question render to capture the current question
+  const _origRenderQuestion = renderQuestion;
+  renderQuestion = function (data) {
+    currentQuestion = data || null;
+    _origRenderQuestion(data);
+    updateSubmitEnabled();
+  };
+
+    // Decode HTML entities like &#39;, &amp;, &lt;
+  function decodeEntities(str) {
+    if (!str) return "";
+    const t = document.createElement("textarea");
+    t.innerHTML = str;
+    return t.value;
+  }
+
+  // Very light sanitizer for decoded body HTML
+  function sanitizeHtml(html) {
+    const root = document.createElement("div");
+    root.innerHTML = html || "";
+
+    // Drop risky nodes
+    root.querySelectorAll("script, iframe, object, embed, link, style").forEach(n => n.remove());
+
+    // Strip event handlers / javascript: URLs
+    root.querySelectorAll("*").forEach(el => {
+      [...el.attributes].forEach(a => {
+        const n = a.name.toLowerCase();
+        const v = String(a.value || "");
+        if (n.startsWith("on") || n === "srcdoc") el.removeAttribute(a.name);
+        if (n === "href" && /javascript:/i.test(v)) el.removeAttribute(a.name);
+      });
+    });
+
+    return root.innerHTML;
+  }
+
+  // Decode → if no HTML tags, render as plain text paragraphs
+  function normalizeBody(input) {
+    const decoded = decodeEntities(input || "");
+    const looksLikeHtml = /<\/?[a-z][\s\S]*>/i.test(decoded);
+    if (looksLikeHtml) return sanitizeHtml(decoded);
+
+    // Plain text: escape then convert newlines to <p>/<br>
+    const esc = decoded
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    return `<p>${esc.replace(/\n{2,}/g, "</p><p>").replace(/\n/g, "<br>")}</p>`;
+  }
+  </script>
+</body>
+</html>

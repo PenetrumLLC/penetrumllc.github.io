@@ -1,9 +1,23 @@
 [
-    { "Bitcoin": "3Dxf2nr52vY9iWqzEN93qZ2PSZ2D3e3v97" },
-    { "Ethereum": "0x3181F586B97438Ed16D01cEA7b96099262Df3E48" },
-    { "Litecoin": "MKQHWsaotvJygMjUr7nsFj7vVDGgUmaN6V" },
-    { "Tether":  "0x1d97eeBec65A50057023B5EA1da9ED73043e6Fd1"},
-    {"Solana":  "355ozEK6J3CKrs3qH7H8LeubsX7qi8gDBtnvr5LhrQjc"},
-  {"Avalanche":  "0x73391E1742694Be8A883F3EbAE889E2E41708936"},
-    {"BB Coin":  "Gwpfy2GBiPdc2xdqg5UFGpypQChj6rcXaGixBBtj11Xd"}
+  {
+    "Bitcoin": "3Dxf2nr52vY9iWqzEN93qZ2PSZ2D3e3v97"
+  },
+  {
+    "Ethereum": "0x3181F586B97438Ed16D01cEA7b96099262Df3E48"
+  },
+  {
+    "Litecoin": "MKQHWsaotvJygMjUr7nsFj7vVDGgUmaN6V"
+  },
+  {
+    "Tether": "0x1d97eeBec65A50057023B5EA1da9ED73043e6Fd1"
+  },
+  {
+    "Solana": "355ozEK6J3CKrs3qH7H8LeubsX7qi8gDBtnvr5LhrQjc"
+  },
+  {
+    "Avalanche": "0x73391E1742694Be8A883F3EbAE889E2E41708936"
+  },
+  {
+    "BB Coin": "Gwpfy2GBiPdc2xdqg5UFGpypQChj6rcXaGixBBtj11Xd"
+  }
 ]
