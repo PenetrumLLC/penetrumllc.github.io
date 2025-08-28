@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="../icons/icon.png" />
+  <title>Submission Review • Backyard Bandwidth</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            bLightBlue: "#6ec1e4",
+            bLightBlueHover: "#008CCB",
+            bDarkBlue: "#2d6ea8",
+            bDarkGrey: "#1A1A1A",
+            bLightGrey: "#A8B1B7",
+            bGreen: "#4caf50",
+            bGreenHover: "#008000FF",
+            bRed: "#E33434",
+            bRedHover: "#972424"
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100 font-mono">
+  <!-- Header -->
+  <header class="w-full bg-black text-white flex items-center justify-between px-4 py-2 shadow-md">
+    <div class="flex items-center space-x-3">
+      <a href="../index.html"><img src="../icons/icon.png" alt="Logo" class="max-h-14 w-auto object-contain" /></a>
+      <span class="text-lg font-bold tracking-wide">Backyard Bandwidth Admin</span>
+    </div>
+    <div>
+      <button id="logoutBtn" class="bg-bRed hover:bg-bRedHover text-white font-bold py-2 px-4 rounded">Logout</button>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="max-w-6xl mx-auto mt-10 p-6 bg-white rounded-lg shadow">
+    <div class="flex items-center justify-between flex-wrap gap-3">
+      <h1 class="text-2xl font-bold text-bDarkBlue">Submission Review</h1>
+      <div class="flex items-center gap-2">
+        <button id="refreshBtn" class="bg-bDarkGrey hover:bg-bLightGrey text-white font-bold py-2 px-4 rounded">Refresh</button>
+        <label class="inline-flex items-center gap-2 text-sm">
+          <input id="pendingOnlyToggle" type="checkbox" class="h-4 w-4"> Show pending only
+        </label>
+      </div>
+    </div>
+
+    <p class="mt-2 text-sm text-gray-600">Newest to oldest. Click <span class="font-semibold">Accept</span> or <span class="font-semibold">Reject</span> to take action on a submission.</p>
+
+    <!-- Alert area -->
+    <div id="alert" class="hidden mt-4 p-3 rounded border"></div>
+
+    <!-- List container -->
+    <div id="list" class="mt-6 grid grid-cols-1 gap-4"></div>
+
+    <!-- Empty state -->
+    <div id="emptyState" class="hidden mt-10 text-center text-gray-500">No submissions to display.</div>
+  </main>
+
+  <!-- Action Modal -->
+  <div id="actionModal" class="fixed inset-0 hidden items-center justify-center bg-black/60 z-50">
+    <div class="bg-white w-full max-w-xl rounded-xl shadow-lg overflow-hidden">
+      <div class="px-5 py-3 bg-gray-50 border-b flex items-center justify-between">
+        <h2 id="modalTitle" class="text-lg font-bold">Take Action</h2>
+        <button id="modalClose" class="text-sm text-gray-500 hover:text-gray-800">✕</button>
+      </div>
+      <div class="p-5 space-y-4">
+        <div>
+          <label class="text-xs text-gray-500">Submission ID</label>
+          <div id="modalId" class="mt-1 text-sm break-all font-mono"></div>
+        </div>
+        <div>
+          <label class="text-xs text-gray-500">Wallet</label>
+          <div id="modalWallet" class="mt-1 text-sm break-all font-mono"></div>
+        </div>
+
+        <!-- Payout amount (for ACCEPT) -->
+        <div id="payoutRow" class="hidden">
+          <label for="payoutInput" class="block text-sm font-semibold">Payout Amount</label>
+          <input id="payoutInput" type="text" placeholder="$100" class="mt-1 w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-bLightBlue"/>
+          <p class="text-xs text-gray-500 mt-1">Accept requires a payout. You can include a currency symbol (e.g. "$100").</p>
+        </div>
+
+        <!-- Denial reason (for REJECT or shown as N/A when ACCEPT) -->
+        <div id="reasonRow" class="hidden">
+          <label for="reasonSelect" class="block text-sm font-semibold">Denial Reason</label>
+          <select id="reasonSelect" class="mt-1 w-full rounded border px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-bLightBlue"></select>
+          <textarea id="reasonOther" class="mt-2 hidden w-full rounded border px-3 py-2 h-20 focus:outline-none focus:ring-2 focus:ring-bLightBlue" placeholder="Enter a custom reason…"></textarea>
+        </div>
+      </div>
+      <div class="px-5 py-3 bg-gray-50 border-t flex items-center justify-end gap-2">
+        <button id="modalCancel" class="px-4 py-2 rounded border text-gray-700 hover:bg-gray-100">Cancel</button>
+        <button id="modalConfirm" class="px-4 py-2 rounded text-white bg-bDarkBlue hover:bg-bLightBlue">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/admin_session.js"></script>
+  <script>
+    let API_BASE_URL = "";
+    let ADMIN_TOKEN = "";
+    let RAW_DATA = [];
+
+    // Modal state
+    let CURRENT_ACTION = null; // "ACCEPT" | "REJECT"
+    let CURRENT_ITEM = null;
+
+    const DEFAULT_REASONS = [
+      "Copy and paste",
+      "AI slop",
+      "Invalid code",
+      "Not a real submission",
+      "Low effort / Incomplete",
+      "Off-topic / Out of scope",
+      "Plagiarism / Scraped",
+      "Policy violation",
+      "Spam",
+      "Does not compile",
+      "Unsafe / malicious code",
+      "Other (enter reason)"
+    ];
+
+    // Load API base URL (dev vs prod)
+    (async () => {
+      try {
+        const res = await fetch("../data/env.json");
+        const config = await res.json();
+        const isDev = location.hostname.includes("localhost") || location.hostname === "127.0.0.1";
+        API_BASE_URL = isDev ? config.dev : config.prod;
+      } catch (err) {
+        console.error("Failed to load API base URL:", err);
+        showAlert("Failed to load environment configuration. Some features may not work.", "error");
+      } finally {
+        initPage();
+      }
+    })();
+
+    function initPage() {
+      document.getElementById("logoutBtn").addEventListener("click", logoutAdmin);
+      document.getElementById("refreshBtn").addEventListener("click", loadSubmissions);
+      document.getElementById("pendingOnlyToggle").addEventListener("change", renderList);
+
+      // Modal wiring
+      document.getElementById("modalClose").addEventListener("click", closeModal);
+      document.getElementById("modalCancel").addEventListener("click", closeModal);
+      document.getElementById("modalConfirm").addEventListener("click", submitModalAction);
+      document.getElementById("reasonSelect").addEventListener("change", onReasonChange);
+
+      ADMIN_TOKEN = localStorage.getItem("adminSessionToken") || "";
+      if (!ADMIN_TOKEN) {
+        showAlert("No admin token found. Please log in again.", "error");
+        setTimeout(() => (window.location.href = "login.html"), 1200);
+        return;
+      }
+
+      if (!API_BASE_URL) {
+        showAlert("API base URL not loaded yet. Please refresh in a moment.", "warn");
+        return;
+      }
+
+      loadSubmissions();
+    }
+
+    function logoutAdmin() {
+      localStorage.removeItem("adminSession");
+      localStorage.removeItem("adminSessionToken");
+      window.location.href = "login.html";
+    }
+
+    async function loadSubmissions() {
+      clearAlert();
+      const list = document.getElementById("list");
+      list.innerHTML = skeletonCards(6);
+
+      try {
+        const resp = await fetch(`${API_BASE_URL}/admin/submissions/view`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token: ADMIN_TOKEN })
+        });
+        const result = await resp.json();
+
+        if (!result.success) {
+          const msg = result?.error?.msg || "Failed to load submissions.";
+          showAlert(msg, "error");
+          document.getElementById("emptyState").classList.remove("hidden");
+          list.innerHTML = "";
+          return;
+        }
+
+        RAW_DATA = Array.isArray(result.data) ? result.data : [];
+        // Sort newest -> oldest by upload_time "YYYY-MM-DD HH:MM:SS"
+        RAW_DATA.sort((a, b) => {
+          const ta = (a.upload_time || "").replace(" ", "T");
+          const tb = (b.upload_time || "").replace(" ", "T");
+          return new Date(tb) - new Date(ta);
+        });
+
+        renderList();
+      } catch (e) {
+        console.error(e);
+        showAlert("Network error while loading submissions.", "error");
+        document.getElementById("list").innerHTML = "";
+        document.getElementById("emptyState").classList.remove("hidden");
+      }
+    }
+
+    function renderList() {
+      const list = document.getElementById("list");
+      const pendingOnly = document.getElementById("pendingOnlyToggle").checked;
+
+      const data = pendingOnly ? RAW_DATA.filter(x => !x.is_accepted && !x.is_denied) : RAW_DATA;
+
+      if (!data.length) {
+        list.innerHTML = "";
+        document.getElementById("emptyState").classList.remove("hidden");
+        return;
+      }
+      document.getElementById("emptyState").classList.add("hidden");
+
+      list.innerHTML = data.map(renderCard).join("");
+
+      // Hook up button handlers after render – only for pending items
+      data.forEach(item => {
+        const isPending = !item.is_accepted && !item.is_denied;
+        if (!isPending) return;
+        const accBtn = document.getElementById(`acc-${item.id}`);
+        const rejBtn = document.getElementById(`rej-${item.id}`);
+        if (accBtn) accBtn.addEventListener("click", () => openActionModal(item, "ACCEPT"));
+        if (rejBtn) rejBtn.addEventListener("click", () => openActionModal(item, "REJECT"));
+      });
+    }
+
+    function renderCard(item) {
+      const status = item.is_accepted ? "Accepted" : (item.is_denied ? "Denied" : "Pending");
+      const statusClass = item.is_accepted
+        ? "bg-green-100 text-green-800 border-green-300"
+        : item.is_denied
+          ? "bg-red-100 text-red-800 border-red-300"
+          : "bg-yellow-100 text-yellow-800 border-yellow-300";
+
+      const isPending = !item.is_accepted && !item.is_denied;
+      const disabledAttrs = isPending ? '' : 'disabled';
+      const disabledClass = isPending ? '' : 'opacity-50 pointer-events-none';
+
+      const safe = (txt) => (typeof txt === "string" ? txt : JSON.stringify(txt, null, 2));
+
+      return `
+        <article class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+          <div class="flex items-center justify-between gap-2 px-4 py-3 bg-gray-50 border-b">
+            <div class="flex items-center gap-3">
+              <span class="text-xs px-2 py-1 rounded border ${statusClass}">${status}</span>
+              <span class="text-xs text-gray-500">ID: ${escapeHtml(item.id || '-')}</span>
+            </div>
+            <div class="text-xs text-gray-500">${formatDate(item.upload_time)}</div>
+          </div>
+
+          <div class="p-4 space-y-3">
+            <div class="text-sm"><span class="font-semibold">Wallet:</span> <span class="break-all">${escapeHtml(item.wallet_address || "-")}</span></div>
+
+            <details class="group border rounded">
+              <summary class="list-none cursor-pointer select-none flex items-center justify-between px-3 py-2 bg-gray-50 border-b">
+                <span class="font-semibold text-sm">Question</span>
+                <span class="text-xs text-gray-500 group-open:hidden">(show)</span>
+                <span class="text-xs text-gray-500 hidden group-open:inline">(hide)</span>
+              </summary>
+              <pre class="overflow-x-auto text-xs p-3"><code>${escapeHtml(safe(item.question))}</code></pre>
+            </details>
+
+            <details class="group border rounded">
+              <summary class="list-none cursor-pointer select-none flex items-center justify-between px-3 py-2 bg-gray-50 border-b">
+                <span class="font-semibold text-sm">Answer</span>
+                <span class="text-xs text-gray-500 group-open:hidden">(show)</span>
+                <span class="text-xs text-gray-500 hidden group-open:inline">(hide)</span>
+              </summary>
+              <pre class="overflow-x-auto text-xs p-3"><code>${escapeHtml(safe(item.answer))}</code></pre>
+            </details>
+
+            <details class="group border rounded">
+              <summary class="list-none cursor-pointer select-none flex items-center justify-between px-3 py-2 bg-gray-50 border-b">
+                <span class="font-semibold text-sm">Code</span>
+                <span class="text-xs text-gray-500 group-open:hidden">(show)</span>
+                <span class="text-xs text-gray-500 hidden group-open:inline">(hide)</span>
+              </summary>
+              <pre class="overflow-x-auto text-xs p-3"><code>${escapeHtml(safe(item.code))}</code></pre>
+            </details>
+
+            <div class="pt-2 flex items-center gap-2">
+              <button id="acc-${item.id}" ${disabledAttrs} class="action-btn ${disabledClass} bg-bGreen hover:bg-bGreenHover text-white font-bold py-2 px-4 rounded">Accept</button>
+              <button id="rej-${item.id}" ${disabledAttrs} class="action-btn ${disabledClass} bg-bRed hover:bg-bRedHover text-white font-bold py-2 px-4 rounded">Reject</button>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    // ----- Modal helpers -----
+    function openActionModal(item, action) {
+      CURRENT_ACTION = action;
+      CURRENT_ITEM = item;
+
+      document.getElementById('modalTitle').textContent = action === 'ACCEPT' ? 'Accept Submission' : 'Reject Submission';
+      document.getElementById('modalId').textContent = item.id || '-';
+      document.getElementById('modalWallet').textContent = item.wallet_address || '-';
+
+      const payoutRow = document.getElementById('payoutRow');
+      const reasonRow = document.getElementById('reasonRow');
+      const payoutInput = document.getElementById('payoutInput');
+      const reasonSelect = document.getElementById('reasonSelect');
+      const reasonOther = document.getElementById('reasonOther');
+
+      // Reset fields
+      payoutInput.value = '';
+      reasonOther.value = '';
+
+      // Populate reasons
+      reasonSelect.innerHTML = '';
+      DEFAULT_REASONS.forEach(r => {
+        const opt = document.createElement('option');
+        opt.value = r;
+        opt.textContent = r;
+        reasonSelect.appendChild(opt);
+      });
+
+      if (action === 'ACCEPT') {
+        payoutRow.classList.remove('hidden');
+        reasonRow.classList.remove('hidden');
+        // Ensure 'N/A' option exists and is selected/locked
+        if (![...reasonSelect.options].some(o => o.value === 'N/A')) {
+          const na = new Option('N/A', 'N/A', true, true);
+          reasonSelect.insertBefore(na, reasonSelect.firstChild);
+        }
+        reasonSelect.value = 'N/A';
+        reasonSelect.disabled = true;
+        reasonOther.classList.add('hidden');
+        payoutInput.placeholder = '$100';
+      } else {
+        // REJECT
+        payoutRow.classList.remove('hidden');
+        reasonRow.classList.remove('hidden');
+        payoutInput.value = '0';
+        payoutInput.disabled = true; // default 0 for rejections
+        reasonSelect.disabled = false;
+        if (![...reasonSelect.options].some(o => o.value === 'N/A')) {
+          const na = new Option('N/A', 'N/A');
+          reasonSelect.insertBefore(na, reasonSelect.firstChild);
+        }
+        reasonSelect.value = DEFAULT_REASONS[0];
+        onReasonChange();
+      }
+
+      // Show modal
+      const modal = document.getElementById('actionModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('actionModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      CURRENT_ACTION = null;
+      CURRENT_ITEM = null;
+      // Re-enable possibly disabled input for next time
+      document.getElementById('payoutInput').disabled = false;
+    }
+
+    function onReasonChange() {
+      const sel = document.getElementById('reasonSelect');
+      const other = document.getElementById('reasonOther');
+      if (sel.value && sel.value.toLowerCase().startsWith('other')) {
+        other.classList.remove('hidden');
+        other.focus();
+      } else {
+        other.classList.add('hidden');
+      }
+    }
+
+    async function submitModalAction() {
+      if (!CURRENT_ITEM || !CURRENT_ACTION) return;
+
+      const payoutInput = document.getElementById('payoutInput');
+      const reasonSelect = document.getElementById('reasonSelect');
+      const reasonOther = document.getElementById('reasonOther');
+
+      let payout_amount = '';
+      let denial_reason = '';
+
+      if (CURRENT_ACTION === 'ACCEPT') {
+        payout_amount = (payoutInput.value || '').trim();
+        if (!payout_amount) {
+          showAlert('Please enter a payout amount for acceptance.', 'warn');
+          return;
+        }
+        denial_reason = 'N/A';
+      } else {
+        // REJECT
+        payout_amount = '0';
+        const sel = reasonSelect.value || '';
+        if (sel.toLowerCase().startsWith('other')) {
+          const custom = (reasonOther.value || '').trim();
+          if (!custom) {
+            showAlert('Please enter a denial reason for "Other".', 'warn');
+            return;
+          }
+          denial_reason = custom;
+        } else {
+          denial_reason = sel || 'N/A';
+        }
+      }
+
+      // Send action
+      await handleAction(CURRENT_ITEM.id, CURRENT_ACTION, payout_amount, denial_reason);
+      closeModal();
+    }
+
+    // ----- Action request -----
+    async function handleAction(id, action, payout_amount, denial_reason) {
+      clearAlert();
+      toggleButtons(id, true);
+      try {
+        const payload = { token: ADMIN_TOKEN, action, payout_amount, denial_reason, id };
+        const result = await postAction(payload);
+
+        if (result.success) {
+          const idx = RAW_DATA.findIndex(x => x.id === id);
+          if (idx !== -1) {
+            RAW_DATA[idx].is_accepted = action === "ACCEPT";
+            RAW_DATA[idx].is_denied = action === "REJECT";
+          }
+          renderList();
+          showAlert(`${action} successful.`, "ok");
+        } else {
+          showAlert(result?.error?.msg || `${action} failed.`, "error");
+        }
+      } catch (e) {
+        console.error(e);
+        showAlert(`${action} failed due to network error.`, "error");
+      } finally {
+        toggleButtons(id, false);
+      }
+    }
+
+    async function postAction(body) {
+      const resp = await fetch(`${API_BASE_URL}/admin/submissions/action`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      });
+      return resp.json();
+    }
+
+    function toggleButtons(id, loading) {
+      const a = document.getElementById(`acc-${id}`);
+      const r = document.getElementById(`rej-${id}`);
+      [a, r].forEach(btn => {
+        if (!btn) return;
+        btn.disabled = loading || btn.disabled; // keep disabled when not pending
+        btn.classList.toggle("opacity-60", loading);
+        if (loading) {
+          btn.textContent = btn.id.startsWith("acc") ? "Accepting…" : "Rejecting…";
+        } else {
+          btn.textContent = btn.id.startsWith("acc") ? "Accept" : "Reject";
+        }
+      });
+    }
+
+    function skeletonCards(n = 4) {
+      return Array.from({ length: n }).map(() => `
+        <div class="animate-pulse rounded-lg border border-gray-200 p-4 space-y-3">
+          <div class="h-5 bg-gray-200 rounded w-1/3"></div>
+          <div class="h-4 bg-gray-200 rounded w-1/2"></div>
+          <div class="h-24 bg-gray-200 rounded"></div>
+          <div class="flex gap-2">
+            <div class="h-9 bg-gray-200 rounded w-24"></div>
+            <div class="h-9 bg-gray-200 rounded w-24"></div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function formatDate(ts) {
+      if (!ts) return "-";
+      const d = new Date(ts.replace(" ", "T"));
+      if (isNaN(d)) return ts;
+      return d.toLocaleString();
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function showAlert(msg, type = "ok") {
+      const el = document.getElementById("alert");
+      el.classList.remove("hidden");
+      el.textContent = msg;
+      el.className = "mt-4 p-3 rounded border";
+      if (type === "ok") el.classList.add("bg-green-50", "border-green-300", "text-green-800");
+      if (type === "warn") el.classList.add("bg-yellow-50", "border-yellow-300", "text-yellow-800");
+      if (type === "error") el.classList.add("bg-red-50", "border-red-300", "text-red-800");
+    }
+
+    function clearAlert() {
+      const el = document.getElementById("alert");
+      el.classList.add("hidden");
+      el.textContent = "";
+      el.className = "hidden mt-4 p-3 rounded border";
+    }
+  </script>
+</body>
+</html>

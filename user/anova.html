@@ -17,7 +17,6 @@
 
 <script>
     window.addEventListener("DOMContentLoaded", () => {
-      // Base marked options
       marked.setOptions({
         gfm: true,
         breaks: true,
@@ -38,7 +37,6 @@
         }
       });
 
-      // Use KaTeX extension
       if (window.markedKatex) {
         marked.use(window.markedKatex({
           katex: window.katex,
@@ -421,7 +419,7 @@ You are now connected with Anova — a stateless LLM built for privacy. Anova ne
     const img = document.createElement("img");
     img.src = "../icons/anova-logo.png";
     img.alt = "Anova Logo";
-    img.className = "w-6 h-6 object-contain"; // adjust size to match circle
+    img.className = "w-6 h-6 object-contain";
     avatar.appendChild(img);
     avatar.classList.add("bg-black");
         } else {
