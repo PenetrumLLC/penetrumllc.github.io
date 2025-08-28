@@ -39,6 +39,13 @@
       </a>
       <span class="text-lg font-bold tracking-wide">Backyard Bandwidth — Wallet Overview</span>
     </div>
+      <!-- Counters -->
+  <div id="statsBox" class="absolute right-6 top-2 flex space-x-4 text-sm">
+    <span class="text-green-400 font-bold">Accepted: <span id="acceptedCount">0</span></span>
+    <span class="text-red-400 font-bold">Denied: <span id="deniedCount">0</span></span>
+    <span class="text-yellow-400 font-bold">Pending: <span id="pendingCount">0</span></span>
+  </div>
+
   </header>
 
   <!-- Main -->
@@ -120,19 +127,20 @@
       setTimeout(() => box.classList.add("hidden"), 5000);
     }
 
-    async function fetchData() {
-      const url = `${API_BASE_URL}/open/tuning/data`;
-      try {
-        const res = await fetch(url, { method: "POST" });
-        const j = await res.json();
-        if (!j.success || !Array.isArray(j.data)) throw new Error("Invalid response");
-        allData = j.data;
-        filteredData = allData;
-        renderPage(1);
-      } catch (e) {
-        showError(e.message);
-      }
-    }
+async function fetchData() {
+  const url = `${API_BASE_URL}/open/tuning/data`;
+  try {
+    const res = await fetch(url, { method: "POST" });
+    const j = await res.json();
+    if (!j.success || !Array.isArray(j.data)) throw new Error("Invalid response");
+    allData = j.data;
+    filteredData = allData;
+    updateStats();
+    renderPage(1);
+  } catch (e) {
+    showError(e.message);
+  }
+}
 
     function renderPage(page) {
       currentPage = page;
@@ -226,6 +234,21 @@ function sortData(key) {
   });
 
   renderPage(1);
+}
+
+function updateStats() {
+  const accepted = allData.filter(item => item.accepted === true).length;
+  const denied = allData.filter(item => item.denied === true).length;
+  const pending = allData.filter(item => !item.accepted && !item.denied).length;
+  const total = accepted + denied + pending;
+
+  const acceptedPct = total ? ((accepted / total) * 100).toFixed(1) : 0;
+  const deniedPct = total ? ((denied / total) * 100).toFixed(1) : 0;
+  const pendingPct = total ? ((pending / total) * 100).toFixed(1) : 0;
+
+  document.getElementById("acceptedCount").textContent = `${accepted} (${acceptedPct}%)`;
+  document.getElementById("deniedCount").textContent = `${denied} (${deniedPct}%)`;
+  document.getElementById("pendingCount").textContent = `${pending} (${pendingPct}%)`;
 }
   </script>
 </body>
