@@ -238,68 +238,86 @@
       });
     }
 
-    function renderCard(item) {
-      const status = item.is_accepted ? "Accepted" : (item.is_denied ? "Denied" : "Pending");
-      const statusClass = item.is_accepted
-        ? "bg-green-100 text-green-800 border-green-300"
-        : item.is_denied
-          ? "bg-red-100 text-red-800 border-red-300"
-          : "bg-yellow-100 text-yellow-800 border-yellow-300";
+function renderCard(item) {
+  const status = item.is_accepted ? "Accepted" : (item.is_denied ? "Denied" : "Pending");
+  const statusClass = item.is_accepted
+    ? "bg-green-100 text-green-800 border-green-300"
+    : item.is_denied
+      ? "bg-red-100 text-red-800 border-red-300"
+      : "bg-yellow-100 text-yellow-800 border-yellow-300";
 
-      const isPending = !item.is_accepted && !item.is_denied;
-      const disabledAttrs = isPending ? '' : 'disabled';
-      const disabledClass = isPending ? '' : 'opacity-50 pointer-events-none';
+  const isPending = !item.is_accepted && !item.is_denied;
+  const disabledAttrs = isPending ? '' : 'disabled';
+  const disabledClass = isPending ? '' : 'opacity-50 pointer-events-none';
 
-      const safe = (txt) => (typeof txt === "string" ? txt : JSON.stringify(txt, null, 2));
+  const safe = (txt) => (typeof txt === "string" ? txt : JSON.stringify(txt, null, 2));
+  const escape = (str) => String(str)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 
-      return `
-        <article class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-          <div class="flex items-center justify-between gap-2 px-4 py-3 bg-gray-50 border-b">
-            <div class="flex items-center gap-3">
-              <span class="text-xs px-2 py-1 rounded border ${statusClass}">${status}</span>
-              <span class="text-xs text-gray-500">ID: ${escapeHtml(item.id || '-')}</span>
-            </div>
-            <div class="text-xs text-gray-500">${formatDate(item.upload_time)}</div>
-          </div>
+  // --- NEW: compute answer character count (use raw, unformatted) ---
+  const rawAnswer = typeof item.answer === "string" ? item.answer
+                  : (item.answer != null ? JSON.stringify(item.answer) : "");
+  const displayAnswer = typeof item.answer === "string" ? item.answer
+                      : (item.answer != null ? JSON.stringify(item.answer, null, 2) : "");
+  // Spread to count Unicode code points more accurately than .length for surrogate pairs
+  const answerChars = rawAnswer ? [...rawAnswer].length : 0;
 
-          <div class="p-4 space-y-3">
-            <div class="text-sm"><span class="font-semibold">Wallet:</span> <span class="break-all">${escapeHtml(item.wallet_address || "-")}</span></div>
+  return `
+    <article class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
+      <div class="flex items-center justify-between gap-2 px-4 py-3 bg-gray-50 border-b">
+        <div class="flex items-center gap-3">
+          <span class="text-xs px-2 py-1 rounded border ${statusClass}">${status}</span>
+          <span class="text-xs text-gray-500">ID: ${escape(item.id || '-')}</span>
+        </div>
+        <div class="text-xs text-gray-500">${formatDate(item.upload_time)}</div>
+      </div>
 
-            <details class="group border rounded">
-              <summary class="list-none cursor-pointer select-none flex items-center justify-between px-3 py-2 bg-gray-50 border-b">
-                <span class="font-semibold text-sm">Question</span>
-                <span class="text-xs text-gray-500 group-open:hidden">(show)</span>
-                <span class="text-xs text-gray-500 hidden group-open:inline">(hide)</span>
-              </summary>
-              <pre class="overflow-x-auto text-xs p-3"><code>${escapeHtml(safe(item.question))}</code></pre>
-            </details>
+      <div class="p-4 space-y-3">
+        <div class="text-sm"><span class="font-semibold">Wallet:</span> <span class="break-all">${escape(item.wallet_address || "-")}</span></div>
 
-            <details class="group border rounded">
-              <summary class="list-none cursor-pointer select-none flex items-center justify-between px-3 py-2 bg-gray-50 border-b">
-                <span class="font-semibold text-sm">Answer</span>
-                <span class="text-xs text-gray-500 group-open:hidden">(show)</span>
-                <span class="text-xs text-gray-500 hidden group-open:inline">(hide)</span>
-              </summary>
-              <pre class="overflow-x-auto text-xs p-3"><code>${escapeHtml(safe(item.answer))}</code></pre>
-            </details>
+        <details class="group border rounded">
+          <summary class="list-none cursor-pointer select-none flex items-center justify-between px-3 py-2 bg-gray-50 border-b">
+            <span class="font-semibold text-sm">Question</span>
+            <span class="text-xs text-gray-500 group-open:hidden">(show)</span>
+            <span class="text-xs text-gray-500 hidden group-open:inline">(hide)</span>
+          </summary>
+          <pre class="overflow-x-auto text-xs p-3"><code>${escape(safe(item.question))}</code></pre>
+        </details>
 
-            <details class="group border rounded">
-              <summary class="list-none cursor-pointer select-none flex items-center justify-between px-3 py-2 bg-gray-50 border-b">
-                <span class="font-semibold text-sm">Code</span>
-                <span class="text-xs text-gray-500 group-open:hidden">(show)</span>
-                <span class="text-xs text-gray-500 hidden group-open:inline">(hide)</span>
-              </summary>
-              <pre class="overflow-x-auto text-xs p-3"><code>${escapeHtml(safe(item.code))}</code></pre>
-            </details>
+        <details class="group border rounded">
+          <summary class="list-none cursor-pointer select-none flex items-center justify-between px-3 py-2 bg-gray-50 border-b">
+            <span class="font-semibold text-sm">
+              Answer
+              <span class="ml-2 text-xs font-normal text-gray-500">(${answerChars} chars)</span>
+            </span>
+            <span class="text-xs text-gray-500 group-open:hidden">(show)</span>
+            <span class="text-xs text-gray-500 hidden group-open:inline">(hide)</span>
+          </summary>
+          <pre class="overflow-x-auto text-xs p-3"><code>${escape(displayAnswer)}</code></pre>
+        </details>
 
-            <div class="pt-2 flex items-center gap-2">
-              <button id="acc-${item.id}" ${disabledAttrs} class="action-btn ${disabledClass} bg-bGreen hover:bg-bGreenHover text-white font-bold py-2 px-4 rounded">Accept</button>
-              <button id="rej-${item.id}" ${disabledAttrs} class="action-btn ${disabledClass} bg-bRed hover:bg-bRedHover text-white font-bold py-2 px-4 rounded">Reject</button>
-            </div>
-          </div>
-        </article>
-      `;
-    }
+        <details class="group border rounded">
+          <summary class="list-none cursor-pointer select-none flex items-center justify-between px-3 py-2 bg-gray-50 border-b">
+            <span class="font-semibold text-sm">Code</span>
+            <span class="text-xs text-gray-500 group-open:hidden">(show)</span>
+            <span class="text-xs text-gray-500 hidden group-open:inline">(hide)</span>
+          </summary>
+          <pre class="overflow-x-auto text-xs p-3"><code>${escape(safe(item.code))}</code></pre>
+        </details>
+
+        <div class="pt-2 flex items-center gap-2">
+          <button id="acc-${item.id}" ${disabledAttrs} class="action-btn ${disabledClass} bg-bGreen hover:bg-bGreenHover text-white font-bold py-2 px-4 rounded">Accept</button>
+          <button id="rej-${item.id}" ${disabledAttrs} class="action-btn ${disabledClass} bg-bRed hover:bg-bRedHover text-white font-bold py-2 px-4 rounded">Reject</button>
+        </div>
+      </div>
+    </article>
+  `;
+}
+
 
     // ----- Modal helpers -----
     function openActionModal(item, action) {
