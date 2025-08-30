@@ -105,6 +105,10 @@
     let filteredData = [];
     let currentPage = 1;
     const perPage = 10;
+    const esc = (s) =>
+    String(s).replace(/[&<>"'`]/g, c =>
+      ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;'}[c])
+    );
 
     async function detectApiBase() {
       try {
@@ -163,7 +167,7 @@ async function fetchData() {
       items.forEach(item => {
         body.innerHTML += `
           <tr>
-            <td class="px-3 py-2 border-b font-mono">${item.wallet}</td>
+            <td class="px-3 py-2 border-b font-mono">${esc(item.wallet)}</td>
             <td class="px-3 py-2 border-b">${item.date_added}</td>
             <td class="px-3 py-2 border-b ${item.accepted ? "text-green-700 font-bold text-lg" : "text-gray-500"}">${item.accepted}</td>
             <td class="px-3 py-2 border-b ${item.denied ? "text-red-700 font-bold text-lg" : "text-gray-500"}">${item.denied}</td>
