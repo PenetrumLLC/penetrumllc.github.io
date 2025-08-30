@@ -227,14 +227,19 @@
 
       list.innerHTML = data.map(renderCard).join("");
 
-      // Hook up button handlers after render – only for pending items
+      // Hook up button handlers after render
       data.forEach(item => {
         const isPending = !item.is_accepted && !item.is_denied;
-        if (!isPending) return;
-        const accBtn = document.getElementById(`acc-${item.id}`);
-        const rejBtn = document.getElementById(`rej-${item.id}`);
-        if (accBtn) accBtn.addEventListener("click", () => openActionModal(item, "ACCEPT"));
-        if (rejBtn) rejBtn.addEventListener("click", () => openActionModal(item, "REJECT"));
+        if (isPending) {
+          const accBtn = document.getElementById(`acc-${item.id}`);
+          const rejBtn = document.getElementById(`rej-${item.id}`);
+          if (accBtn) accBtn.addEventListener("click", () => openActionModal(item, "ACCEPT"));
+          if (rejBtn) rejBtn.addEventListener("click", () => openActionModal(item, "REJECT"));
+        }
+
+        // NEW: copy button works for all statuses
+        const cpyBtn = document.getElementById(`cpy-${item.id}`);
+        if (cpyBtn) cpyBtn.addEventListener("click", () => copyFormatted(item));
       });
     }
 
@@ -258,12 +263,11 @@ function renderCard(item) {
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#039;");
 
-  // --- NEW: compute answer character count (use raw, unformatted) ---
+  // --- existing: answer character count ---
   const rawAnswer = typeof item.answer === "string" ? item.answer
                   : (item.answer != null ? JSON.stringify(item.answer) : "");
   const displayAnswer = typeof item.answer === "string" ? item.answer
                       : (item.answer != null ? JSON.stringify(item.answer, null, 2) : "");
-  // Spread to count Unicode code points more accurately than .length for surrogate pairs
   const answerChars = rawAnswer ? [...rawAnswer].length : 0;
 
   return `
@@ -309,15 +313,17 @@ function renderCard(item) {
           <pre class="overflow-x-auto text-xs p-3"><code>${escape(safe(item.code))}</code></pre>
         </details>
 
-        <div class="pt-2 flex items-center gap-2">
+        <div class="pt-2 flex items-center gap-2 flex-wrap">
           <button id="acc-${item.id}" ${disabledAttrs} class="action-btn ${disabledClass} bg-bGreen hover:bg-bGreenHover text-white font-bold py-2 px-4 rounded">Accept</button>
           <button id="rej-${item.id}" ${disabledAttrs} class="action-btn ${disabledClass} bg-bRed hover:bg-bRedHover text-white font-bold py-2 px-4 rounded">Reject</button>
+
+          <!-- NEW: Copy button -->
+          <button id="cpy-${item.id}" class="bg-bDarkGrey hover:bg-bLightGrey text-white font-bold py-2 px-4 rounded" title="Copy this submission">Copy</button>
         </div>
       </div>
     </article>
   `;
 }
-
 
     // ----- Modal helpers -----
     function openActionModal(item, action) {
@@ -350,7 +356,6 @@ function renderCard(item) {
       if (action === 'ACCEPT') {
         payoutRow.classList.remove('hidden');
         reasonRow.classList.remove('hidden');
-        // Ensure 'N/A' option exists and is selected/locked
         if (![...reasonSelect.options].some(o => o.value === 'N/A')) {
           const na = new Option('N/A', 'N/A', true, true);
           reasonSelect.insertBefore(na, reasonSelect.firstChild);
@@ -386,7 +391,6 @@ function renderCard(item) {
       modal.classList.remove('flex');
       CURRENT_ACTION = null;
       CURRENT_ITEM = null;
-      // Re-enable possibly disabled input for next time
       document.getElementById('payoutInput').disabled = false;
     }
 
@@ -434,7 +438,6 @@ function renderCard(item) {
         }
       }
 
-      // Send action
       await handleAction(CURRENT_ITEM.id, CURRENT_ACTION, payout_amount, denial_reason);
       closeModal();
     }
@@ -536,6 +539,45 @@ function renderCard(item) {
       el.textContent = "";
       el.className = "hidden mt-4 p-3 rounded border";
     }
+
+    // ===========================
+    // NEW: Copy Q/A/C helpers
+    // ===========================
+    function textify(value) {
+      if (value === null || value === undefined) return "";
+      if (typeof value === "string") return value.trim();
+      try { return JSON.stringify(value, null, 2); }
+      catch { return String(value); }
+    }
+
+    async function copyFormatted(item) {
+      const q = textify(item.question);
+      const a = textify(item.answer);
+      const c = textify(item.code);
+
+      const payload = `Q: ${q}\n\nA: ${a}\n\nC:\n${c}`;
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(payload);
+        } else {
+          // Fallback for older browsers
+          const ta = document.createElement('textarea');
+          ta.value = payload;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        showAlert("Copied Q/A/C to clipboard.", "ok");
+      } catch (err) {
+        console.error("Clipboard copy failed:", err);
+        showAlert("Could not copy to clipboard.", "error");
+      }
+    }
+    // ===========================
   </script>
 </body>
 </html>
