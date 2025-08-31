@@ -1,0 +1,9 @@
+[
+  {
+    "issue": "XSS in SOL wallet field on submissions.html page",
+    "patch": "Created simple escape sequence on client side, and added wallet verification on backend side",
+    "date": "08/30/2025",
+    "reward": "Free year VPN to any country the awardee wanted",
+    "credits": "ptrstr"
+  }
+]

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Wall of Fame | Backyard Bandwidth</title>
+  <link href="/icons/icon.png" rel="icon"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="Backyard Bandwidth Wall of Fame — celebrating researchers whose accepted vulnerability reports helped keep our users private and secure."/>
+</head>
+<body class="bg-white text-black font-sans">
+
+  <!-- Header (same look & feel as your program page) -->
+  <header class="bg-black text-white py-6 text-center">
+    <h1 class="text-3xl font-bold">Backyard Bandwidth • Wall of Fame</h1>
+    <p class="mt-2 text-gray-300 text-sm">Thank you to the researchers who help keep our users private & secure.</p>
+  </header>
+
+  <main class="max-w-3xl mx-auto p-6 space-y-8">
+    <!-- Top actions / link back -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+      <p class="text-gray-700">Accepted reports are honored here after remediation and verification.</p>
+      <a href="/bug-bounty.html" class="text-sm font-medium underline decoration-gray-400 hover:decoration-gray-800">← Back to Bug Bounty Program</a>
+    </div>
+
+    <!-- Stats -->
+    <section aria-labelledby="wof-stats-title" class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+      <h2 id="wof-stats-title" class="sr-only">Wall of Fame Stats</h2>
+      <div class="flex flex-wrap items-center gap-3">
+        <span class="inline-flex items-center gap-2 rounded-full border border-gray-300 px-3 py-1 text-sm">
+          <span id="wof-count">0</span> honorees
+        </span>
+        <span style="display: none" id="wof-updated" class="text-xs text-gray-600"></span>
+      </div>
+    </section>
+
+    <!-- Loading state -->
+    <div id="wof-loading" class="space-y-3">
+      <div class="h-20 rounded-lg bg-gray-100 animate-pulse"></div>
+      <div class="h-20 rounded-lg bg-gray-100 animate-pulse"></div>
+      <div class="h-20 rounded-lg bg-gray-100 animate-pulse"></div>
+    </div>
+
+    <!-- Error state -->
+    <div id="wof-error" class="hidden bg-red-50 border border-red-200 text-red-800 rounded-lg p-4">
+      Could not load the Wall of Fame right now. Please refresh to try again.
+    </div>
+
+    <!-- Empty state -->
+    <div id="wof-empty" class="hidden text-center text-gray-600">
+      <p>No honorees yet — be the first to responsibly disclose a qualifying issue.</p>
+    </div>
+
+    <!-- Entries -->
+    <section aria-labelledby="wof-list-title" class="space-y-4">
+      <h2 id="wof-list-title" class="text-2xl font-bold mb-2">Honorees</h2>
+      <div id="wof-list" class="grid grid-cols-1 gap-4"></div>
+    </section>
+  </main>
+
+  <footer style="display: none" class="text-center text-sm text-gray-500 mt-12 mb-6">
+    &copy; <span id="year"></span> Backyard Bandwidth. All rights reserved.
+  </footer>
+
+  <script>
+    function parseUSDate(d) {
+      if (typeof d !== "string") return null;
+      const parts = d.trim().split("/");
+      if (parts.length !== 3) return null;
+      const [mm, dd, yyyy] = parts.map(p => parseInt(p, 10));
+      if (!mm || !dd || !yyyy) return null;
+      return new Date(yyyy, mm - 1, dd);
+    }
+
+    function createEl(tag, className, text) {
+      const el = document.createElement(tag);
+      if (className) el.className = className;
+      if (text !== undefined && text !== null) el.textContent = text;
+      return el;
+    }
+
+    function renderCard(entry) {
+      const { issue, patch, date, reward, credits } = entry;
+
+      const card = createEl("article", "border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition bg-white p-5");
+
+      // Header row with handle + date pill
+      const topRow = createEl("div", "flex items-start justify-between gap-3");
+      const handle = createEl("div", "font-semibold text-lg flex items-center gap-2");
+      const trophy = createEl("span", "");
+      const handleText = createEl("span", "", (credits ? (credits.startsWith("@") ? credits : "@" + credits) : "Anonymous"));
+      handle.append(trophy, handleText);
+
+      const datePill = createEl("span", "shrink-0 text-xs bg-gray-100 border border-gray-200 rounded-full px-2 py-1");
+      datePill.textContent = date || "—";
+      topRow.append(handle, datePill);
+
+      // Issue title
+      const issueTitle = createEl("h3", "mt-3 text-gray-900 font-semibold", issue || "Issue (unspecified)");
+
+      // Body details
+      const details = createEl("dl", "mt-3 grid grid-cols-1 gap-2");
+      const row = (label, value) => {
+        const dt = createEl("dt", "text-xs uppercase tracking-wide text-gray-500", label);
+        const dd = createEl("dd", "text-gray-800");
+        dd.textContent = value || "—";
+        const wrap = createEl("div", "border border-gray-100 rounded-md p-3");
+        wrap.append(dt, dd);
+        return wrap;
+      };
+
+      details.append(
+        row("Patch / Resolution", patch),
+        row("Reward", reward)
+      );
+
+      card.append(topRow, issueTitle, details);
+      return card;
+    }
+
+    async function fetchWOF() {
+      // Try relative first, then root as fallback
+      const candidates = ["data/wof.json", "/data/wof.json"];
+      let lastErr = null;
+
+      for (const url of candidates) {
+        try {
+          const res = await fetch(url, { cache: "no-store" });
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          const json = await res.json();
+          return json;
+        } catch (e) {
+          lastErr = e;
+        }
+      }
+      throw lastErr || new Error("Failed to fetch wof.json");
+    }
+
+    function renderList(items) {
+      const listEl = document.getElementById("wof-list");
+      listEl.innerHTML = ""; // clear
+      items.forEach(item => listEl.appendChild(renderCard(item)));
+    }
+
+    function setCount(n) {
+      const countEl = document.getElementById("wof-count");
+      countEl.textContent = String(n);
+    }
+
+    function setUpdated() {
+      const el = document.getElementById("wof-updated");
+      const now = new Date();
+      el.textContent = "Updated " + now.toLocaleString();
+    }
+
+    function show(id, visible) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.classList.toggle("hidden", !visible);
+    }
+
+    document.addEventListener("DOMContentLoaded", async () => {
+      // Footer year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      try {
+        const data = await fetchWOF();
+        const items = Array.isArray(data) ? data.slice() : [];
+
+        // Sort newest -> oldest by parsed date; keep unknown dates last
+        items.sort((a, b) => {
+          const da = parseUSDate(a?.date);
+          const db = parseUSDate(b?.date);
+          if (da && db) return db - da;
+          if (da && !db) return -1;
+          if (!da && db) return 1;
+          return 0;
+        });
+
+        setCount(items.length);
+        setUpdated();
+
+        show("wof-loading", false);
+
+        if (items.length === 0) {
+          show("wof-empty", true);
+          return;
+        }
+
+        renderList(items);
+      } catch (err) {
+        console.error("WOF load error:", err);
+        show("wof-loading", false);
+        show("wof-error", true);
+      }
+    });
+  </script>
+</body>
+</html>
