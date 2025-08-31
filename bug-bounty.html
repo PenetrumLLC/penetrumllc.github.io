@@ -47,28 +47,29 @@
 </section>
 
 
-    <section>
-        <h2 class="text-2xl font-bold mb-4">Program Rules</h2>
-        <ul class="list-disc list-inside space-y-2 text-gray-800">
-            <li>Every submission must include reproducible steps, proof-of-concept, and a clear impact statement.</li>
-            <li>Automated scanner output, generic issues, or vague “possible vulnerabilities” will be closed immediately.</li>
-            <li>Only the first valid report of a vulnerability is eligible for a reward.</li>
-            <li>Attempts to re-submit previously denied or duplicate issues will result in a permanent ban from the program.</li>
-        </ul>
+<section id="program-rules">
+  <h2 class="text-2xl font-bold mb-4">Program Rules</h2>
+  <ul class="list-disc list-inside space-y-2 text-gray-800">
+    <li>Every submission must include reproducible steps, proof-of-concept, and a clear impact statement.</li>
+    <li>Automated scanner output, generic issues, or vague “possible vulnerabilities” will be closed immediately.</li>
+    <li>Only the first valid report of a vulnerability is eligible for a reward.</li>
+    <li>Attempts to re-submit previously denied or duplicate issues will result in a permanent ban from the program.</li>
+    <li><span class="font-semibold">Brute-forcing usernames is cryptographically infeasible.</span> See the entropy proof below.</li>
+  </ul>
 
-        <p class="mt-4 text-gray-800 font-bold">Not eligible (don’t waste your time or ours):</p>
-        <ul class="list-disc list-inside ml-6 text-sm text-gray-700">
-            <li>Missing or misconfigured headers (CORS, CSP, HSTS, etc.) unless chained to real exploitation</li>
-            <li>Reflected/DOM XSS without account compromise or sensitive data theft</li>
-            <li>Clickjacking, open redirects, or SSL/TLS warnings with no exploitable chain</li>
-            <li>CAPTCHA bypasses that don’t directly lead to account compromise</li>
-            <li>Email/SPF/DKIM/DMARC “best practice” complaints</li>
-            <li>Scanner dumps, outdated library versions, or theoretical vulnerabilities</li>
-            <li>Self-XSS, social engineering, phishing, or anything requiring user cooperation</li>
-            <li>Denial-of-service or rate-limiting tests</li>
-            <li>Any exploit that requires the user to bruteforce a username</li>
-        </ul>
-    </section>
+  <p class="mt-4 text-gray-800 font-bold">Not eligible (don’t waste your time or ours):</p>
+  <ul class="list-disc list-inside ml-6 text-sm text-gray-700">
+    <li>Missing or misconfigured headers (CORS, CSP, HSTS, etc.) unless chained to real exploitation</li>
+    <li>Reflected/DOM XSS without account compromise or sensitive data theft</li>
+    <li>Clickjacking, open redirects, or SSL/TLS warnings with no exploitable chain</li>
+    <li>CAPTCHA bypasses that don’t directly lead to account compromise</li>
+    <li>Email/SPF/DKIM/DMARC “best practice” complaints</li>
+    <li>Scanner dumps, outdated library versions, or theoretical vulnerabilities</li>
+    <li>Self-XSS, social engineering, phishing, or anything requiring user cooperation</li>
+    <li>Denial-of-service or rate-limiting tests</li>
+    <li>Any exploit that relies on guessing or brute-forcing a username</li>
+  </ul>
+</section>
 
     <section>
         <h2 class="text-2xl font-bold mb-4">Rewards</h2>
