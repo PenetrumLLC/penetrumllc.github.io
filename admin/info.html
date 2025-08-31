@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>View User - Backyard Bandwidth</title>
   <link rel="icon" href="../icons/icon.png" />
+      <script src="assets/js/admin_session.js"></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -42,7 +43,6 @@
     <a href="view.html" class="inline-block bg-bDarkGrey hover:bg-bDarkBlue text-white px-4 py-2 rounded mt-4">← Back to All Users</a>
   </main>
 
-    <script src="assets/js/admin_session.js"></script>
   <script>
     const username = new URLSearchParams(window.location.search).get("u");
     let API_BASE_URL = "";
