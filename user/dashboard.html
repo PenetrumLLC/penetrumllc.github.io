@@ -400,7 +400,7 @@
 
             const created = invoice.created ? new Date(invoice.created * 1000).toLocaleString() : "Unknown";
 
-            let statusColor = "text-gray-500"; // Default for undefined/null
+            let statusColor = "text-gray-500";
             if (invoice.status === "paid") {
                 statusColor = "text-green-600";
             } else if (invoice.status === "open") {
@@ -607,7 +607,6 @@
     }
   }
 
-  /* --- replace your submitPasswordReset() with this version --- */
   async function submitPasswordReset() {
     const username = document.getElementById("reset-username").value.trim();
     const password = document.getElementById("reset-password").value;
@@ -615,13 +614,12 @@
     const errorDiv = document.getElementById("reset-error");
     const sucDiv = document.getElementById("reset-success");
     const realCustomerUsername = (document.getElementById("customer-username")?.textContent || "").trim();
-    const currentUsername = getCurrentUsername(); // ← from localStorage/session
+    const currentUsername = getCurrentUsername();
 
     const btn = document.getElementById("reset-btn");
     const spinner = document.getElementById("reset-spinner");
     const btnText = document.getElementById("reset-btn-text");
 
-    // Clear messages
     errorDiv.textContent = "";
     sucDiv.textContent = "";
 
@@ -638,24 +636,20 @@
       return;
     }
 
-    // Show spinner
     btn.disabled = true;
     spinner.classList.remove("hidden");
     btnText.textContent = "Changing...";
 
     try {
-      // Resolve API base
       const envRes = await fetch("../data/env.json");
       const config = await envRes.json();
       const isDev = location.hostname.includes("localhost") || location.hostname === "127.0.0.1";
       const API_BASE_URL = isDev ? config.dev : config.prod;
 
-      // Parse token from localStorage
       const session = getSessionData();
       if (!session?.token) throw new Error("Not logged in.");
       const token = session.token;
 
-      // Step 1: Get CSRF token (include current_username too if your backend wants it here)
       const csrfRes = await fetch(`${API_BASE_URL}/user/csrf`, {
         method: "POST",
         headers: {
@@ -664,7 +658,7 @@
         },
         body: JSON.stringify({
           username,
-          current_username: currentUsername   // ← optional but harmless
+          current_username: currentUsername
         })
       });
 
@@ -674,7 +668,6 @@
       }
       const csrfToken = csrfJson.data.token;
 
-      // Step 2: Submit password reset — now ALSO sending current_username
       const res = await fetch(`${API_BASE_URL}/user/password`, {
         method: "POST",
         headers: {
@@ -721,13 +714,11 @@
 
 
   function switchTab(tab) {
-    // Only include tabs that actually have content sections on this page.
     const tabs = ["api", "invoices", "subscriptions", "shop"];
 
     tabs.forEach(id => {
       const tabButton  = document.getElementById(`tab-${id}`);
       const tabContent = document.getElementById(`tab-content-${id}`);
-      // Guard against missing nodes (keeps function safe if you add/remove stuff later)
       if (!tabButton || !tabContent) return;
 
       if (id === tab) {
@@ -742,9 +733,7 @@
     });
   }
 
-  // Choose one default once (don’t recurse inside switchTab)
   window.addEventListener("DOMContentLoaded", () => {
-    // show invoices (or 'api' if you prefer that to be default)
     switchTab("invoices");
   });
 
@@ -784,9 +773,8 @@
     }
 
         // ---------- API KEY MANAGER ----------
-        const APIKEY_LS_PREFIX = "bb_api_key::"; // stored as bb_api_key:<username>
+        const APIKEY_LS_PREFIX = "bb_api_key::";
 
-            /** Per-user local storage helpers (client-side only) */
    function getStoredApiKey(username) {
         if (!username) return null;
         const raw = localStorage.getItem(APIKEY_LS_PREFIX + username);
@@ -795,7 +783,6 @@
         try {
             const parsed = JSON.parse(raw);
             if (Date.now() > parsed.expires) {
-                // expired → clear it
                 clearStoredApiKey(username);
                 return null;
             }
@@ -808,7 +795,7 @@
 
     function saveStoredApiKey(username, key) {
         if (!username || !key) return;
-        const expires = Date.now() + 48 * 60 * 60 * 1000; // 48 hours in ms
+        const expires = Date.now() + 48 * 60 * 60 * 1000;
         localStorage.setItem(APIKEY_LS_PREFIX + username, JSON.stringify({ key, expires }));
     }
 
@@ -889,12 +876,11 @@
             setApiStatus("Saved as a .txt file.", "success");
         };
 
-            // Generate
+
             btnGen.onclick = async () => {
             await generateOrRegenApiKey({username, input, btnCopy, btnDownload, btnRegen, mode: "generate"});
         };
 
-            // Regenerate: show confirm box
             btnRegen.onclick = () => {
             regBox.classList.remove("hidden");
             regInput.value = "";
@@ -921,7 +907,6 @@
             setApiStatus("Missing username in session.", "error");
             return;
         }
-            // Read token from localStorage
             const raw = localStorage.getItem("dashboardData");
             if (!raw) {
             setApiStatus("Not logged in.", "error");
@@ -936,7 +921,6 @@
             return;
         }
 
-            // Resolve API base
             setBusy(true);
             try {
             const envRes = await fetch("../data/env.json");
@@ -944,8 +928,6 @@
             const isDev = location.hostname.includes("localhost") || location.hostname === "127.0.0.1";
             const API_BASE_URL = isDev ? cfg.dev : cfg.prod;
 
-            // NOTE: Backend sample shows this single endpoint for both generate & error cases.
-            // If your server later adds a dedicated /user/regenerate/apikey, swap the path here when mode === 'regenerate'.
             const res = await fetch(`${API_BASE_URL}/user/generate/apikey`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -954,7 +936,6 @@
             const json = await res.json();
 
             if (!json.success || !json.data?.api_key) {
-            // If server enforces "only once" and rejects regenerate on this route, you’ll see the message here.
             const msg = json.error?.msg || "Failed to create API key.";
             setApiStatus(msg, "error");
             return;
@@ -967,7 +948,6 @@
             btnDownload.disabled = false;
             btnRegen.disabled = false;
 
-            // Persist locally per user; we cannot fetch it again from server.
             saveStoredApiKey(username, key);
 
             setApiStatus(
@@ -982,7 +962,6 @@
             setBusy(false);
         }
         }
-            // ---------- end: API KEY MANAGER ----------
 
 </script>
 <script src="../assets/js/session.js"></script>
