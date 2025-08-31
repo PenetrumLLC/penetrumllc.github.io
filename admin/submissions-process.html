@@ -50,7 +50,7 @@
       </div>
     </div>
 
-    <p class="mt-2 text-sm text-gray-600">Newest to oldest. Click <span class="font-semibold">Accept</span> or <span class="font-semibold">Reject</span> to take action on a submission.</p>
+<p class="mt-2 text-sm text-gray-600">Oldest to newest. Click <span class="font-semibold">Accept</span> or <span class="font-semibold">Reject</span> to take action on a submission.</p>
 
     <!-- Alert area -->
     <div id="alert" class="hidden mt-4 p-3 rounded border"></div>
@@ -196,12 +196,12 @@
         }
 
         RAW_DATA = Array.isArray(result.data) ? result.data : [];
-        // Sort newest -> oldest by upload_time "YYYY-MM-DD HH:MM:SS"
-        RAW_DATA.sort((a, b) => {
-          const ta = (a.upload_time || "").replace(" ", "T");
-          const tb = (b.upload_time || "").replace(" ", "T");
-          return new Date(tb) - new Date(ta);
-        });
+// Sort oldest -> newest by upload_time "YYYY-MM-DD HH:MM:SS"
+RAW_DATA.sort((a, b) => {
+  const ta = (a.upload_time || "").replace(" ", "T");
+  const tb = (b.upload_time || "").replace(" ", "T");
+  return new Date(ta) - new Date(tb);
+});
 
         renderList();
       } catch (e) {
