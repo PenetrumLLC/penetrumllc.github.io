@@ -574,99 +574,137 @@
     }
 
 
-    async function submitPasswordReset() {
-        const username = document.getElementById("reset-username").value.trim();
-        const password = document.getElementById("reset-password").value;
-        const confirm = document.getElementById("reset-password-confirm").value;
-        const errorDiv = document.getElementById("reset-error");
-        const sucDiv = document.getElementById("reset-success");
-        const realCustomerUsername = document.getElementById("customer-username").textContent.trim();
-
-        const btn = document.getElementById("reset-btn");
-        const spinner = document.getElementById("reset-spinner");
-        const btnText = document.getElementById("reset-btn-text");
-
-        // Clear messages
-        errorDiv.textContent = "";
-        sucDiv.textContent = "";
-
-        if (!username || !password || !confirm) {
-            errorDiv.textContent = "All fields are required.";
-            return;
-        }
-
-        if (password !== confirm) {
-            errorDiv.textContent = "Passwords do not match.";
-            return;
-        }
-
-        if (username !== realCustomerUsername) {
-            errorDiv.textContent = "That's not your username?";
-            return;
-        }
-
-        // Show spinner
-        btn.disabled = true;
-        spinner.classList.remove("hidden");
-        btnText.textContent = "Changing...";
-
-        try {
-            // Get API base URL
-            const envRes = await fetch("../data/env.json");
-            const config = await envRes.json();
-            const isDev = location.hostname.includes("localhost") || location.hostname === "127.0.0.1";
-            const API_BASE_URL = isDev ? config.dev : config.prod;
-
-            // Parse token from localStorage
-            const raw = localStorage.getItem("dashboardData");
-            if (!raw) throw new Error("Not logged in.");
-            const token = JSON.parse(raw).data.token;
-
-            // Step 1: Get CSRF token with Authorization header
-            const csrfRes = await fetch(`${API_BASE_URL}/user/csrf`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `${token}`
-                },
-                body: JSON.stringify({username})
-            });
-
-            const csrfJson = await csrfRes.json();
-
-            if (!csrfJson.success || !csrfJson.data?.token) {
-                throw new Error(csrfJson.error?.msg || "Failed to get CSRF token");
-            }
-
-            const csrfToken = csrfJson.data.token;
-
-            // Step 2: Submit password reset
-            const res = await fetch(`${API_BASE_URL}/user/password`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `${token}`,
-                    "X-CSRF-Token": csrfToken
-                },
-                body: JSON.stringify({username, password, csrf_token: csrfToken})
-            });
-
-            const result = await res.json();
-
-            if (result.success) {
-                sucDiv.textContent = "Password reset successfully!";
-            } else {
-                errorDiv.textContent = result.error?.msg || "Reset failed.";
-            }
-        } catch (err) {
-            console.error(err);
-            errorDiv.textContent = err.message || "An error occurred.";
-        } finally {
-            btn.disabled = false;
-            spinner.classList.add("hidden");
-            btnText.textContent = "Change Password";
-        }
+  /* --- add these helpers anywhere above submitPasswordReset() --- */
+  function getSessionData() {
+    try {
+      const raw = localStorage.getItem("dashboardData");
+      return raw ? JSON.parse(raw).data || null : null;
+    } catch {
+      return null;
     }
+  }
+
+  function getCurrentUsername() {
+    const fromSpan = (document.getElementById("customer-username")?.textContent || "").trim();
+    const fromStore = getSessionData()?.customer_username || "";
+    return fromStore || fromSpan || "";
+  }
+
+  /* --- patch toggleResetForm so the field is prefilled --- */
+  function toggleResetForm() {
+    const form = document.getElementById("reset-password-form");
+    const toggleWrapper = document.getElementById("password-toggle-wrapper");
+    form.classList.toggle("hidden");
+
+    // NEW: prefill visible username with current session username
+    if (!form.classList.contains("hidden")) {
+      const u = getCurrentUsername();
+      const input = document.getElementById("reset-username");
+      if (u && input && !input.value) input.value = u;
+      toggleWrapper?.classList.remove("hidden");
+    } else {
+      toggleWrapper?.classList.add("hidden");
+    }
+  }
+
+  /* --- replace your submitPasswordReset() with this version --- */
+  async function submitPasswordReset() {
+    const username = document.getElementById("reset-username").value.trim();
+    const password = document.getElementById("reset-password").value;
+    const confirm = document.getElementById("reset-password-confirm").value;
+    const errorDiv = document.getElementById("reset-error");
+    const sucDiv = document.getElementById("reset-success");
+    const realCustomerUsername = (document.getElementById("customer-username")?.textContent || "").trim();
+    const currentUsername = getCurrentUsername(); // ← from localStorage/session
+
+    const btn = document.getElementById("reset-btn");
+    const spinner = document.getElementById("reset-spinner");
+    const btnText = document.getElementById("reset-btn-text");
+
+    // Clear messages
+    errorDiv.textContent = "";
+    sucDiv.textContent = "";
+
+    if (!username || !password || !confirm) {
+      errorDiv.textContent = "All fields are required.";
+      return;
+    }
+    if (password !== confirm) {
+      errorDiv.textContent = "Passwords do not match.";
+      return;
+    }
+    if (username !== realCustomerUsername) {
+      errorDiv.textContent = "That's not your username?";
+      return;
+    }
+
+    // Show spinner
+    btn.disabled = true;
+    spinner.classList.remove("hidden");
+    btnText.textContent = "Changing...";
+
+    try {
+      // Resolve API base
+      const envRes = await fetch("../data/env.json");
+      const config = await envRes.json();
+      const isDev = location.hostname.includes("localhost") || location.hostname === "127.0.0.1";
+      const API_BASE_URL = isDev ? config.dev : config.prod;
+
+      // Parse token from localStorage
+      const session = getSessionData();
+      if (!session?.token) throw new Error("Not logged in.");
+      const token = session.token;
+
+      // Step 1: Get CSRF token (include current_username too if your backend wants it here)
+      const csrfRes = await fetch(`${API_BASE_URL}/user/csrf`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `${token}`
+        },
+        body: JSON.stringify({
+          username,
+          current_username: currentUsername   // ← optional but harmless
+        })
+      });
+
+      const csrfJson = await csrfRes.json();
+      if (!csrfJson.success || !csrfJson.data?.token) {
+        throw new Error(csrfJson.error?.msg || "Failed to get CSRF token");
+      }
+      const csrfToken = csrfJson.data.token;
+
+      // Step 2: Submit password reset — now ALSO sending current_username
+      const res = await fetch(`${API_BASE_URL}/user/password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `${token}`,
+          "X-CSRF-Token": csrfToken
+        },
+        body: JSON.stringify({
+          username,
+          password,
+          csrf_token: csrfToken,
+          current_username: currentUsername
+        })
+      });
+
+      const result = await res.json();
+      if (result.success) {
+        sucDiv.textContent = "Password reset successfully!";
+      } else {
+        errorDiv.textContent = result.error?.msg || "Reset failed.";
+      }
+    } catch (err) {
+      console.error(err);
+      errorDiv.textContent = err.message || "An error occurred.";
+    } finally {
+      btn.disabled = false;
+      spinner.classList.add("hidden");
+      btnText.textContent = "Change Password";
+    }
+  }
 
 
     function toggleVisibility(toggleElement, inputId) {
