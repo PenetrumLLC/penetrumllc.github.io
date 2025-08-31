@@ -5,5 +5,12 @@
     "date": "08/30/2025",
     "reward": "Free year VPN to any country the awardee wanted",
     "credits": "ptrstr"
+  },
+    {
+    "issue": "Session token forgery due to token mismatch, full admin account takeover",
+    "patch": "Implemented multiple token system on backend so that user and admin tokens cannot access one another",
+    "date": "08/31/2025",
+    "reward": "Free lifetime VPN to all locations, and free small lifetime VPS",
+    "credits": "ptrstr"
   }
 ]
