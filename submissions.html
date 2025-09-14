@@ -27,7 +27,7 @@
     };
   </script>
 </head>
-<body class="bg-gray-100 font-mono">
+<body class="bg-gray-100 font-sans">
 
   <!-- Header -->
   <header class="w-full bg-black text-white flex items-center justify-between px-6 py-2 shadow-md">
@@ -50,6 +50,44 @@
 
   <!-- Main -->
   <main class="max-w-6xl mx-auto p-6">
+        <!-- Payout wallet callout -->
+<section class="rounded-xl border border-black/5 bg-white p-5 shadow-sm">
+  <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+    <div>
+      <div class="text-[11px] uppercase tracking-wide text-black/60">
+        Backyard Bandwidth Payout Wallet
+      </div>
+
+      <div class="mt-1 flex flex-wrap items-center gap-2">
+        <a
+          href="https://solscan.io/account/Gwpfy2GBiPdc2xdqg5UFGpypQChj6rcXaGixBBtj11Xd"
+          target="_blank"
+          rel="noopener noreferrer"
+          title="View on Solscan"
+          class="font-mono text-sm break-all md:break-normal md:truncate underline hover:text-bLightBlue"
+        >
+          Gwpfy2GBiPdc2xdqg5UFGpypQChj6rcXaGixBBtj11Xd
+        </a>
+      </div>
+
+      <p class="mt-2 text-xs text-black/70">
+        This is our <span class="font-semibold">only</span> wallet. It’s used exclusively for
+        <span class="font-medium">fine-tuning payouts</span>. Payout funds come entirely from
+        <span class="font-medium">buybacks</span>. We do not hold or sell <span class="font-medium">$BB</span>
+        outside this wallet.
+      </p>
+
+      <!-- Optional: small badges for quick scanning -->
+      <div class="mt-2 flex flex-wrap gap-2">
+        <span class="inline-flex items-center rounded-full bg-gray-100 px-2 py-1 text-[11px] font-medium text-gray-700 ring-1 ring-black/5">Only wallet</span>
+        <span class="inline-flex items-center rounded-full bg-gray-100 px-2 py-1 text-[11px] font-medium text-gray-700 ring-1 ring-black/5">Fine-tuning payouts</span>
+        <span class="inline-flex items-center rounded-full bg-gray-100 px-2 py-1 text-[11px] font-medium text-gray-700 ring-1 ring-black/5">Buybacks funded</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
     <!-- Search -->
     <section class="bg-white rounded-lg shadow p-5 mb-6">
       <h1 class="text-xl font-bold text-bDarkBlue mb-3">Search Submissions by Wallet</h1>
@@ -68,7 +106,7 @@
   <tr>
     <th class="px-3 py-2 border-b">Wallet</th>
     <th class="px-3 py-2 border-b cursor-pointer" onclick="sortData('date_added')">
-      Date Added ▲▼
+      Date Added (UTC) ▲▼
     </th>
     <th class="px-3 py-2 border-b">Accepted</th>
     <th class="px-3 py-2 border-b">Denied</th>
@@ -109,6 +147,22 @@
     String(s).replace(/[&<>"'`]/g, c =>
       ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;','`':'&#96;'}[c])
     );
+
+      const WALLET = "Gwpfy2GBiPdc2xdqg5UFGpypQChj6rcXaGixBBtj11Xd";
+  const btn = document.getElementById("copyWallet");
+  if (btn) {
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(WALLET);
+        const t = btn.textContent;
+        btn.textContent = "Copied!";
+        setTimeout(() => (btn.textContent = t), 1200);
+      } catch {
+        btn.textContent = "Copy failed";
+        setTimeout(() => (btn.textContent = "Copy"), 1200);
+      }
+    });
+  }
 
     async function detectApiBase() {
       try {

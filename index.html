@@ -583,9 +583,10 @@
         <h2>Our Services</h2>
         <hr>
         <nav>
+            <a href="#anova">Anova</a>|
             <a href="#vpn-service-link">VPN/Proxy</a>|
             <a href="#s3-storage-hosting">S3 Storage</a>|
-            <a href="#splunk-hosting">Splunk</a>|
+<!--            <a href="#splunk-hosting">Splunk</a>|-->
             <a href="#premium-rack-hosting">Rack Hosting</a>|
             <a href="#vps-service-link">VPS</a>|
             <a href="#contact">Contact Us</a>
@@ -594,6 +595,37 @@
         <br><br>
         <div class="pricing-table"
              style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 2em; margin: 0 auto; max-width: 800px;">
+
+<div class="pricing-plan" id="anova" style="flex: 0 0 100%; max-width: 520px; margin: 0 auto;">
+  <h3 style="margin-bottom: 0.5em;">Anova — Stateless LLM</h3>
+
+  <img src="icons/anova-logo.png" alt="Anova Logo"
+       style="display:block; margin:0.25em auto 1em; height:64px; width:auto;">
+
+  <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">
+    No memory. No logs. Just you and the model.
+  </p>
+
+  <p style="margin-bottom: 0.75em;">
+    Anova is a stateless LLM with <strong>no memory</strong> and <strong>no logs</strong> —
+    just you and the model. Your data. Your privacy. Your freedom. Ask anything.
+  </p>
+
+  <button
+      onclick="window.open('https://anova.chat/chat','_blank','noopener,noreferrer')"
+      style="width: 50%; padding: 0.75em; background-color: #4caf50; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;"
+      onmouseover="this.style.backgroundColor='#3d9542';"
+      onmouseout="this.style.backgroundColor='#4caf50';">
+    Open Anova Chat
+  </button>
+
+  <p style="margin-top: 0.75em; font-size: 0.9em; color:#555;">
+    By using Anova, you agree to our site policies where applicable.
+  </p>
+
+  <hr style="margin: 1.5em 0; border: none; border-top: 1px solid #ccc;">
+</div>
+
 
             <div class="pricing-plan" id="vpn-service-link">
                 <h3 style="margin-bottom: 0.5em;">VPN/Proxy Service</h3>
@@ -818,43 +850,43 @@ Washington, DC 20004
                 </p>
             </div>
 
-            <div class="pricing-plan" id="splunk-hosting"
-                 style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #fff; color: #000; text-align: center;">
-                <h3 style="margin-bottom: 0.5em; font-weight: bold;">Splunk</h3>
-                <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">
-                    Starting at <span id="splunk-price-display">$0.00</span> per month
-                </p>
-                <p style="margin-bottom: 1em; font-size: 1em;">
-                    High-performance Splunk hosting with flexible pricing for ingestion and index storage.
-                </p>
-                <ul style="list-style-type: none; padding: 0; margin: 0 auto; text-align: center;">
-                    <li style="margin-bottom: 0.5em; font-weight: bold;"><span style="color: #28a745;">✔</span> Flexible
-                        Daily Ingestion
-                    </li>
-                    <li style="margin-bottom: 0.5em; font-weight: bold;"><span style="color: #28a745;">✔</span>
-                        High-Performance Index Storage
-                    </li>
-                    <li style="margin-bottom: 0.5em; font-weight: bold;"><span style="color: #28a745;">✔</span> Scalable
-                        and Secure
-                    </li>
-                </ul>
-                <h4 style="margin-top: 1.5em; font-weight: bold;">Customize Your Ingestion and Index</h4>
-                <p style="margin-bottom: 1em;">Use the slider below to estimate your cost:</p>
-                <div style="text-align: left; margin-bottom: 1em;">
-                    <label for="ingest-slider" style="font-weight: bold;">Daily Ingestion (GB):&nbsp;<span
-                            id="ingest-value">0</span> GB</label>
-                    <input id="ingest-slider" max="10" min="1" step="1" style="width: 100%;" type="range" value="0">
-                </div>
-                <div style="text-align: left; margin-bottom: 1em;">
-                    <label for="index-slider" style="font-weight: bold;">Index Storage (TB):&nbsp;<span
-                            id="index-value">0</span> TB</label>
-                    <input id="index-slider" max="10" min="1" step="1" style="width: 100%;" type="range" value="0">
-                </div>
-                <p style="margin-top: 1em;">
-                    <a href="#contact" style="color: #007bff; text-decoration: none;"><u>Contact us</u></a> today to get
-                    started with Splunk hosting.
-                </p>
-            </div>
+<!--            <div class="pricing-plan" id="splunk-hosting"-->
+<!--                 style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #fff; color: #000; text-align: center;">-->
+<!--                <h3 style="margin-bottom: 0.5em; font-weight: bold;">Splunk</h3>-->
+<!--                <p style="font-size: 1.25em; font-weight: bold; margin-bottom: 1em;">-->
+<!--                    Starting at <span id="splunk-price-display">$0.00</span> per month-->
+<!--                </p>-->
+<!--                <p style="margin-bottom: 1em; font-size: 1em;">-->
+<!--                    High-performance Splunk hosting with flexible pricing for ingestion and index storage.-->
+<!--                </p>-->
+<!--                <ul style="list-style-type: none; padding: 0; margin: 0 auto; text-align: center;">-->
+<!--                    <li style="margin-bottom: 0.5em; font-weight: bold;"><span style="color: #28a745;">✔</span> Flexible-->
+<!--                        Daily Ingestion-->
+<!--                    </li>-->
+<!--                    <li style="margin-bottom: 0.5em; font-weight: bold;"><span style="color: #28a745;">✔</span>-->
+<!--                        High-Performance Index Storage-->
+<!--                    </li>-->
+<!--                    <li style="margin-bottom: 0.5em; font-weight: bold;"><span style="color: #28a745;">✔</span> Scalable-->
+<!--                        and Secure-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--                <h4 style="margin-top: 1.5em; font-weight: bold;">Customize Your Ingestion and Index</h4>-->
+<!--                <p style="margin-bottom: 1em;">Use the slider below to estimate your cost:</p>-->
+<!--                <div style="text-align: left; margin-bottom: 1em;">-->
+<!--                    <label for="ingest-slider" style="font-weight: bold;">Daily Ingestion (GB):&nbsp;<span-->
+<!--                            id="ingest-value">0</span> GB</label>-->
+<!--                    <input id="ingest-slider" max="10" min="1" step="1" style="width: 100%;" type="range" value="0">-->
+<!--                </div>-->
+<!--                <div style="text-align: left; margin-bottom: 1em;">-->
+<!--                    <label for="index-slider" style="font-weight: bold;">Index Storage (TB):&nbsp;<span-->
+<!--                            id="index-value">0</span> TB</label>-->
+<!--                    <input id="index-slider" max="10" min="1" step="1" style="width: 100%;" type="range" value="0">-->
+<!--                </div>-->
+<!--                <p style="margin-top: 1em;">-->
+<!--                    <a href="#contact" style="color: #007bff; text-decoration: none;"><u>Contact us</u></a> today to get-->
+<!--                    started with Splunk hosting.-->
+<!--                </p>-->
+<!--            </div>-->
 
             <div class="pricing-plan" id="premium-rack-hosting"
                  style="width: 100%; max-width: 400px; border: 1px solid #ddd; border-radius: 8px; padding: 1.5em; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
@@ -1009,86 +1041,97 @@ Washington, DC 20004
         </div>
     </section>
 
-    <section class="section" id="contact">
-        <h2>Contact Us</h2>
-        <form id="contact-form">
-            <label for="name">Name:</label>
-            <input id="name" name="name" required type="text">
+<section class="section" id="contact">
+    <h2>Contact Us</h2>
+    <form id="contact-form">
+        <label for="name">Name:</label>
+        <input id="name" name="name" required type="text">
 
-            <label for="email">Email:</label>
-            <input id="email" name="email" required type="email">
+        <label for="email">Email:</label>
+        <input id="email" name="email" required type="email">
 
-            <label>Service Interested In:</label>
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1em; margin-bottom: 1em;">
-                <div style="min-width: 140px;">
-                    <input checked id="rack-space" name="service" type="radio" value="Rack Space">
-                    <label for="rack-space">Rack Space</label>
-                </div>
-                <div style="min-width: 140px;">
-                    <input id="vpn-service" name="service" type="radio" value="VPN Service">
-                    <label for="vpn-service">VPN Service</label>
-                </div>
-                <div style="min-width: 140px;">
-                    <input id="vps-service" name="service" type="radio" value="VPS Service">
-                    <label for="vps-service">VPS Service</label>
-                </div>
-                <div style="min-width: 140px;">
-                    <input id="s3-service" name="service" type="radio" value="s3 Storage">
-                    <label for="s3-service">S3 Hosting</label>
-                </div>
-                <div style="min-width: 140px;">
-                    <input id="splunk-service" name="service" type="radio" value="Splunk Hosting">
-                    <label for="splunk-service">Splunk Hosting</label>
-                </div>
-                <div style="min-width: 140px;">
-                    <input id="technical-support" name="service" type="radio" value="Technical Support">
-                    <label for="technical-support">Tech Support</label>
-                </div>
-                <div id="lifetime-vpn"></div>
+        <label>Service Interested In:</label>
+        <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 1em; margin-bottom: 1em;">
+            <div style="min-width: 140px;">
+                <input checked id="rack-space" name="service" type="radio" value="Rack Space">
+                <label for="rack-space">Rack Space</label>
             </div>
+            <div style="min-width: 140px;">
+                <input id="vpn-service" name="service" type="radio" value="VPN Service">
+                <label for="vpn-service">VPN Service</label>
+            </div>
+            <div style="min-width: 140px;">
+                <input id="vps-service" name="service" type="radio" value="VPS Service">
+                <label for="vps-service">VPS Service</label>
+            </div>
+            <div style="min-width: 140px;">
+                <input id="s3-service" name="service" type="radio" value="s3 Storage">
+                <label for="s3-service">S3 Hosting</label>
+            </div>
+            <div style="min-width: 140px;">
+                <input id="splunk-service" name="service" type="radio" value="Splunk Hosting">
+                <label for="splunk-service">Splunk Hosting</label>
+            </div>
+            <div style="min-width: 140px;">
+                <input id="technical-support" name="service" type="radio" value="Technical Support">
+                <label for="technical-support">Tech Support</label>
+            </div>
+            <div id="lifetime-vpn"></div>
+        </div>
 
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4"></textarea>
 
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" rows="4"></textarea>
-
-            <div style="margin-top: 1em; font-size: 0.9em; color: #444; text-align: center;">
-                <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
-                    <div style="display: flex; align-items: center; gap: 15px; background: #f5f5f5; padding: 20px; border-radius: 10px; box-shadow: 0 0 8px rgba(0,0,0,0.08);">
-                        <input id="accept-policy" required
-                               style="appearance: none; width: 40px; height: 40px; border: 2px solid #6ec1e4; border-radius: 8px; background: white; cursor: pointer; position: relative;"
-                               type="checkbox">
-                        <label for="accept-policy" style="text-align: left; font-size: 1em; cursor: pointer;">
-                            <strong>Accept Terms:</strong> By checking this box you acknowledge and accept our
-                            <a href="terms.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">Terms
-                                of Service</a>,
-                            as well as our full <a href="policy-list.html"
-                                                   style="color: #6ec1e4; text-decoration: underline;"
-                                                   target="_blank">Policy List</a>.<br><br> Please read our full
-                            <a href="docs.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">Documentation</a>
-                            before contacting for technical support.
-                        </label>
-                    </div>
+        <div style="margin-top: 1em; font-size: 0.9em; color: #444; text-align: center;">
+            <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+                <div style="display: flex; align-items: center; gap: 15px; background: #f5f5f5; padding: 20px; border-radius: 10px; box-shadow: 0 0 8px rgba(0,0,0,0.08);">
+                    <input id="accept-policy" required
+                           style="appearance: none; width: 40px; height: 40px; border: 2px solid #6ec1e4; border-radius: 8px; background: white; cursor: pointer; position: relative;"
+                           type="checkbox">
+                    <label for="accept-policy" style="text-align: left; font-size: 1em; cursor: pointer;">
+                        <strong>Accept Terms:</strong> By checking this box you acknowledge and accept our
+                        <a href="terms.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">Terms
+                            of Service</a>,
+                        as well as our full <a href="policy-list.html"
+                                               style="color: #6ec1e4; text-decoration: underline;"
+                                               target="_blank">Policy List</a>.<br><br> Please read our full
+                        <a href="docs.html" style="color: #6ec1e4; text-decoration: underline;" target="_blank">Documentation</a>
+                        before contacting for technical support.
+                    </label>
                 </div>
             </div>
+        </div>
 
+        <button style="margin-top: 1em;
+           padding: 0.75em 1.5em;
+           background-color: #6ec1e4;
+           color: white;
+           border: none;
+           border-radius: 4px;
+           cursor: pointer;
+           font-weight: bold;
+           font-size: 1.2em;
+           letter-spacing: 1px;
+           "
+                type="submit">
+            Send Message
+        </button>
+    </form>
 
-            <button style="margin-top: 1em;
-               padding: 0.75em 1.5em;
-               background-color: #6ec1e4;
-               color: white;
-               border: none;
-               border-radius: 4px;
-               cursor: pointer;
-               font-weight: bold;
-               font-size: 1.2em; /* Increased text size */
-               letter-spacing: 1px; /* Adds spacing between letters for readability */
-               "
-                    type="submit">
-                Send Message
-            </button>
+    <!-- New Discord Support Section -->
+    <div style="margin-top: 2em; text-align: center; font-size: 1em; color: #333;">
+        <p>You can also join our
+            <a href="https://discord.gg/ytt9UZq5Nm"
+               target="_blank"
+               rel="noopener noreferrer"
+               style="color: #6ec1e4; font-weight: bold; text-decoration: underline;">
+               Discord server
+            </a>
+            for support.
+        </p>
+    </div>
+</section>
 
-        </form>
-    </section>
 
 
     <section class="section" id="faq">
