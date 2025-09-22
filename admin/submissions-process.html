@@ -127,6 +127,12 @@
     let API_BASE_URL = "";
     let ADMIN_TOKEN = "";
     let RAW_DATA = [];
+    const RL_PER_SECOND = 5;
+    const RL_INTERVAL_MS = 1000;
+    const MAX_RETRIES = 3;
+
+    // Small utils
+    const sleep = (ms) => new Promise(r => setTimeout(r, ms));
 
     // Modal state
     let CURRENT_ACTION = null; // "ACCEPT" | "REJECT"
@@ -164,6 +170,25 @@
             initPage();
         }
     })();
+
+    async function safePostAction(body) {
+        // Wraps postAction with retry for 429/5xx
+        let attempt = 0;
+        while (true) {
+            try {
+                const res = await postAction(body);
+                if (res && res.success !== undefined) return res;
+                // If API returns a structured error, don't retry unless status suggests transient
+                return res;
+            } catch (err) {
+                // Network or other exception — retry with backoff
+                if (attempt >= MAX_RETRIES) throw err;
+            }
+            attempt++;
+            const backoff = Math.min(2000, 250 * (2 ** (attempt - 1))) + Math.floor(Math.random() * 150);
+            await sleep(backoff);
+        }
+    }
 
     function initPage() {
         document.getElementById("logoutBtn").addEventListener("click", logoutAdmin);
@@ -743,46 +768,77 @@
     async function bulkReject(ids, denial_reason) {
         if (!ids.length) return;
 
-        showAlert(`Rejecting ${ids.length} submissions…`, 'warn');
+        // Disable bulk + select-all while processing
+        const bulkBtn = document.getElementById('bulkRejectBtn');
+        const selectAllShown = document.getElementById('selectAllShown');
+        const origBulkText = bulkBtn ? bulkBtn.textContent : '';
+        if (bulkBtn) {
+            bulkBtn.disabled = true;
+            bulkBtn.textContent = `Rejecting 0/${ids.length}…`;
+        }
+        if (selectAllShown) selectAllShown.disabled = true;
 
-        const jobs = ids.map(id => postAction({
-            token: ADMIN_TOKEN,
-            action: 'REJECT',
-            payout_amount: '0',
-            denial_reason,
-            id
-        }).then(res => ({id, res})).catch(err => ({id, err})));
-
-        const results = await Promise.allSettled(jobs);
+        showAlert(`Rejecting ${ids.length} submissions at ~${RL_PER_SECOND}/sec…`, 'warn');
 
         let ok = 0, fail = 0;
         const succeededIds = [];
-        results.forEach(r => {
-            if (r.status === 'fulfilled') {
-                const {id, res, err} = r.value;
-                if (res && res.success) {
-                    ok++;
-                    succeededIds.push(String(id));
-                    // reflect in RAW_DATA
-                    const idx = RAW_DATA.findIndex(x => String(x.id) === String(id));
-                    if (idx !== -1) {
-                        RAW_DATA[idx].is_denied = true;
-                        RAW_DATA[idx].is_accepted = false;
+
+        // Process in slices of RL_PER_SECOND every RL_INTERVAL_MS
+        for (let i = 0; i < ids.length; i += RL_PER_SECOND) {
+            const slice = ids.slice(i, i + RL_PER_SECOND);
+
+            // Fire this slice in parallel (still capped by slice size)
+            const results = await Promise.allSettled(
+                slice.map(id => safePostAction({
+                    token: ADMIN_TOKEN,
+                    action: 'REJECT',
+                    payout_amount: '0',
+                    denial_reason,
+                    id
+                }).then(res => ({id, res})).catch(err => ({id, err})))
+            );
+
+            // Tally + mutate state
+            results.forEach(r => {
+                if (r.status === 'fulfilled') {
+                    const {id, res, err} = r.value;
+                    if (res && res.success) {
+                        ok++;
+                        succeededIds.push(String(id));
+                        const idx = RAW_DATA.findIndex(x => String(x.id) === String(id));
+                        if (idx !== -1) {
+                            RAW_DATA[idx].is_denied = true;
+                            RAW_DATA[idx].is_accepted = false;
+                        }
+                    } else {
+                        fail++;
+                        console.error('Bulk reject failed for', r.value?.id, res || err);
                     }
                 } else {
                     fail++;
-                    console.error('Bulk reject failed for', id, res || err);
+                    console.error('Bulk reject failed (promise)', r.reason);
                 }
-            } else {
-                fail++;
-                console.error('Bulk reject failed (promise)', r.reason);
+            });
+
+            // Remove succeeded from selection, refresh list & progress text
+            succeededIds.forEach(id => SELECTED_IDS.delete(String(id)));
+            if (bulkBtn) bulkBtn.textContent = `Rejecting ${ok + fail}/${ids.length}…`;
+            renderList();
+
+            // If not done, wait the interval before sending the next slice
+            if (i + RL_PER_SECOND < ids.length) {
+                await sleep(RL_INTERVAL_MS);
             }
-        });
+        }
 
-        // Remove successfully processed from the selection
-        succeededIds.forEach(id => SELECTED_IDS.delete(String(id)));
+        // Restore controls
+        if (bulkBtn) {
+            bulkBtn.disabled = SELECTED_IDS.size === 0;
+            bulkBtn.textContent = origBulkText || `Bulk Reject (${SELECTED_IDS.size})`;
+        }
+        if (selectAllShown) selectAllShown.disabled = false;
 
-        renderList();
+        // Final status
         if (fail === 0) {
             showAlert(`Bulk reject complete: ${ok} rejected.`, 'ok');
         } else {
