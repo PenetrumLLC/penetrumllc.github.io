@@ -51,6 +51,17 @@
                 <input class="h-4 w-4" id="pendingOnlyToggle" type="checkbox"> Show pending only
             </label>
         </div>
+        <div class="flex items-center gap-3">
+            <label class="inline-flex items-center gap-2 text-sm">
+                <input class="h-4 w-4" id="selectAllShown" type="checkbox">
+                Select all shown
+            </label>
+            <button class="bg-bRed hover:bg-bRedHover text-white font-bold py-2 px-4 rounded disabled:opacity-50 disabled:pointer-events-none"
+                    disabled
+                    id="bulkRejectBtn">
+                Bulk Reject (0)
+            </button>
+        </div>
     </div>
 
     <p class="mt-2 text-sm text-gray-600">Oldest to newest. Click <span class="font-semibold">Accept</span> or <span
@@ -86,7 +97,8 @@
             <!-- Payout amount (for ACCEPT) -->
             <div class="hidden" id="payoutRow">
                 <label class="block text-sm font-semibold" for="payoutInput">Payout Amount</label>
-                <input class="mt-1 w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-bLightBlue" id="payoutInput" placeholder="$100"
+                <input class="mt-1 w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-bLightBlue"
+                       id="payoutInput" placeholder="$100"
                        type="text"/>
                 <p class="text-xs text-gray-500 mt-1">Accept requires a payout. You can include a currency symbol (e.g.
                     "$100").</p>
@@ -97,9 +109,10 @@
                 <label class="block text-sm font-semibold" for="reasonSelect">Denial Reason</label>
                 <select class="mt-1 w-full rounded border px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-bLightBlue"
                         id="reasonSelect"></select>
-                <textarea class="mt-2 hidden w-full rounded border px-3 py-2 h-20 focus:outline-none focus:ring-2 focus:ring-bLightBlue"
-                          id="reasonOther"
-                          placeholder="Enter a custom reason…"></textarea>
+                <textarea
+                        class="mt-2 hidden w-full rounded border px-3 py-2 h-20 focus:outline-none focus:ring-2 focus:ring-bLightBlue"
+                        id="reasonOther"
+                        placeholder="Enter a custom reason…"></textarea>
             </div>
         </div>
         <div class="px-5 py-3 bg-gray-50 border-t flex items-center justify-end gap-2">
@@ -118,6 +131,7 @@
     // Modal state
     let CURRENT_ACTION = null; // "ACCEPT" | "REJECT"
     let CURRENT_ITEM = null;
+    const SELECTED_IDS = new Set();
 
     const DEFAULT_REASONS = [
         "Copy and paste",
@@ -230,13 +244,14 @@
         if (!data.length) {
             list.innerHTML = "";
             document.getElementById("emptyState").classList.remove("hidden");
+            updateBulkUI();
             return;
         }
         document.getElementById("emptyState").classList.add("hidden");
 
         list.innerHTML = data.map(renderCard).join("");
 
-        // Hook up button handlers after render
+        // Hook up per-row controls
         data.forEach(item => {
             const isPending = !item.is_accepted && !item.is_denied;
             if (isPending) {
@@ -246,11 +261,58 @@
                 if (rejBtn) rejBtn.addEventListener("click", () => openActionModal(item, "REJECT"));
             }
 
-            // NEW: copy button works for all statuses
             const cpyBtn = document.getElementById(`cpy-${item.id}`);
             if (cpyBtn) cpyBtn.addEventListener("click", () => copyFormatted(item));
         });
+
+        // Wire up row checkboxes
+        document.querySelectorAll('.rowChk').forEach(chk => {
+            chk.addEventListener('change', (e) => {
+                const id = e.target.getAttribute('data-id');
+                if (e.target.checked) SELECTED_IDS.add(id);
+                else SELECTED_IDS.delete(id);
+                updateBulkUI();
+            });
+        });
+
+        // "Select all shown" checkbox behavior
+        const selectAllShown = document.getElementById('selectAllShown');
+        if (selectAllShown) {
+            // Set checked state based on whether *all shown pending* are selected
+            const shownPendingIds = data.filter(x => !x.is_accepted && !x.is_denied).map(x => String(x.id));
+            const allShownSelected = shownPendingIds.length > 0 && shownPendingIds.every(id => SELECTED_IDS.has(String(id)));
+            selectAllShown.checked = allShownSelected;
+
+            selectAllShown.onchange = () => {
+                if (selectAllShown.checked) {
+                    shownPendingIds.forEach(id => SELECTED_IDS.add(String(id)));
+                } else {
+                    shownPendingIds.forEach(id => SELECTED_IDS.delete(String(id)));
+                }
+                // Reflect in DOM
+                document.querySelectorAll('.rowChk').forEach(chk => {
+                    const id = chk.getAttribute('data-id');
+                    chk.checked = SELECTED_IDS.has(String(id));
+                });
+                updateBulkUI();
+            };
+        }
+
+        // Bulk reject click
+        const bulkBtn = document.getElementById('bulkRejectBtn');
+        if (bulkBtn) {
+            bulkBtn.onclick = () => {
+                if (SELECTED_IDS.size === 0) {
+                    showAlert("Select at least one pending submission first.", "warn");
+                    return;
+                }
+                openBulkRejectModal();
+            };
+        }
+
+        updateBulkUI();
     }
+
 
     function renderCard(item) {
         const status = item.is_accepted ? "Accepted" : (item.is_denied ? "Denied" : "Pending");
@@ -287,10 +349,15 @@
             : (item.code != null ? JSON.stringify(item.code, null, 2) : "");
         const hasCode = !!(rawCode && rawCode.trim().length > 0);
 
+        const checkbox = isPending
+            ? `<input type="checkbox" class="rowChk h-4 w-4" data-id="${escape(item.id)}" ${SELECTED_IDS.has(String(item.id)) ? 'checked' : ''}>`
+            : `<span class="h-4 w-4 inline-block opacity-20"></span>`;
+
         return `
     <article class="rounded-lg border border-gray-200 shadow-sm overflow-hidden">
       <div class="flex items-center justify-between gap-2 px-4 py-3 bg-gray-50 border-b">
         <div class="flex items-center gap-3">
+          ${checkbox}
           <span class="text-xs px-2 py-1 rounded border ${statusClass}">${status}</span>
           <span class="text-xs text-gray-500">ID: ${escape(item.id || '-')}</span>
         </div>
@@ -342,6 +409,7 @@
     </article>
   `;
     }
+
 
     // ----- Modal helpers -----
     function openActionModal(item, action) {
@@ -424,11 +492,36 @@
     }
 
     async function submitModalAction() {
-        if (!CURRENT_ITEM || !CURRENT_ACTION) return;
-
         const payoutInput = document.getElementById('payoutInput');
         const reasonSelect = document.getElementById('reasonSelect');
         const reasonOther = document.getElementById('reasonOther');
+
+        if (CURRENT_ACTION === 'BULK_REJECT') {
+            if (SELECTED_IDS.size === 0) {
+                showAlert('No submissions selected.', 'warn');
+                closeModal();
+                return;
+            }
+            let denial_reason = '';
+            const sel = reasonSelect.value || '';
+            if (sel.toLowerCase().startsWith('other')) {
+                const custom = (reasonOther.value || '').trim();
+                if (!custom) {
+                    showAlert('Please enter a denial reason for "Other".', 'warn');
+                    return;
+                }
+                denial_reason = custom;
+            } else {
+                denial_reason = sel || 'N/A';
+            }
+
+            await bulkReject(Array.from(SELECTED_IDS), denial_reason);
+            closeModal();
+            return;
+        }
+
+        // Original single-item logic
+        if (!CURRENT_ITEM || !CURRENT_ACTION) return;
 
         let payout_amount = '';
         let denial_reason = '';
@@ -441,7 +534,6 @@
             }
             denial_reason = 'N/A';
         } else {
-            // REJECT
             payout_amount = '0';
             const sel = reasonSelect.value || '';
             if (sel.toLowerCase().startsWith('other')) {
@@ -599,7 +691,104 @@
         }
     }
 
-    // ===========================
+    function updateBulkUI() {
+        const bulkBtn = document.getElementById('bulkRejectBtn');
+        if (!bulkBtn) return;
+        const count = SELECTED_IDS.size;
+        bulkBtn.textContent = `Bulk Reject (${count})`;
+        bulkBtn.disabled = count === 0;
+    }
+
+    function openBulkRejectModal() {
+        CURRENT_ACTION = 'BULK_REJECT';
+        CURRENT_ITEM = null;
+
+        document.getElementById('modalTitle').textContent = 'Bulk Reject Submissions';
+        document.getElementById('modalId').textContent = `${SELECTED_IDS.size} selected`;
+        document.getElementById('modalWallet').textContent = '—';
+
+        const payoutRow = document.getElementById('payoutRow');
+        const reasonRow = document.getElementById('reasonRow');
+        const payoutInput = document.getElementById('payoutInput');
+        const reasonSelect = document.getElementById('reasonSelect');
+        const reasonOther = document.getElementById('reasonOther');
+
+        // Reset / configure fields
+        payoutRow.classList.remove('hidden');
+        reasonRow.classList.remove('hidden');
+        payoutInput.value = '0';
+        payoutInput.disabled = true;
+
+        // Populate reasons
+        reasonSelect.innerHTML = '';
+        DEFAULT_REASONS.forEach(r => {
+            const opt = document.createElement('option');
+            opt.value = r;
+            opt.textContent = r;
+            reasonSelect.appendChild(opt);
+        });
+        if (![...reasonSelect.options].some(o => o.value === 'N/A')) {
+            const na = new Option('N/A', 'N/A');
+            reasonSelect.insertBefore(na, reasonSelect.firstChild);
+        }
+        reasonSelect.value = DEFAULT_REASONS[0];
+        reasonSelect.disabled = false;
+        reasonOther.classList.add('hidden');
+
+        const modal = document.getElementById('actionModal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+    async function bulkReject(ids, denial_reason) {
+        if (!ids.length) return;
+
+        showAlert(`Rejecting ${ids.length} submissions…`, 'warn');
+
+        const jobs = ids.map(id => postAction({
+            token: ADMIN_TOKEN,
+            action: 'REJECT',
+            payout_amount: '0',
+            denial_reason,
+            id
+        }).then(res => ({id, res})).catch(err => ({id, err})));
+
+        const results = await Promise.allSettled(jobs);
+
+        let ok = 0, fail = 0;
+        const succeededIds = [];
+        results.forEach(r => {
+            if (r.status === 'fulfilled') {
+                const {id, res, err} = r.value;
+                if (res && res.success) {
+                    ok++;
+                    succeededIds.push(String(id));
+                    // reflect in RAW_DATA
+                    const idx = RAW_DATA.findIndex(x => String(x.id) === String(id));
+                    if (idx !== -1) {
+                        RAW_DATA[idx].is_denied = true;
+                        RAW_DATA[idx].is_accepted = false;
+                    }
+                } else {
+                    fail++;
+                    console.error('Bulk reject failed for', id, res || err);
+                }
+            } else {
+                fail++;
+                console.error('Bulk reject failed (promise)', r.reason);
+            }
+        });
+
+        // Remove successfully processed from the selection
+        succeededIds.forEach(id => SELECTED_IDS.delete(String(id)));
+
+        renderList();
+        if (fail === 0) {
+            showAlert(`Bulk reject complete: ${ok} rejected.`, 'ok');
+        } else {
+            showAlert(`Bulk reject finished: ${ok} rejected, ${fail} failed. Check console for details.`, 'error');
+        }
+    }
 </script>
 </body>
 </html>
