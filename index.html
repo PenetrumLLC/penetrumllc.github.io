@@ -143,6 +143,19 @@
                               "areaServed": "United States",
                               "url": "https://backyardbandwidth.com/#rack-card"
                           }
+                      },
+                      {
+                          "@type": "Offer",
+                          "itemOffered": {
+                              "@type": "Service",
+                              "name": "ANOVA (Privacy-First LLM Chat)",
+                              "serviceType": "Privacy-First LLM Chat",
+                              "provider": {
+                                  "@id": "https://backyardbandwidth.com/#org"
+                              },
+                              "areaServed": "Worldwide",
+                              "url": "https://backyardbandwidth.com/#anova-card"
+                          }
                       }
                   ]
               }
@@ -208,7 +221,7 @@
     janky UI • reliable backend • privacy first
   </div>
   <div class="mt-1 text-[11px] font-semibold text-black/60">
-    Emails are never stored in plaintext. We don’t sell data. We don’t do “growth hacks.” We just run infrastructure.
+    Emails are never stored in plaintext. We don’t sell data. We don’t do "growth hacks." We just run infrastructure.
   </div>
 </div>
 
@@ -231,7 +244,7 @@
     <div class="grid gap-6 md:grid-cols-2">
       <div class="chunky rounded bg-white p-6">
         <div class="tape inline-block rounded bg-black px-3 py-2 text-xs font-black text-white">
-          NO SALES CALLS • NO NONSENSE • NO “HAVE YOU TRIED TURNING IT OFF AND ON”
+          NO SALES CALLS • NO NONSENSE • NO "HAVE YOU TRIED TURNING IT OFF AND ON"
         </div>
 
         <h1 class="mt-4 text-3xl font-black leading-tight">
@@ -256,20 +269,20 @@
           <div class="text-xs font-black text-red-900">IMPORTANT (READ IT):</div>
 <div class="mt-1 text-xs font-semibold text-red-900">
   After you pay, DO NOT close this tab until you download your VPN profile.
-  If you close it anyway, you’ll email support. First question: “Did you stay on the page?”
-  If you say no, we’ll give you a brief “bruh” moment… then we’ll help you.
+  If you close it anyway, you’ll email support. First question: "Did you stay on the page?"
+  If you say no, we’ll give you a brief "bruh" moment… then we’ll help you.
 </div>
         </div>
       </div>
 
       <div class="chunky rounded bg-white p-6">
-<div class="text-sm font-black">“I am not technical.” Awesome. That means you’re qualified to <b>FOLLOW INSTRUCTIONS</b> (and not write “it broke” later).</div>
+<div class="text-sm font-black">"I am not technical." Awesome. That means you’re qualified to <b>FOLLOW INSTRUCTIONS</b> (and not write "it broke" later).</div>
         <div class="mt-2 rounded bg-yellow-100 p-4 chunky">
           <div class="text-xs font-black">VPN purchase takes ~1 minute (unless you freestyle):</div>
 <ol class="mt-2 list-decimal pl-5 text-sm font-semibold">
   <li>Pick a location (there’s a dropdown. Click it. Keep up.)</li>
-<li>Type your email (use one that actually receives mail. I don’t care if it’s “real,” I care if it works.)</li>
-  <li>Click “PAY WITH STRIPE” (it’s in CAPITAL LETTERS. We did our part.)</li>
+<li>Type your email (use one that actually receives mail. I don’t care if it’s "real," I care if it works.)</li>
+  <li>Click "PAY WITH STRIPE" (it’s in CAPITAL LETTERS. We did our part.)</li>
   <li>Pay the invoice (DO NOT CLOSE THIS TAB. You’re not done yet.)</li>
   <li>Wait here → profile appears → download it (closing the tab = emailing support, and yes, we’ll roast you a little.)</li>
 </ol>
@@ -279,7 +292,7 @@
           <div class="text-xs font-black">If something breaks:</div>
 <div class="mt-1 text-sm font-semibold">
   Need help? Scroll to Contact. We respond. Include details or we close it.
-  “It broke” is not a bug report — it’s a personality trait.
+  "It broke" is not a bug report — it’s a personality trait.
 </div>
         </div>
       </div>
@@ -405,6 +418,68 @@
         </div>
       </div>
 
+<!-- ANOVA Card -->
+<div id="anova-card" class="chunky rounded bg-white p-6">
+  <div class="flex items-start justify-between gap-3">
+    <div>
+      <div class="tape inline-block rounded bg-black px-3 py-2 text-xs font-black text-white">
+        PRIVACY FIRST (ON PURPOSE)
+      </div>
+      <h3 class="mt-3 text-xl font-black">Anova (LLM Chat)</h3>
+      <p class="mt-1 text-sm font-semibold text-black/70">
+        A privacy-first LLM chat that doesn’t want your life story.
+        Click it. Use it. Leave. (Or stay. Just don’t expect "we remember you.")
+      </p>
+    </div>
+    <div class="rounded bg-slate-100 px-3 py-2 text-xs font-black chunky">PRIVATE</div>
+  </div>
+
+  <div class="mt-5 space-y-4">
+    <div class="chunky rounded bg-yellow-100 p-4">
+      <div class="text-sm font-black">How it works (because you’ll ask):</div>
+      <ul class="mt-2 list-disc pl-5 text-sm font-semibold text-black/80 space-y-1">
+        <li>
+          <span class="font-black">Registration:</span> your email is used to register, then you get a generated account name.
+          That account is associated with <span class="font-black">no PII</span>.
+        </li>
+        <li>
+          <span class="font-black">History:</span> stored on <span class="font-black">your client</span> (browser/device) in <span class="font-black">localStorage</span>.
+        </li>
+        <li>
+          <span class="font-black">Encryption:</span> your local history is encrypted using <span class="font-black">AES-256</span>.
+          That data never lives on our servers — only on your device.
+        </li>
+        <li>
+          <span class="font-black">Sessions:</span> never "remembered" server-side. No profile-building. No long-term memory.
+        </li>
+        <li>
+          <span class="font-black">Continuity:</span> if your local encrypted history remains, you can continue where you left off.
+          If not, it’s a fresh session every time.
+        </li>
+      </ul>
+    </div>
+
+    <a href="https://anova.chat" target="_blank" rel="noreferrer"
+       class="chunky block rounded bg-black px-4 py-4 text-center text-sm font-black text-white hover:bg-slate-800">
+      OPEN ANOVA
+    </a>
+
+    <div class="chunky rounded bg-slate-100 p-4">
+      <div class="text-xs font-black">What to expect (so you don’t email us confused):</div>
+      <div class="mt-2 text-sm font-semibold text-black/80">
+        If you clear your browser storage, switch devices, or use incognito, you’re basically telling Anova:
+        "forget everything." And it will. 
+      </div>
+      <div class="mt-3 text-xs font-semibold text-black/70">
+        If you want "personalization" and server-side memory, go somewhere else.
+        This is for people who prefer <span class="font-black">privacy</span> over "cute features."
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
       <!-- S3 Card -->
       <div id="s3-card" class="chunky rounded bg-white p-6">
         <div class="tape inline-block rounded bg-black px-3 py-2 text-xs font-black text-white">ESTIMATOR</div>
@@ -436,7 +511,7 @@
 
 <div class="mt-3 space-y-3 text-sm font-semibold text-black/80">
   <div class="chunky rounded bg-white p-3">
-    <div class="font-black">Is this “real S3”?</div>
+    <div class="font-black">Is this "real S3"?</div>
     <div class="mt-1 text-black/70">
       It’s S3-compatible. Your normal S3 tools should work. If you wrote a cursed client that only runs during a full moon, that’s on you.
     </div>
@@ -466,7 +541,7 @@
         <div class="tape inline-block rounded bg-black px-3 py-2 text-xs font-black text-white">CALCULATOR</div>
         <h3 class="mt-3 text-xl font-black">VPS (Estimator)</h3>
 <p class="mt-1 text-sm font-semibold text-black/70">
-  Presets for sane people. Sliders for the “trust me bro” engineers.
+  Presets for sane people. Sliders for the "trust me bro" engineers.
 </p>
 
         <div class="mt-4 rounded bg-yellow-100 p-4 chunky">
@@ -544,7 +619,7 @@
         <div class="tape inline-block rounded bg-black px-3 py-2 text-xs font-black text-white">COLOCATION</div>
         <h3 class="mt-3 text-xl font-black">Rack Hosting</h3>
 <p class="mt-1 text-sm font-semibold text-black/70">
-  $150/U baseline. Add-ons optional. If “rack unit” sounds mysterious, go read for 60 seconds and come back.
+  $150/U baseline. Add-ons optional. If "rack unit" sounds mysterious, go read for 60 seconds and come back.
 </p>
 
 
@@ -594,7 +669,7 @@
       <div class="tape inline-block rounded bg-black px-3 py-2 text-xs font-black text-white">HELP / CONTACT</div>
       <h2 class="mt-3 text-2xl font-black">Contact Us</h2>
 <p class="mt-1 text-sm font-semibold text-black/70">
-  Paste the exact error. Don’t send “it broke.” We need data, not feelings.
+  Paste the exact error. Don’t send "it broke." We need data, not feelings.
 </p>
 
       <div class="mt-6 grid gap-6 md:grid-cols-2">
@@ -675,7 +750,7 @@
     <div class="text-xs font-black">Send ONE message with these basics:</div>
     <ul class="mt-2 list-disc pl-5 text-sm font-semibold">
       <li><span class="font-black">Service:</span> VPN / VPS / S3 / Rack</li>
-      <li><span class="font-black">What happened:</span> “paid invoice but stuck on unpaid”, “can’t login”, “rate limited”, etc.</li>
+      <li><span class="font-black">What happened:</span> "paid invoice but stuck on unpaid", "can’t login", "rate limited", etc.</li>
       <li><span class="font-black">When:</span> approximate time + your timezone</li>
       <li><span class="font-black">Error text:</span> paste the exact message (screenshots help too)</li>
       <li><span class="font-black">Your username</span> (if you have one)</li>
@@ -733,7 +808,7 @@
     <div id="terms-box" class="w-full max-w-2xl chunky rounded bg-white overflow-hidden">
       <div class="flex items-center justify-between border-b border-black/10 bg-yellow-200 px-4 py-3">
         <div class="text-sm font-black">Terms and Conditions</div>
-        <div class="text-xs font-black text-black/60">scroll to bottom to enable “Agree”</div>
+        <div class="text-xs font-black text-black/60">scroll to bottom to enable "Agree"</div>
       </div>
 
       <div class="p-4">
@@ -858,7 +933,7 @@
               OPEN LOGIN PAGE
             </a>
             <div class="mt-2 text-xs font-semibold text-black/70">
-              (Yes, you still need to do this even if you “don’t want another account.”)
+              (Yes, you still need to do this even if you "don’t want another account.")
             </div>
           </li>
 
@@ -886,7 +961,7 @@ Washington, DC 20004</pre>
             </div>
 
             <div class="mt-2 chunky rounded bg-red-50 p-3 text-xs font-black text-red-900">
-              The cash must match the total exactly. No coins. No “close enough.” Don’t make this weird.
+              The cash must match the total exactly. No coins. No "close enough." Don’t make this weird.
             </div>
           </li>
 
@@ -1172,7 +1247,7 @@ console.log(
 );
 
 console.log(
-  "%cFound something real? Send steps + payload + timestamp. “It broke” gets ignored.",
+  "%cFound something real? Send steps + payload + timestamp. "It broke" gets ignored.",
   "color:#ef4444; font-weight:800;"
 );
 
