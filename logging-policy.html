@@ -1,148 +1,358 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>No Logs Policy</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f3f0f0;
-            color: #333;
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 800px;
-            margin: 2em auto;
-            padding: 2em;
-            background-color: white;
-            border-radius: 8px;
-            border: 3px solid #949393;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        h1 {
-            text-align: center;
-            color: #444;
-        }
-        p {
-            margin-bottom: 1em;
-        }
-        ul {
-            margin-left: 1.5em;
-        }
-        .back-button {
-            display: block;
-            margin: 2em auto;
-            padding: 0.75em 1.5em;
-            background-color: #6ec1e4;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 4px;
-            width: fit-content;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        .back-button:hover {
-            background-color: #5aafc8;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
+
+  <!-- Primary SEO -->
+  <title>No Logs Policy — Backyard Bandwidth</title>
+  <meta name="description" content="Backyard Bandwidth No Logs Policy: no persistent activity logs for VPN/VPS/S3, minimal volatile session state only, and transparent legal handling." />
+  <link rel="canonical" href="https://backyardbandwidth.com/logging-policy" />
+
+  <meta name="author" content="Backyard Bandwidth" />
+  <meta name="theme-color" content="#FDE047" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <!-- Favicons -->
+  <link rel="icon" href="/icons/icon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- OpenGraph -->
+  <meta property="og:site_name" content="Backyard Bandwidth" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="No Logs Policy — Backyard Bandwidth" />
+  <meta property="og:description" content="No persistent logs. Minimal volatile session state only. Blunt transparency." />
+  <meta property="og:url" content="https://backyardbandwidth.com/logging-policy" />
+  <meta property="og:image" content="https://backyardbandwidth.com/icons/og-home.webp" />
+  <meta property="og:image:alt" content="Backyard Bandwidth — janky UI, reliable infrastructure" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="No Logs Policy — Backyard Bandwidth" />
+  <meta name="twitter:description" content="No persistent logs. Minimal volatile session state only. Blunt transparency." />
+  <meta name="twitter:image" content="https://backyardbandwidth.com/icons/og-home.webp" />
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      background:
+        linear-gradient(0deg, rgba(255,255,255,0.95), rgba(255,255,255,0.95)),
+        repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 18px),
+        repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 18px);
+    }
+    .tape { transform: rotate(-1.2deg); }
+    .tape2 { transform: rotate(1.1deg); }
+    .chunky {
+      box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+      border: 2px solid rgba(0,0,0,0.15);
+    }
+  </style>
 </head>
-<body>
-<div class="container">
-    <h1>No Logs Policy</h1>
 
-    <p>Last updated: Friday, August 8th, 2025<br><br>
-        This No Logs Policy ("Policy") outlines Backyard Bandwidth’s strict commitment to
-        <b>not collecting, storing, or retaining persistent logs</b> of any user activity across our VPN, VPS, and S3 storage services.
-        By using our services, you acknowledge and accept that we do <b>not store logs</b> and that we <b>cannot provide data that does not exist</b>
-        in response to law enforcement requests.
-    </p>
+<body class="h-full text-slate-900">
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[99999] focus:chunky focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-black">
+  Skip to content
+</a>
 
-    <h2>1. No Activity Logging Commitment</h2>
-    <p>Backyard Bandwidth does not store any persistent logs of user activity. Specifically:</p>
-    <ul>
-        <li>We <b>do not</b> store or retain VPN traffic logs.</li>
-        <li>We <b>do not</b> log or track which websites users visit.</li>
-        <li>We <b>do not</b> log VPN session durations or browsing history.</li>
-        <li>We <b>do not</b> log VPS server activity.</li>
-        <li>We <b>do not</b> maintain logs of S3 storage access or file activity.</li>
-    </ul>
+<main id="main">
+  <!-- Top Bar -->
+  <div class="sticky top-0 z-50 border-b-2 border-black/10 bg-yellow-200">
+    <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+      <div class="text-sm font-black leading-tight">
+        <div class="text-xs font-semibold text-black/70">
+          Logging policy. We don’t keep what you wish we kept. Don’t ask later.
+        </div>
+      </div>
 
-    <h2>2. Operational Session Data (Transparency Statement)</h2>
-    <p>
-        Our VPN servers, like all network services, must temporarily maintain minimal connection state
-        (e.g., current session IP address, routing tables, handshake status) in <b>volatile memory only</b>
-        to keep your connection active. This data:
-    </p>
-    <ul>
-        <li>Exists solely in RAM while the connection is active.</li>
-        <li>Is <b>never written to disk</b> under any circumstances.</li>
-        <li>Contains no browsing history, traffic content, or file access data.</li>
-        <li>Is automatically and irreversibly erased from memory upon disconnection.</li>
-    </ul>
+      <div class="flex flex-wrap items-center gap-2">
+        <a href="index.html" class="rounded bg-white px-3 py-2 text-xs font-black chunky hover:bg-slate-50">HOME</a>
+        <a href="terms.html" class="rounded bg-white px-3 py-2 text-xs font-black chunky hover:bg-slate-50">TERMS</a>
+        <a href="fair-use.html" class="rounded bg-white px-3 py-2 text-xs font-black chunky hover:bg-slate-50">FAIR USE</a>
+        <a href="policy.html" class="rounded bg-white px-3 py-2 text-xs font-black chunky hover:bg-slate-50">PRIVACY</a>
+        <a href="logging-policy" class="rounded bg-black px-3 py-2 text-xs font-black text-white chunky hover:bg-slate-800">NO LOGS</a>
+        <a href="https://backyardbandwidth.com/user/login" target="_blank" rel="noreferrer"
+           class="rounded bg-white px-3 py-2 text-xs font-black chunky hover:bg-slate-50">LOGIN</a>
+      </div>
+    </div>
+  </div>
 
-    <h2>3. Data Shredding and Permanent Deletion</h2>
-    <ul>
-        <li>Once a VPS service is terminated, all associated data is <b>forensically shredded</b> and permanently deleted.</li>
-        <li>VPN session data is <b>never stored on disk</b> and ceases to exist the moment the session ends.</li>
-        <li>There are <b>no persistent log files</b> stored on VPN, VPS, or S3 storage servers.</li>
-    </ul>
+  <!-- Header -->
+  <header class="border-b border-black/10 bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-6">
+      <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+        <div class="chunky rounded bg-white p-5">
+          <div class="tape inline-block rounded bg-black px-3 py-2 text-xs font-black text-white">
+            NO LOGS POLICY
+          </div>
+          <h1 class="mt-4 text-3xl font-black leading-tight">No logs means no logs. Not “logs we don’t talk about.”</h1>
+          <p class="mt-2 text-sm font-semibold text-black/70">
+            This Policy outlines Backyard Bandwidth’s commitment to <span class="font-black">not collecting, storing, or retaining persistent logs</span>
+            of user activity across VPN, VPS, and S3 storage services.
+          </p>
 
-    <h2>4. Law Enforcement and Legal Compliance</h2>
-    <p>
-        Backyard Bandwidth operates under <b>United States jurisdiction</b> and complies with all applicable laws.
-        Our infrastructure design means we <b>cannot provide</b>:
-    </p>
-    <ul>
-        <li>VPN usage logs</li>
-        <li>Browsing history</li>
-        <li>VPN session timestamps after disconnection</li>
-        <li>Original or assigned IP addresses after the session ends</li>
-        <li>VPS activity logs</li>
-        <li>S3 storage activity logs</li>
-    </ul>
-    <p>
-        We will cooperate with legally binding requests <b>only to the extent we are technically and physically capable</b>.
-        If served with a valid request, our response will be limited to confirming that <b>we have no persistent logs to provide</b>.
-    </p>
+          <div class="mt-4 grid gap-2 sm:grid-cols-2">
+            <div class="chunky rounded bg-yellow-100 p-4">
+              <div class="text-xs font-black">Last Updated</div>
+              <div class="text-sm font-black">Friday, August 8, 2025</div>
+            </div>
+            <div class="chunky rounded bg-slate-100 p-4">
+              <div class="text-xs font-black">Quick Links</div>
+              <div class="mt-1 text-xs font-semibold">
+                <a class="underline" href="#commitment">Commitment</a> •
+                <a class="underline" href="#session">Volatile Session Data</a> •
+                <a class="underline" href="#deletion">Deletion</a> •
+                <a class="underline" href="#legal">Legal</a> •
+                <a class="underline" href="#third-party">Third Parties</a>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    <h2>5. No Backups or Shadow Logging</h2>
-    <p>
-        Backyard Bandwidth does <b>not</b> maintain backups of any operational session data and does <b>not</b> engage in hidden or “shadow” logging.
-        Our systems are engineered so that operational data never persists beyond the active session.
-    </p>
+        <div class="tape2 chunky rounded bg-yellow-100 p-5">
+          <div class="text-xs font-black">The part people ignore:</div>
+          <ul class="mt-2 list-disc pl-5 text-sm font-semibold text-black/80 space-y-1">
+            <li>We can’t provide logs that don’t exist.</li>
+            <li>Active sessions require minimal RAM-only state. That’s not “logging.”</li>
+            <li>We comply with valid legal requests only to the extent we’re technically capable.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
 
-    <h2>6. No Third-Party Tracking</h2>
-    <p>
-        We do <b>not</b> use third-party tracking, analytics, or logging services. Backyard Bandwidth does not partner with
-        <b>data brokers</b>, <b>advertising agencies</b>, or <b>analytics platforms</b> that collect, share, or store user data.
-    </p>
+  <!-- Content -->
+  <section class="mx-auto max-w-6xl px-4 py-10">
+    <div class="chunky rounded bg-white p-6">
 
-    <h2>7. Acceptance of No Logs Policy</h2>
-    <p>
-        By using the Service, you acknowledge that you have read, understood, and agree to this Policy.
-        If you do not agree with these terms, you must discontinue use of the Service immediately.
-    </p>
+      <!-- Intro -->
+      <div class="chunky rounded bg-slate-50 p-5">
+        <h2 class="text-xl font-black">Agreement</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          This No Logs Policy (“Policy”) is part of our service rules. By using Backyard Bandwidth services, you acknowledge and accept that
+          we do <span class="font-black">not store persistent logs</span> and that we <span class="font-black">cannot provide data that does not exist</span>
+          in response to requests from law enforcement or third parties.
+        </p>
+        <div class="mt-3 chunky rounded bg-white p-4 text-xs font-semibold text-black/70">
+          If you want a provider that keeps detailed histories “just in case,” you’re on the wrong website.
+        </div>
+      </div>
 
-    <h2>8. Changes to This Policy</h2>
-    <p>
-        Backyard Bandwidth may update this No Logs Policy at any time. Any changes will be effective immediately upon posting to this website.
-    </p>
+      <!-- 1 -->
+      <div id="commitment" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">1. No Activity Logging Commitment</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          Backyard Bandwidth does not store persistent logs of user activity. Specifically:
+        </p>
+        <ul class="mt-4 list-disc pl-5 text-sm font-semibold text-black/80 space-y-1">
+          <li>We <span class="font-black">do not</span> store or retain VPN traffic logs.</li>
+          <li>We <span class="font-black">do not</span> log or track which websites users visit.</li>
+          <li>We <span class="font-black">do not</span> log VPN session durations or browsing history.</li>
+          <li>We <span class="font-black">do not</span> log VPS server activity.</li>
+          <li>We <span class="font-black">do not</span> maintain logs of S3 access or file activity as “user history.”</li>
+        </ul>
 
-    <h2>9. Disclaimer</h2>
-    <p>
-        We strive to maintain a secure and private infrastructure. Users are responsible for ensuring their own compliance with applicable laws and best security practices when using our platform.
-    </p>
+        <div class="mt-4 chunky rounded bg-red-50 p-4">
+          <div class="text-xs font-black text-red-900">Reality check:</div>
+          <p class="mt-2 text-sm font-semibold text-red-900">
+            If you email support asking for “the logs,” the answer will be: “we don’t have them.”
+            That’s the point. Don’t act surprised.
+          </p>
+        </div>
+      </div>
 
-    <h2>Contact Us</h2>
-    <p>
-        If you have any questions or concerns regarding this No Logs Policy, please contact us through the methods provided on the website.
-    </p>
+      <!-- 2 -->
+      <div id="session" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">2. Operational Session Data (Transparency Statement)</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          Like all network services, VPN servers must temporarily maintain minimal connection state (e.g., current session IP address,
+          routing tables, handshake status) in <span class="font-black">volatile memory only</span> to keep your connection alive.
+        </p>
 
-</div>
-<a href="index.html" class="back-button">Back to Homepage</a>
+        <div class="mt-4 chunky rounded bg-yellow-100 p-4">
+          <div class="text-sm font-black">This session state:</div>
+          <ul class="mt-2 list-disc pl-5 text-sm font-semibold text-black/80 space-y-1">
+            <li>Exists solely in RAM while the connection is active.</li>
+            <li>Is <span class="font-black">never written to disk</span> under any circumstances.</li>
+            <li>Contains no browsing history, traffic content, or file access data.</li>
+            <li>Is automatically and irreversibly erased upon disconnection or service restart.</li>
+          </ul>
+        </div>
+
+        <div class="mt-4 chunky rounded bg-slate-100 p-4">
+          <div class="text-xs font-black">Translation:</div>
+          <p class="mt-2 text-sm font-semibold text-black/80">
+            Your session has to exist while it’s connected. That’s not logging. That’s networking.
+          </p>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div id="deletion" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">3. Data Shredding & Permanent Deletion</h2>
+        <ul class="mt-4 list-disc pl-5 text-sm font-semibold text-black/80 space-y-2">
+          <li>Once a VPS service is terminated, associated data is permanently deleted.</li>
+          <li>VPN session state is RAM-only and ceases to exist when the session ends.</li>
+          <li>There are no persistent “activity log files” stored on VPN or VPS systems as user history.</li>
+        </ul>
+
+        <div class="mt-4 chunky rounded bg-red-50 p-4">
+          <div class="text-xs font-black text-red-900">Important:</div>
+          <p class="mt-2 text-sm font-semibold text-red-900">
+            If you didn’t back up your VPS data, that is not a “privacy policy issue.” That is a “you issue.”
+          </p>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div id="legal" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">4. Law Enforcement & Legal Compliance</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          Backyard Bandwidth operates under <span class="font-black">United States jurisdiction</span> and complies with applicable laws.
+          Our infrastructure design means we generally cannot provide:
+        </p>
+
+        <div class="mt-4 chunky rounded bg-yellow-100 p-4">
+          <ul class="list-disc pl-5 text-sm font-semibold text-black/80 space-y-1">
+            <li>VPN usage logs</li>
+            <li>Browsing history</li>
+            <li>VPN session timestamps after disconnection</li>
+            <li>Original or assigned IP addresses after the session ends</li>
+            <li>VPS activity logs</li>
+            <li>S3 “user activity history” logs</li>
+          </ul>
+        </div>
+
+        <div class="mt-4 chunky rounded bg-slate-100 p-4">
+          <div class="text-sm font-black">How we respond:</div>
+          <p class="mt-2 text-sm font-semibold text-black/80">
+            We cooperate with legally binding requests only to the extent we are technically and physically capable.
+            If served with a valid request for persistent logs, our response may be limited to confirming:
+            <span class="font-black">we have no persistent logs to provide</span>.
+          </p>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div id="shadow" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">5. No Backups or Shadow Logging</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          Backyard Bandwidth does <span class="font-black">not</span> maintain backups of operational session state and does
+          <span class="font-black">not</span> engage in hidden or “shadow” logging. Operational data is engineered not to persist
+          beyond the active session.
+        </p>
+      </div>
+
+      <!-- 6 -->
+      <div id="third-party" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">6. No Third-Party Tracking</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          We do <span class="font-black">not</span> use third-party tracking, analytics, or logging services that collect or sell user data.
+          We do not partner with data brokers or advertising agencies. We are not building a marketing empire.
+        </p>
+
+        <div class="mt-4 chunky rounded bg-slate-100 p-4">
+          <div class="text-xs font-black">If you see trackers:</div>
+          <p class="mt-2 text-sm font-semibold text-black/80">
+            Tell us. Seriously. Either it’s a mistake, or you’re on the wrong domain.
+          </p>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div id="acceptance" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">7. Acceptance of This Policy</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          By using the Service, you acknowledge that you have read, understood, and agree to this Policy.
+          If you do not agree, discontinue use immediately.
+        </p>
+      </div>
+
+      <!-- 8 -->
+      <div id="changes" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">8. Changes to This Policy</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          Backyard Bandwidth may update this No Logs Policy at any time. Changes are effective immediately upon posting.
+          Continued use means you accept the updated version.
+        </p>
+      </div>
+
+      <!-- 9 -->
+      <div id="disclaimer" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">9. Disclaimer</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          We strive to maintain a secure and private infrastructure. Users are responsible for ensuring their own compliance
+          with applicable laws and best security practices when using the platform.
+        </p>
+
+        <div class="mt-4 chunky rounded bg-red-50 p-4">
+          <div class="text-xs font-black text-red-900">Reminder:</div>
+          <p class="mt-2 text-sm font-semibold text-red-900">
+            If you decide to do illegal things, don’t email us later pretending this page is a “get out of consequences free” card.
+            It isn’t.
+          </p>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div id="contact" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">Contact Us</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          If you have questions about this Policy, contact us through the methods listed on the website.
+          Include context. “Hi” is not a ticket.
+        </p>
+
+        <div class="mt-4 chunky rounded bg-slate-100 p-4">
+          <div class="text-xs font-black">Related pages:</div>
+          <div class="mt-2 text-sm font-semibold">
+            <a class="underline" href="terms.html">Terms</a> •
+            <a class="underline" href="fair-use.html">Fair Use</a> •
+            <a class="underline" href="policy.html">Privacy</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Back button -->
+      <div class="mt-8 flex flex-col items-center gap-3">
+        <a href="index.html"
+           class="chunky rounded bg-black px-5 py-3 text-sm font-black text-white hover:bg-slate-800">
+          BACK TO HOMEPAGE
+        </a>
+        <div class="text-xs font-semibold text-black/60">
+          Links: <a class="underline" href="terms.html">Terms</a> •
+          <a class="underline" href="fair-use.html">Fair Use</a> •
+          <a class="underline" href="policy.html">Privacy</a> •
+          <a class="underline" href="logging-policy">No Logs</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-black/10 bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-8">
+      <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div class="text-sm font-black">Backyard Bandwidth</div>
+        <div class="text-xs font-black text-black/60">© <span id="year"></span> • janky UI • reliable backend • no fluff</div>
+      </div>
+      <div class="mt-3 text-xs font-black text-black/60">
+        Links: <a class="underline" href="terms.html">Terms</a> • <a class="underline" href="fair-use.html">Fair Use</a>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script>
+  // Year
+  (function () {
+    const yearEl = document.getElementById("year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  })();
+</script>
 </body>
 </html>

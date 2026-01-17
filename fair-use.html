@@ -1,275 +1,495 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Fair Use Policy</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f3f0f0;
-            color: #333;
-            line-height: 1.6;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
 
-        .container {
-            max-width: 800px;
-            margin: 2em auto;
-            padding: 2em;
-            background-color: white;
-            border-radius: 8px;
-            border: 3px solid #949393;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+  <!-- Primary SEO -->
+  <title>Fair Use Policy — Backyard Bandwidth</title>
+  <meta name="description" content="Backyard Bandwidth Fair Use Policy for VPN, VPS, S3-compatible storage, and related infrastructure services." />
+  <link rel="canonical" href="https://backyardbandwidth.com/fair-use.html" />
 
-        h1 {
-            text-align: center;
-            color: #444;
-        }
+  <meta name="author" content="Backyard Bandwidth" />
+  <meta name="theme-color" content="#FDE047" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
 
-        p {
-            margin-bottom: 1em;
-        }
+  <!-- Favicons -->
+  <link rel="icon" href="/icons/icon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
 
-        ul {
-            margin-left: 1.5em;
-        }
+  <!-- OpenGraph -->
+  <meta property="og:site_name" content="Backyard Bandwidth" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Fair Use Policy — Backyard Bandwidth" />
+  <meta property="og:description" content="Fair Use Policy for Backyard Bandwidth infrastructure services." />
+  <meta property="og:url" content="https://backyardbandwidth.com/fair-use.html" />
+  <meta property="og:image" content="https://backyardbandwidth.com/icons/og-home.webp" />
+  <meta property="og:image:alt" content="Backyard Bandwidth — janky UI, reliable infrastructure" />
 
-        .back-button {
-            display: block;
-            margin: 2em auto;
-            padding: 0.75em 1.5em;
-            background-color: #6ec1e4;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 4px;
-            width: fit-content;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Fair Use Policy — Backyard Bandwidth" />
+  <meta name="twitter:description" content="Fair Use Policy for Backyard Bandwidth infrastructure services." />
+  <meta name="twitter:image" content="https://backyardbandwidth.com/icons/og-home.webp" />
 
-        .back-button:hover {
-            background-color: #5aafc8;
-        }
-    </style>
+  <!-- Performance hints -->
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      background:
+        linear-gradient(0deg, rgba(255,255,255,0.95), rgba(255,255,255,0.95)),
+        repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 18px),
+        repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 18px);
+    }
+    .tape { transform: rotate(-1.2deg); }
+    .tape2 { transform: rotate(1.1deg); }
+    .chunky {
+      box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+      border: 2px solid rgba(0,0,0,0.15);
+    }
+  </style>
 </head>
-<body>
 
-<div class="container">
-    <h1>Fair Use Policy</h1>
+<body class="h-full text-slate-900">
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[99999] focus:chunky focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-black">
+  Skip to content
+</a>
 
-    <p>Last Updated: June 30th, 2025</p>
-    <h2>1. Introduction</h2>
-    <p>This Fair Use Policy ("Policy") sets forth the acceptable use guidelines for Backyard Bandwidth's VPN, VPS,
-        Splunk ingestion, indexing, storage services, and other related services ("Service"). While we do not impose
-        arbitrary limits on bandwidth, speed, or usage, we maintain this policy to ensure fair and reasonable access for
-        all users. By using our Service, you agree to comply with this Policy.</p>
+<main id="main">
+  <!-- Top Bar -->
+  <div class="sticky top-0 z-50 border-b-2 border-black/10 bg-yellow-200">
+    <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+      <div class="text-sm font-black leading-tight">
+        <div class="text-xs font-semibold text-black/70">
+          Policy page. Read it once. Don’t get banned for doing something dumb.
+        </div>
+      </div>
 
-    <h2>2. Unlimited Use Under Fair Use</h2>
-    <p>Backyard Bandwidth provides VPN services without data caps or speed restrictions. However, this offering is
-        contingent upon fair and reasonable use. Excessive or abnormal usage that negatively impacts network
-        performance, degrades service quality for other users, or places an undue burden on our infrastructure may
-        result in action under this Policy.</p>
+      <div class="flex flex-wrap items-center gap-2">
+        <a href="index.html" class="rounded bg-white px-3 py-2 text-xs font-black chunky hover:bg-slate-50">HOME</a>
+        <a href="terms.html" class="rounded bg-white px-3 py-2 text-xs font-black chunky hover:bg-slate-50">TERMS</a>
+        <a href="fair-use.html" class="rounded bg-black px-3 py-2 text-xs font-black text-white chunky hover:bg-slate-800">FAIR USE</a>
+        <a href="https://backyardbandwidth.com/user/login" target="_blank" rel="noreferrer"
+           class="rounded bg-white px-3 py-2 text-xs font-black chunky hover:bg-slate-50">LOGIN</a>
+      </div>
+    </div>
+  </div>
 
-    <p>Backyard Bandwidth does <strong>not log, track, or monitor user activity</strong> on our VPN services. Users are
-        not subject to logging or tracking under our <a href="http://backyardbandwidth.com/policy.html">Privacy
-            Policy</a>. We do not retain records of browsing history, connection times, metadata, IP addresses, or other
-        identifying information related to VPN use.</p>
+  <!-- Header -->
+  <header class="border-b border-black/10 bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-6">
+      <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+        <div class="chunky rounded bg-white p-5">
+          <div class="tape inline-block rounded bg-black px-3 py-2 text-xs font-black text-white">
+            FAIR USE POLICY
+          </div>
+          <h1 class="mt-4 text-3xl font-black leading-tight">Don’t be the reason we add limits.</h1>
+          <p class="mt-2 text-sm font-semibold text-black/70">
+            We try to keep things simple: reliable infrastructure, minimal drama.
+            If your “use case” is basically “abuse,” we will remove you. Quickly.
+          </p>
 
-    <h2>3. VPS Privacy and Data Retention</h2>
-    <p>Backyard Bandwidth does not log, monitor, or track user activity on our VPS services. We do not store data after
-        a VPS has been terminated. All data from terminated VPS instances is permanently and forensically deleted.</p>
-    <p>By using our Service, users agree to abide by all applicable <strong>United States laws</strong>. Any illegal
-        activities or excessive data ingress/egress may result in immediate termination without notice.</p>
+          <div class="mt-4 grid gap-2 sm:grid-cols-2">
+            <div class="chunky rounded bg-yellow-100 p-4">
+              <div class="text-xs font-black">Last Updated</div>
+              <div class="text-sm font-black">January 17, 2026</div>
+            </div>
+            <div class="chunky rounded bg-slate-100 p-4">
+              <div class="text-xs font-black">Quick Links</div>
+              <div class="mt-1 text-xs font-semibold">
+                <a class="underline" href="#vpn">VPN</a> •
+                <a class="underline" href="#vps">VPS</a> •
+                <a class="underline" href="#s3">S3</a> •
+                <a class="underline" href="#security">Security</a> •
+                <a class="underline" href="#bandwidth">Bandwidth</a> •
+                <a class="underline" href="#support">Support</a>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    <h2>4. Splunk Ingestion, Indexing, and Storage Fair Use</h2>
-    <p>Backyard Bandwidth provides Splunk ingestion, indexing, and storage services subject to the following fair use
-        guidelines:</p>
-    <ul>
-        <li>Users are allowed to ingest and index data up to the allocated limit specified in their service plan.
-            Exceeding this limit without prior authorization may result in access restrictions, suspension, or
-            termination without notice.
-        </li>
-        <li>Attempts to bypass or manipulate data ingestion limits, including but not limited to data obfuscation or
-            compression methods designed to evade fair use policies, are strictly prohibited.
-        </li>
-        <li>If a user is found to be ingesting or indexing more data than their allowed limit, they may be terminated
-            without notice and are <strong>not eligible for refunds</strong>.
-        </li>
-        <li>Backyard Bandwidth reserves the right to monitor ingestion volumes to ensure compliance with fair use
-            thresholds and maintain network stability.
-        </li>
-    </ul>
+        <div class="tape2 chunky rounded bg-yellow-100 p-5">
+          <div class="text-xs font-black">The short version (aka what you actually need):</div>
+          <ul class="mt-2 list-disc pl-5 text-sm font-semibold text-black/80 space-y-1">
+            <li>We don’t inspect your VPN tunnel or VPS contents.</li>
+            <li>We do enforce abuse rules based on infrastructure-facing signals.</li>
+            <li>Unlimited ≠ infinite. Sustained “hammering” gets rate-limited or terminated.</li>
+            <li>No refunds for abuse-related termination. Don’t test us.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
 
-    <h2>5. S3 Storage Fair Use</h2>
-    <p>Backyard Bandwidth offers S3-compatible storage with free ingress (data uploads) and free egress (data
-        downloads), subject to the following conditions:</p>
-    <ul>
-        <li>Users may egress (download) data without charge up to the amount of data they have stored.</li>
-        <li>If a user egresses more data than they have stored, additional fees or restrictions may apply.</li>
-        <li>Backyard Bandwidth reserves the right to limit or suspend access for users who exceed fair use thresholds in
-            a manner that negatively impacts network stability.
-        </li>
-    </ul>
+  <!-- Content -->
+  <section class="mx-auto max-w-6xl px-4 py-10">
+    <div class="chunky rounded bg-white p-6">
+      <div class="prose prose-slate max-w-none">
+        <!-- NOTE: We intentionally avoid the Tailwind Typography plugin here; using plain Tailwind blocks. -->
+      </div>
 
-    <h2>6. Bruteforce Attempts and Security Violations</h2>
-    <p>
-        Backyard Bandwidth enforces a strict policy against bruteforce attacks targeting any part of our infrastructure,
-        including login portals, APIs, VPN gateways, Splunk endpoints, and storage systems.
-    </p>
-    <p>
-        A <strong>bruteforce attempt</strong> is defined as an automated or repeated attempt to gain unauthorized access
-        to
-        Backyard Bandwidth systems by systematically guessing credentials such as usernames, passwords, SSH keys, or API
-        tokens. Examples of prohibited activity include:
-    </p>
-    <ul>
-        <li>Rapid or scripted login attempts across multiple accounts or services.</li>
-        <li>Port scanning with the intent to identify authentication mechanisms for bruteforce.</li>
-        <li>Credential stuffing or password spraying attempts targeting Backyard Bandwidth infrastructure.</li>
-    </ul>
+      <!-- Section: Intro -->
+      <div class="chunky rounded bg-slate-50 p-5">
+        <h2 class="text-xl font-black">1. Introduction</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          This Fair Use Policy (“Policy”) applies to Backyard Bandwidth’s VPN, VPS,
+          S3-compatible storage, colocation, and any other related services (collectively, the “Service”).
+          By using the Service, you agree to comply with this Policy and our <a class="underline" href="terms.html">Terms</a>.
+        </p>
+        <div class="mt-3 chunky rounded bg-white p-4 text-xs font-semibold text-black/70">
+          Translation: we built this so normal users don’t get wrecked by one person running a 24/7 firehose.
+        </div>
+      </div>
 
-    <p>
-        We want to be clear: <strong>we do not monitor or inspect activity within your VPS or VPN tunnel</strong>, and
-        we fully
-        comply with our <a href="https://backyardbandwidth.com/logging-policy">Logging Policy</a>. We do not log or
-        retain user
-        activity data, and we cannot see or inspect what you do inside your instance.
-    </p>
-    <p>
-        Our enforcement is limited to visible, inbound behavior <strong>against our systems</strong> — not outbound
-        traffic or internal activity within your environment.
-    </p>
+      <!-- VPN -->
+      <div id="vpn" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">2. VPN Fair Use</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          Backyard Bandwidth offers VPN service without arbitrary daily caps or “speed tiers” for typical usage.
+          That said, VPN usage must remain reasonable. If your sustained usage materially degrades network performance,
+          harms other users, triggers upstream abuse workflows, or creates undue infrastructure load, we may take action.
+        </p>
 
-    <p>
-        When we detect behavior matching known bruteforce patterns, we evaluate:
-    </p>
-    <ul>
-        <li>The frequency and velocity of attempted logins or access attempts.</li>
-        <li>Behavioral patterns aligned with known attack vectors or tools.</li>
-        <li>Public abuse reputation of the originating IP address or subnet.</li>
-    </ul>
+        <div class="mt-4 chunky rounded bg-yellow-100 p-4">
+          <div class="text-sm font-black">Privacy statement (read this carefully):</div>
+          <p class="mt-2 text-sm font-semibold text-black/80">
+            We do <span class="font-black">not</span> log, track, or inspect user activity inside your VPN tunnel
+            (no browsing history, no payload inspection). See our <a class="underline" href="https://backyardbandwidth.com/logging-policy">Logging Policy</a>
+            and <a class="underline" href="http://backyardbandwidth.com/policy.html">Privacy Policy</a>.
+          </p>
+          <p class="mt-2 text-xs font-semibold text-black/70">
+            What we <span class="font-black">can</span> see: infrastructure-level signals required to operate the service
+            (e.g., aggregate traffic volume, connection health, abuse complaints, and inbound attacks targeting our systems).
+            We use those signals to keep the lights on—not to snoop.
+          </p>
+        </div>
 
-    <p>
-        If a user is determined to be intentionally engaging in such activity:
-    </p>
-    <ul>
-        <li>Their account will be <strong>terminated immediately without notice</strong>.</li>
-        <li>No refunds will be issued for any terminated services related to this violation.</li>
-        <li>We reserve the right to report malicious attempts to the appropriate authorities or upstream network
-            providers.
-        </li>
-    </ul>
+        <div class="mt-4 chunky rounded bg-slate-100 p-4">
+          <div class="text-sm font-black">Not allowed on VPN:</div>
+          <ul class="mt-2 list-disc pl-5 text-sm font-semibold text-black/80 space-y-1">
+            <li>Operating open relays / public proxies for third parties.</li>
+            <li>Running large-scale automated abuse (spam, credential stuffing, scanning that generates complaints, etc.).</li>
+            <li>Anything that causes repeated upstream provider abuse escalations. (We don’t enjoy those emails.)</li>
+          </ul>
+        </div>
+      </div>
 
-    <p>
-        We understand that accidental misconfigurations (such as a broken cron job or test script) may occasionally
-        resemble attack traffic.
-        In such cases, where there is no malicious intent and no impact to service stability, we may issue a warning
-        before taking further action.
-    </p>
+      <!-- Dedicated VPN -->
+      <div id="dedicated-vpn" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">3. Dedicated VPN Plans</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          Dedicated VPN plans provide a private static IP. All tiers follow the privacy standards in our
+          <a class="underline" href="https://backyardbandwidth.com/logging-policy">Logging Policy</a>.
+          Dedicated does not mean “do whatever you want.” It means “your own IP.”
+        </p>
 
-    <h2>6.5 Dedicated VPN Fair Use</h2>
-<p>Backyard Bandwidth offers Dedicated VPN plans under three tiers: Basic, Standard, and Premium. All tiers provide access to a private static IP and follow the privacy standards outlined in our <a href="https://backyardbandwidth.com/logging-policy">Logging Policy</a>. Each tier includes varying levels of features and support under fair use terms:</p>
+        <div class="mt-4 grid gap-3 md:grid-cols-3">
+          <div class="chunky rounded bg-yellow-100 p-4">
+            <div class="text-sm font-black">Basic — $14.99/mo</div>
+            <ul class="mt-2 list-disc pl-5 text-sm font-semibold text-black/80 space-y-1">
+              <li>Private static IP</li>
+              <li>Basic monthly support</li>
+              <li>No port forwarding</li>
+            </ul>
+          </div>
+          <div class="chunky rounded bg-yellow-100 p-4">
+            <div class="text-sm font-black">Standard — $19.99/mo</div>
+            <ul class="mt-2 list-disc pl-5 text-sm font-semibold text-black/80 space-y-1">
+              <li>Private static IP</li>
+              <li>Up to 3 custom port forwards / month</li>
+              <li>Advanced monthly support</li>
+            </ul>
+          </div>
+          <div class="chunky rounded bg-yellow-100 p-4">
+            <div class="text-sm font-black">Premium — $29.99/mo</div>
+            <ul class="mt-2 list-disc pl-5 text-sm font-semibold text-black/80 space-y-1">
+              <li>Private static IP</li>
+              <li>Unlimited port forwarding</li>
+              <li>Custom destination port support</li>
+              <li>Pro monthly support</li>
+            </ul>
+          </div>
+        </div>
 
-<ul>
-    <li><strong>Basic — $14.99/month:</strong> Includes a private static IP and <strong>Basic Monthly Support</strong>. This plan does not support port forwarding and is intended for users with lightweight, consistent VPN needs.</li>
-    <li><strong>Standard — $19.99/month:</strong> Includes a private static IP, <strong>up to 3 custom port forwards per month</strong>, and <strong>Advanced Monthly Support</strong>. This plan is intended for users with moderate technical needs and some network customization.</li>
-    <li><strong>Premium — $29.99/month:</strong> Includes a private static IP, <strong>unlimited port forwarding</strong>, <strong>custom destination port support</strong>, and <strong>Pro Monthly Support</strong>. This tier is recommended for advanced users who require flexible networking and multiple protocol options including WireGuard and OpenVPN.</li>
-</ul>
+        <div class="mt-4 chunky rounded bg-red-50 p-4">
+          <div class="text-xs font-black text-red-900">Dedicated VPN abuse = fast termination</div>
+          <p class="mt-2 text-sm font-semibold text-red-900">
+            Port forwarding may not be used to host public services, open relays, malware distribution, scanning campaigns,
+            or anything that generates abuse complaints. If your static IP becomes a recurring problem, we will restrict it
+            or terminate service. No, this is not negotiable.
+          </p>
+        </div>
+      </div>
 
-<p>All Dedicated VPN usage is subject to reasonable and non-abusive behavior. Users must not employ the VPN to host public services, proxies, open relays, or initiate network attacks. Abuse of port forwarding (e.g., scanning, malware hosting, abuse complaints) may result in restriction or termination without notice.</p>
+      <!-- VPS -->
+      <div id="vps" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">4. VPS Privacy & Data Retention</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          We do not monitor or inspect activity within your VPS. You are responsible for what you run.
+          When a VPS is terminated, data is deleted. We do not keep “archives” of terminated instances.
+        </p>
 
+        <div class="mt-4 chunky rounded bg-slate-100 p-4">
+          <div class="text-sm font-black">Legal compliance</div>
+          <p class="mt-2 text-sm font-semibold text-black/80">
+            You must comply with all applicable <span class="font-black">United States laws</span> and any applicable laws in your jurisdiction.
+            Illegal activity may result in termination <span class="font-black">without notice</span>.
+          </p>
+        </div>
 
-    <h2>7. Termination for Violations</h2>
-    <p>Users found to be in violation of this Policy, including but not limited to excessive egress/ingress, illegal
-        activities, data ingestion manipulation, bruteforce attempts, or abuse of the Service, may have their access
-        restricted, suspended, or permanently terminated without prior notice.</p>
-    <p>Additionally, as outlined in our <a href="http://backyardbandwidth.com/policy.html">Privacy Policy</a>, we
-        reserve the right to terminate accounts without notice if a user is found to be engaging in activities that
-        violate <strong>United States law</strong> while using our Service.</p>
+        <div class="mt-4 chunky rounded bg-yellow-100 p-4">
+          <div class="text-sm font-black">Important nuance (because people get confused):</div>
+          <p class="mt-2 text-sm font-semibold text-black/80">
+            We don’t “watch your screen.” But if your instance is generating abuse at the network edge
+            (e.g., scanning floods, repeated authentication attacks against external services, spam bursts),
+            upstream providers may complain. If that happens repeatedly, we will act.
+          </p>
+        </div>
+      </div>
 
-    <h2>8. No Refund Policy</h2>
-    <p>All services terminated due to a violation of this Policy are <strong>not eligible for refunds</strong>. Users
-        accept that no reimbursement will be provided for terminated services.</p>
+      <!-- S3 -->
+      <div id="s3" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">5. S3-Compatible Storage Fair Use</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          We offer S3-compatible storage with free ingress and free egress under fair use terms.
+          The goal is to be useful, not to subsidize someone’s CDN business.
+        </p>
 
-    <h2>9. Acceptance of Terms</h2>
-    <p>By accessing or using the Service, you acknowledge that you have read, understood, and agree to be legally bound
-        by this Policy. If you do not agree to these terms, you must immediately stop using the Service.</p>
+        <ul class="mt-4 list-disc pl-5 text-sm font-semibold text-black/80 space-y-2">
+          <li>Users may egress (download) data without charge up to the amount of data they store.</li>
+          <li>If a user egresses more data than they store, additional fees or restrictions may apply.</li>
+          <li>We may rate-limit or suspend access if usage patterns materially impact stability or trigger upstream issues.</li>
+        </ul>
 
-    <h2>10. Governing Law and Jurisdiction</h2>
-    <p>This Policy shall be governed by and construed in accordance with the laws of the United States. Any disputes
-        arising from or relating to this Policy shall be subject to the exclusive jurisdiction of the federal and state
-        courts located in the state of Virginia.</p>
+        <div class="mt-4 chunky rounded bg-slate-100 p-4">
+          <div class="text-xs font-black">Example:</div>
+          <p class="mt-2 text-sm font-semibold text-black/80">
+            If you store 5 TB and egress 5 TB, cool. If you store 50 GB and try to egress 30 TB, you’re not “saving money” —
+            you’re getting rate-limited.
+          </p>
+        </div>
+      </div>
 
-    <h2>11. Severability</h2>
-    <p>If any provision of this Policy is found to be invalid or unenforceable, the remaining provisions shall continue
-        to be fully valid, binding, and enforceable.</p>
+      <!-- Security / Bruteforce -->
+      <div id="security" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">6. Bruteforce Attempts & Security Violations</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          We enforce a strict policy against bruteforce attacks targeting any part of our infrastructure, including:
+          login portals, APIs, VPN gateways, and storage systems.
+        </p>
 
-    <h2>12. Network Bandwidth Fair Use</h2>
-    <p>All Backyard Bandwidth services that utilize network infrastructure—including VPN, VPS, S3-compatible storage,
-        Splunk ingestion, or any other networked service—are subject to fair use limits on network bandwidth
-        consumption.</p>
+        <div class="mt-4 chunky rounded bg-yellow-100 p-4">
+          <div class="text-sm font-black">Definition</div>
+          <p class="mt-2 text-sm font-semibold text-black/80">
+            A <span class="font-black">bruteforce attempt</span> is an automated or repeated attempt to gain unauthorized access by
+            systematically guessing usernames, passwords, SSH keys, or API tokens.
+          </p>
+          <ul class="mt-3 list-disc pl-5 text-sm font-semibold text-black/80 space-y-1">
+            <li>Rapid or scripted login attempts across multiple accounts or services</li>
+            <li>Credential stuffing / password spraying</li>
+            <li>Scanning specifically to identify authentication surfaces for attack</li>
+          </ul>
+        </div>
 
-    <p>Normal usage patterns and occasional high-traffic spikes are acceptable, including large software updates,
-        backups, or short-term data transfers. However, long-term sustained high bandwidth consumption that degrades
-        network performance for others is a violation of this Fair Use Policy.</p>
+        <div class="mt-4 chunky rounded bg-slate-100 p-4">
+          <div class="text-sm font-black">Privacy clarification</div>
+          <p class="mt-2 text-sm font-semibold text-black/80">
+            We do not inspect activity inside your VPN tunnel or inside your VPS.
+            Enforcement here is based on visible inbound behavior <span class="font-black">against our systems</span>,
+            plus abuse reputation signals. See our <a class="underline" href="https://backyardbandwidth.com/logging-policy">Logging Policy</a>.
+          </p>
+        </div>
 
-    <h3>VPS Bandwidth Limits (Per Instance)</h3>
-    <ul>
-        <li><strong>Tiny (1 GB RAM / 1 CPU / 20 GB disk):</strong> Up to <strong>10 GB/day egress</strong> and <strong>200
-            GB/month total network traffic</strong>. Usage beyond these limits may incur additional charges or bandwidth
-            restrictions.
-        </li>
-        <li><strong>Small (4 GB RAM / 4 CPU / 100 GB disk):</strong> 75 GB/day egress, 500 GB/week total</li>
-        <li><strong>Medium (16 GB RAM / 8 CPU / 200 GB disk):</strong> 150 GB/day egress, 1.2 TB/week total</li>
-        <li><strong>Large (32 GB RAM / 16 CPU / 400 GB disk):</strong> 300 GB/day egress, 2.5 TB/week total</li>
-        <li><strong>Huge (64 GB RAM / 32 CPU / 1 TB disk):</strong> 600 GB/day egress, 5 TB/week total</li>
-        <li><strong>Massive (128 GB RAM / 40 CPU / 2 TB disk):</strong> 1 TB/day egress, 10 TB/week total</li>
-    </ul>
-    <p><em>Note:</em> Users requiring higher sustained throughput or monthly transfer volumes are encouraged to contact
-        support for a custom bandwidth allocation or overage pricing options.</p>
-    <p><em>Note:</em> The "Tiny" plan is designed for lightweight, consistent usage. The daily and monthly limits are enforced to prevent accidental overuse or unfair resource allocation on our most affordable tier.</p>
+        <div class="mt-4 chunky rounded bg-red-50 p-4">
+          <div class="text-xs font-black text-red-900">If you bruteforce our stuff:</div>
+          <ul class="mt-2 list-disc pl-5 text-sm font-semibold text-red-900 space-y-1">
+            <li>Your account may be terminated immediately without notice.</li>
+            <li>No refunds for services terminated due to this violation.</li>
+            <li>We may report malicious attempts to upstream providers or appropriate authorities.</li>
+          </ul>
+          <p class="mt-3 text-xs font-semibold text-red-900/80">
+            If it’s a genuine misconfiguration (broken cron, bad script) and there’s no malicious intent and no impact,
+            we may warn you first. We are not obligated to.
+          </p>
+        </div>
+      </div>
 
+      <!-- Termination -->
+      <div id="termination" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">7. Termination & Enforcement</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          If you violate this Policy, we may (in our sole discretion) restrict, rate-limit, suspend, or terminate your access
+          without prior notice. We may also require plan changes or impose technical mitigations to protect the network.
+        </p>
 
-    <p>Accidental or short-term overages will not result in enforcement action. However, repeated or continuous misuse
-        may result in rate limiting, suspension, or termination <strong>without refund</strong>.</p>
+        <div class="mt-4 chunky rounded bg-slate-100 p-4">
+          <div class="text-sm font-black">We typically try to be reasonable.</div>
+          <p class="mt-2 text-sm font-semibold text-black/80">
+            Accidental or short-term spikes generally aren’t a problem. Repeated or sustained abuse is.
+            If network integrity is at risk, we will prioritize stability over your feelings.
+          </p>
+        </div>
+      </div>
 
-    <p>Users will typically receive one or more warnings before enforcement, unless network integrity is at risk. Custom
-        plans are available for users with consistently high bandwidth needs—please contact support for
-        arrangements.</p>
+      <!-- No refunds -->
+      <div id="refunds" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">8. No Refunds for Abuse</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          Services terminated due to a violation of this Policy are <span class="font-black">not eligible for refunds</span>.
+          That includes partial months, prepayments, and “but I didn’t mean it” situations.
+        </p>
+      </div>
 
+      <!-- Acceptance -->
+      <div id="acceptance" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">9. Acceptance of Terms</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          By using the Service, you acknowledge that you have read, understood, and agree to be bound by this Policy.
+          If you do not agree, do not use the Service.
+        </p>
+      </div>
 
-    <h2>13. Limited Free Support</h2>
-    <p>Backyard Bandwidth provides limited free support for general inquiries and basic setup assistance. Our support
-        operates under the following fair use guidelines:</p>
+      <!-- Governing law -->
+      <div id="law" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">10. Governing Law & Jurisdiction</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          This Policy is governed by the laws of the United States. Any disputes arising from or relating to this Policy
+          shall be subject to the exclusive jurisdiction of the federal and state courts located in the state of Virginia.
+        </p>
+      </div>
 
-    <ul>
-        <li>Free assistance is available for initial setup and general troubleshooting questions.</li>
-        <li>Each user is allowed up to <strong>three (3) free support inquiries per month</strong> under our fair use
-            policy.
-        </li>
-        <li>Additional support requests beyond this limit may require a paid support plan.</li>
-        <li>Requests involving hands-on troubleshooting, custom configurations, or extended technical support may be
-            subject to billing.
-        </li>
-        <li>Backyard Bandwidth reserves the right to determine when a support request exceeds fair use and will notify
-            the user of applicable paid support options.
-        </li>
-    </ul>
+      <!-- Severability -->
+      <div id="severability" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">11. Severability</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          If any provision of this Policy is found invalid or unenforceable, the remaining provisions remain in full force and effect.
+        </p>
+      </div>
 
-    <p>By requesting support, you acknowledge that continued assistance beyond the fair use limit may incur additional
-        charges. You can view our support pricing details <a href="terms.html">here</a>.</p>
+      <!-- Bandwidth -->
+      <div id="bandwidth" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">12. Network Bandwidth Fair Use</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          All services that use our network infrastructure—including VPN, VPS, S3 storage, or any other
+          networked service—are subject to fair use limits on sustained bandwidth consumption.
+        </p>
 
-    <h2>14. Updates to this Policy</h2>
-    <p>Backyard Bandwidth reserves the right to update or modify this Policy at any time to ensure the continued
-        integrity and performance of our network. Continued use of the Service after any modifications constitutes
-        acceptance of the revised terms.</p>
+        <div class="mt-4 chunky rounded bg-slate-100 p-4">
+          <div class="text-sm font-black">Normal is fine:</div>
+          <p class="mt-2 text-sm font-semibold text-black/80">
+            Large updates, backups, short spikes, bursty transfers—fine.
+            Long-term sustained high throughput that degrades the network—not fine.
+          </p>
+        </div>
 
-    <p>If you have any questions about this Policy, please contact us using the contact form on the homepage.</p>
-</div>
-<a class="back-button" href="index.html">Back to Homepage</a>
+        <div class="mt-4 chunky rounded bg-yellow-100 p-4">
+          <div class="text-sm font-black">VPS bandwidth limits (per instance)</div>
+          <ul class="mt-2 list-disc pl-5 text-sm font-semibold text-black/80 space-y-1">
+            <li><span class="font-black">Tiny (1 GB RAM / 1 CPU / 20 GB disk):</span> up to <span class="font-black">10 GB/day egress</span> and <span class="font-black">200 GB/month total traffic</span></li>
+            <li><span class="font-black">Small (4 GB RAM / 4 CPU / 100 GB disk):</span> 75 GB/day egress, 500 GB/week total</li>
+            <li><span class="font-black">Medium (16 GB RAM / 8 CPU / 200 GB disk):</span> 150 GB/day egress, 1.2 TB/week total</li>
+            <li><span class="font-black">Large (32 GB RAM / 16 CPU / 400 GB disk):</span> 300 GB/day egress, 2.5 TB/week total</li>
+            <li><span class="font-black">Huge (64 GB RAM / 32 CPU / 1 TB disk):</span> 600 GB/day egress, 5 TB/week total</li>
+            <li><span class="font-black">Massive (128 GB RAM / 40 CPU / 2 TB disk):</span> 1 TB/day egress, 10 TB/week total</li>
+          </ul>
+          <p class="mt-3 text-xs font-semibold text-black/70">
+            Note: The Tiny plan is intentionally constrained to prevent accidental overuse on the lowest tier.
+            If you need sustained high throughput, ask for a custom plan.
+          </p>
+        </div>
+
+        <div class="mt-4 chunky rounded bg-white p-4">
+          <div class="text-xs font-black">Enforcement approach:</div>
+          <p class="mt-2 text-sm font-semibold text-black/80">
+            Accidental or short-term overages typically won’t trigger enforcement. Repeated or continuous misuse may.
+            We may warn you, rate-limit you, require an upgrade, or terminate service if network integrity is impacted.
+          </p>
+        </div>
+      </div>
+
+      <!-- Support -->
+      <div id="support" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">13. Limited Free Support</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          We provide limited free support for general inquiries and basic setup help. We are not your outsourced IT department.
+        </p>
+
+        <ul class="mt-4 list-disc pl-5 text-sm font-semibold text-black/80 space-y-2">
+          <li>Free assistance is available for initial setup and basic troubleshooting.</li>
+          <li>Each user is allowed up to <span class="font-black">three (3) free support inquiries per month</span>.</li>
+          <li>Additional support beyond that may require a paid support plan.</li>
+          <li>Requests involving hands-on troubleshooting, custom configuration, or extended work may be billable.</li>
+          <li>We decide (reasonably) when a request exceeds fair use, and we’ll tell you your options.</li>
+        </ul>
+
+        <p class="mt-4 text-sm font-semibold text-black/80">
+          Support pricing details: <a class="underline" href="terms.html">here</a>.
+        </p>
+
+        <div class="mt-4 chunky rounded bg-red-50 p-4">
+          <div class="text-xs font-black text-red-900">Pro tip:</div>
+          <p class="mt-2 text-sm font-semibold text-red-900">
+            “It broke” is not a ticket. Send the exact error, the service, and what you did right before it broke.
+            We fix data. Not vibes.
+          </p>
+        </div>
+      </div>
+
+      <!-- Updates -->
+      <div id="updates" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">14. Updates to this Policy</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          We may update this Policy at any time. Continued use of the Service after changes means you accept the updated Policy.
+        </p>
+
+        <div class="mt-4 chunky rounded bg-slate-100 p-4">
+          <div class="text-sm font-black">Questions?</div>
+          <p class="mt-2 text-sm font-semibold text-black/80">
+            Use the contact form on the homepage. Include details. If you send “hello” with no context, we will respond with:
+            “hello, what do you want?”
+          </p>
+        </div>
+      </div>
+
+      <!-- Back button -->
+      <div class="mt-8 flex flex-col items-center gap-3">
+        <a href="index.html"
+           class="chunky rounded bg-black px-5 py-3 text-sm font-black text-white hover:bg-slate-800">
+          BACK TO HOMEPAGE
+        </a>
+        <div class="text-xs font-semibold text-black/60">
+          Links: <a class="underline" href="terms.html">Terms</a> • <a class="underline" href="fair-use.html">Fair Use</a> •
+          <a class="underline" href="http://backyardbandwidth.com/policy.html">Privacy</a> •
+          <a class="underline" href="https://backyardbandwidth.com/logging-policy">Logging</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-black/10 bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-8">
+      <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div class="text-sm font-black">Backyard Bandwidth</div>
+        <div class="text-xs font-black text-black/60">© <span id="year"></span> • janky UI • reliable backend • no fluff</div>
+      </div>
+      <div class="mt-3 text-xs font-black text-black/60">
+        Links: <a class="underline" href="terms.html">Terms</a> • <a class="underline" href="fair-use.html">Fair Use</a>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script>
+  // Year
+  (function () {
+    const yearEl = document.getElementById("year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  })();
+</script>
 </body>
 </html>

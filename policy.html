@@ -1,144 +1,313 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Privacy Policy</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f3f0f0;
-            color: #333;
-            line-height: 1.6;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large,max-video-preview:-1" />
 
-        .container {
-            max-width: 800px;
-            margin: 2em auto;
-            padding: 2em;
-            background-color: white;
-            border-radius: 8px;
-            border: 3px solid #949393;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
+  <!-- Primary SEO -->
+  <title>Privacy Policy — Backyard Bandwidth</title>
+  <meta name="description" content="Backyard Bandwidth Privacy Policy: minimal collection, no VPN activity logging, VPS data deletion on termination, and clear anti-abuse handling." />
+  <link rel="canonical" href="https://backyardbandwidth.com/policy.html" />
 
-        h1 {
-            text-align: center;
-            color: #444;
-        }
+  <meta name="author" content="Backyard Bandwidth" />
+  <meta name="theme-color" content="#FDE047" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
 
-        p {
-            margin-bottom: 1em;
-        }
+  <!-- Favicons -->
+  <link rel="icon" href="/icons/icon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
 
-        ul {
-            margin-left: 1.5em;
-        }
+  <!-- OpenGraph -->
+  <meta property="og:site_name" content="Backyard Bandwidth" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Privacy Policy — Backyard Bandwidth" />
+  <meta property="og:description" content="Minimal collection. No VPN activity logging. VPS data deleted on termination." />
+  <meta property="og:url" content="https://backyardbandwidth.com/policy.html" />
+  <meta property="og:image" content="https://backyardbandwidth.com/icons/og-home.webp" />
+  <meta property="og:image:alt" content="Backyard Bandwidth — janky UI, reliable infrastructure" />
 
-        .back-button {
-            display: block;
-            margin: 2em auto;
-            padding: 0.75em 1.5em;
-            background-color: #6ec1e4;
-            color: white;
-            text-align: center;
-            text-decoration: none;
-            border-radius: 4px;
-            width: fit-content;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Privacy Policy — Backyard Bandwidth" />
+  <meta name="twitter:description" content="Minimal collection. No VPN activity logging. VPS data deleted on termination." />
+  <meta name="twitter:image" content="https://backyardbandwidth.com/icons/og-home.webp" />
 
-        .back-button:hover {
-            background-color: #5aafc8;
-        }
-    </style>
+  <!-- Performance -->
+  <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    body {
+      background:
+        linear-gradient(0deg, rgba(255,255,255,0.95), rgba(255,255,255,0.95)),
+        repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 18px),
+        repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 18px);
+    }
+    .tape { transform: rotate(-1.2deg); }
+    .tape2 { transform: rotate(1.1deg); }
+    .chunky {
+      box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+      border: 2px solid rgba(0,0,0,0.15);
+    }
+  </style>
 </head>
-<body>
-<div class="container">
-    <h1>Privacy Policy</h1>
-    <p>
-    <p>Last updated: Sunday, April 20th, 2025<br><br>
 
-        This Privacy Policy governs your use of this website and all services provided through it. By accessing
-        or using this website, you agree to be bound by the terms of this Privacy Policy, the <a href="fair-use.html">Fair
-            Use Policy</a>, and any applicable laws
-        and regulations of the United States. If you do not agree with these terms, you must discontinue using
-        this website immediately.
-    </p>
+<body class="h-full text-slate-900">
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[99999] focus:chunky focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-black">
+  Skip to content
+</a>
 
-    <h2>Data Collection and Usage</h2>
-    <p>
-        We collect only the minimum amount of data necessary to provide and improve our services. By using our
-        website, you consent to the collection and processing of such data, as outlined below:
-    </p>
-    <ul>
-        <li>Half of your email address for account verification and customer service purposes.</li>
-        <li>Your IP address is temporarily stored for up to 24 hours for security and anti-abuse measures.</li>
-        <li>We do not store or retain any browsing history, traffic data, or connection metadata.</li>
-    </ul>
+<main id="main">
+  <!-- Top Bar -->
+  <div class="sticky top-0 z-50 border-b-2 border-black/10 bg-yellow-200">
+    <div class="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
+      <div class="text-sm font-black leading-tight">
+        <div class="text-xs font-semibold text-black/70">
+          Privacy page. Yes we mean it. No we don’t do “growth hacks.”
+        </div>
+      </div>
 
-    <h2>VPS Privacy Policy</h2>
-    <p>
-        Backyard Bandwidth does <strong>not log, track, or monitor user activity</strong> on our VPS services.
-        Users are not subject to tracking under our Privacy Policy.
-        <strong>Once a VPS has been terminated, all data associated with the VPS is permanently and forensically
-            deleted.</strong>
-    </p>
-    <p>
-        While using our VPS service, we do not sell, rent, or share your data with third parties, except as required by
-        law or necessary to provide our services.
-    </p>
-    <p>
-        To ensure compliance with our <a href="fair-use.html">Fair Use Policy</a>, we collect and retain basic network
-        usage statistics, including total ingress and egress volumes per VPS instance. These usage graphs are used
-        solely
-        to monitor bandwidth consumption and detect policy violations. They do not include logs of user activity or
-        content, and are not shared externally. <strong>Once a VPS is deleted or removed, the associated usage graph is
-        also
-        permanently deleted from our systems.</strong>
-    </p>
+      <div class="flex flex-wrap items-center gap-2">
+        <a href="index.html" class="rounded bg-white px-3 py-2 text-xs font-black chunky hover:bg-slate-50">HOME</a>
+        <a href="terms.html" class="rounded bg-white px-3 py-2 text-xs font-black chunky hover:bg-slate-50">TERMS</a>
+        <a href="fair-use.html" class="rounded bg-white px-3 py-2 text-xs font-black chunky hover:bg-slate-50">FAIR USE</a>
+        <a href="policy.html" class="rounded bg-black px-3 py-2 text-xs font-black text-white chunky hover:bg-slate-800">PRIVACY</a>
+        <a href="https://backyardbandwidth.com/user/login" target="_blank" rel="noreferrer"
+           class="rounded bg-white px-3 py-2 text-xs font-black chunky hover:bg-slate-50">LOGIN</a>
+      </div>
+    </div>
+  </div>
 
-    <h2>VPN Privacy Policy</h2>
-    <p>
-        Backyard Bandwidth does <strong>not log, track, or store</strong> any data related to VPN usage. Specifically,
-        we do not:
-    </p>
-    <ul>
-        <li>Log users' traffic or the content of any communications.</li>
-        <li>Log which websites you visit.</li>
-        <li>Store your original or assigned IP address.</li>
-        <li>Log session durations or timestamps.</li>
-        <li>Track or collect location-based data.</li>
-    </ul>
-    <p>
-        Additionally, all VPN data is <strong>never stored or retained in any form</strong>.
-        All VPN traffic is encrypted, ensuring your online activity remains private and secure.
-    </p>
-    <p>
-        Some IP addresses assigned to our VPN services may be leased from third-party providers, and Backyard Bandwidth
-        may not have direct ownership of these addresses. However, we do <strong>not log any data on these providers'
-        IPs</strong> and use a <strong>modified version of our VPN server</strong> to enforce our strict no-logging
-        policy across all assigned IP addresses.
-    </p>
+  <!-- Header -->
+  <header class="border-b border-black/10 bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-6">
+      <div class="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+        <div class="chunky rounded bg-white p-5">
+          <div class="tape inline-block rounded bg-black px-3 py-2 text-xs font-black text-white">
+            PRIVACY POLICY
+          </div>
+          <h1 class="mt-4 text-3xl font-black leading-tight">We collect as little as possible. Period.</h1>
+          <p class="mt-2 text-sm font-semibold text-black/70">
+            We run infrastructure. That’s it. We’re not here to build profiles, sell data, or “learn your interests.”
+            If you want a company that tracks everything: go literally anywhere else.
+          </p>
 
-    <h2>Disclaimer</h2>
-    <p>
-        We strive to maintain a secure and reliable platform. However, we do not guarantee the uninterrupted
-        availability or complete security of our services. Users are responsible for ensuring their own compliance
-        with applicable laws and for the proper use of our platform.
-    </p>
+          <div class="mt-4 grid gap-2 sm:grid-cols-2">
+            <div class="chunky rounded bg-yellow-100 p-4">
+              <div class="text-xs font-black">Last Updated</div>
+              <div class="text-sm font-black">Sunday, April 20, 2025</div>
+            </div>
+            <div class="chunky rounded bg-slate-100 p-4">
+              <div class="text-xs font-black">Quick Links</div>
+              <div class="mt-1 text-xs font-semibold">
+                <a class="underline" href="#collection">Data Collection</a> •
+                <a class="underline" href="#vpn">VPN</a> •
+                <a class="underline" href="#vps">VPS</a> •
+                <a class="underline" href="#disclaimer">Disclaimer</a> •
+                <a class="underline" href="#contact">Contact</a>
+              </div>
+            </div>
+          </div>
+        </div>
 
-    <h2>Contact Us</h2>
-    <p>
-        If you have any questions or concerns regarding this Privacy Policy, please contact us through the methods
-        provided on the website.
-    </p>
+        <div class="tape2 chunky rounded bg-yellow-100 p-5">
+          <div class="text-xs font-black">The blunt summary:</div>
+          <ul class="mt-2 list-disc pl-5 text-sm font-semibold text-black/80 space-y-1">
+            <li>We keep the minimum data needed to operate.</li>
+            <li>We don’t log VPN activity. Not “we try,” we don’t.</li>
+            <li>VPS data is deleted when the VPS is terminated.</li>
+            <li>We temporarily store IPs for anti-abuse. That’s normal. Relax.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </header>
 
-</div>
+  <!-- Content -->
+  <section class="mx-auto max-w-6xl px-4 py-10">
+    <div class="chunky rounded bg-white p-6">
 
-<a class="back-button" href="index.html">Back to Homepage</a>
+      <!-- Intro -->
+      <div class="chunky rounded bg-slate-50 p-5">
+        <h2 class="text-xl font-black">1. Agreement & Scope</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          This Privacy Policy governs your use of this website and all services provided through it.
+          By accessing or using this website, you agree to be bound by this Privacy Policy, the
+          <a class="underline" href="fair-use.html">Fair Use Policy</a>, our <a class="underline" href="terms.html">Terms</a>,
+          and applicable laws and regulations of the United States.
+          If you do not agree, discontinue use immediately.
+        </p>
+
+        <div class="mt-3 chunky rounded bg-white p-4 text-xs font-semibold text-black/70">
+          We are not your lawyer. This is not legal advice. This is the policy you’re agreeing to.
+        </div>
+      </div>
+
+      <!-- Data collection -->
+      <div id="collection" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">2. Data Collection & Usage</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          We collect only the minimum data necessary to provide and improve services.
+          We do not collect “because it’s nice to have.” If it’s not operationally required, it doesn’t belong here.
+        </p>
+
+        <div class="mt-4 chunky rounded bg-yellow-100 p-4">
+          <div class="text-sm font-black">What we collect (minimum necessary):</div>
+          <ul class="mt-2 list-disc pl-5 text-sm font-semibold text-black/80 space-y-1">
+            <li><span class="font-black">Half of your email address</span> for account verification and customer service.</li>
+            <li><span class="font-black">Your IP address</span> may be temporarily stored for up to <span class="font-black">24 hours</span> for security and anti-abuse.</li>
+            <li>We do <span class="font-black">not</span> store browsing history, traffic contents, or connection metadata for VPN use.</li>
+          </ul>
+        </div>
+
+        <div class="mt-4 chunky rounded bg-slate-100 p-4">
+          <div class="text-sm font-black">What we don’t do:</div>
+          <ul class="mt-2 list-disc pl-5 text-sm font-semibold text-black/80 space-y-1">
+            <li>No selling your data.</li>
+            <li>No “advertising partners.”</li>
+            <li>No profile building.</li>
+            <li>No “we keep it forever just in case.”</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- VPS -->
+      <div id="vps" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">3. VPS Privacy Policy</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          Backyard Bandwidth does <span class="font-black">not</span> log, track, or monitor user activity inside VPS instances.
+          We do not sell, rent, or share your VPS data with third parties, except as required by law or as needed to provide the service.
+        </p>
+
+        <div class="mt-4 chunky rounded bg-red-50 p-4">
+          <div class="text-xs font-black text-red-900">Deletion policy (read it twice):</div>
+          <p class="mt-2 text-sm font-semibold text-red-900">
+            Once a VPS has been terminated, all data associated with that VPS is permanently deleted.
+            If you didn’t back it up, that’s on you.
+          </p>
+        </div>
+
+        <div class="mt-4 chunky rounded bg-yellow-100 p-4">
+          <div class="text-sm font-black">Bandwidth compliance stats (not activity logs):</div>
+          <p class="mt-2 text-sm font-semibold text-black/80">
+            To enforce our <a class="underline" href="fair-use.html">Fair Use Policy</a>, we may collect basic network usage statistics
+            such as total ingress/egress volumes per VPS instance. These are used solely to monitor bandwidth consumption and detect policy violations.
+            They do <span class="font-black">not</span> include payloads, browsing history, or content.
+          </p>
+          <p class="mt-2 text-sm font-semibold text-black/80">
+            Once a VPS is deleted, the associated usage graph is also deleted.
+          </p>
+        </div>
+      </div>
+
+      <!-- VPN -->
+      <div id="vpn" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">4. VPN Privacy Policy</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          Backyard Bandwidth does <span class="font-black">not</span> log, track, or store data related to VPN usage.
+          Specifically, we do not:
+        </p>
+
+        <ul class="mt-4 list-disc pl-5 text-sm font-semibold text-black/80 space-y-1">
+          <li>Log user traffic or the content of communications.</li>
+          <li>Log which websites you visit.</li>
+          <li>Store your original or assigned IP address as a VPN “activity log.”</li>
+          <li>Log session durations or timestamps as activity history.</li>
+          <li>Track or collect location-based data.</li>
+        </ul>
+
+        <div class="mt-4 chunky rounded bg-slate-100 p-4">
+          <div class="text-sm font-black">Retention</div>
+          <p class="mt-2 text-sm font-semibold text-black/80">
+            VPN activity data is not stored or retained in any form. VPN traffic is encrypted.
+            If you want a VPN provider that keeps history, we are not it.
+          </p>
+        </div>
+
+        <div class="mt-4 chunky rounded bg-yellow-100 p-4">
+          <div class="text-sm font-black">Third-party IP leasing (normal ops):</div>
+          <p class="mt-2 text-sm font-semibold text-black/80">
+            Some IP addresses used by our VPN services may be leased from third-party providers.
+            We still enforce our no-logging stance on our side and do not intentionally create activity logs.
+          </p>
+          <p class="mt-2 text-xs font-semibold text-black/70">
+            Note: We can’t control what an upstream provider logs on their own infrastructure.
+            We choose providers carefully, but physics and the internet still exist.
+          </p>
+        </div>
+      </div>
+
+      <!-- Disclaimer -->
+      <div id="disclaimer" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">5. Disclaimer</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          We strive to maintain a secure and reliable platform, but we do not guarantee uninterrupted availability or
+          absolute security. Users are responsible for their own compliance with applicable laws and for using the
+          platform appropriately.
+        </p>
+
+        <div class="mt-4 chunky rounded bg-red-50 p-4">
+          <div class="text-xs font-black text-red-900">Also:</div>
+          <p class="mt-2 text-sm font-semibold text-red-900">
+            If you do something illegal, don’t expect “privacy policy” to be a magic shield. It isn’t.
+          </p>
+        </div>
+      </div>
+
+      <!-- Contact -->
+      <div id="contact" class="mt-6 chunky rounded bg-white p-5">
+        <h2 class="text-xl font-black">6. Contact Us</h2>
+        <p class="mt-2 text-sm font-semibold text-black/80">
+          Questions or concerns about this Privacy Policy? Use the contact methods provided on the website.
+          Include details. “Hi” is not a question.
+        </p>
+
+        <div class="mt-4 chunky rounded bg-slate-100 p-4">
+          <div class="text-xs font-black">Related pages:</div>
+          <div class="mt-2 text-sm font-semibold">
+            <a class="underline" href="terms.html">Terms</a> •
+            <a class="underline" href="fair-use.html">Fair Use</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Back button -->
+      <div class="mt-8 flex flex-col items-center gap-3">
+        <a href="index.html"
+           class="chunky rounded bg-black px-5 py-3 text-sm font-black text-white hover:bg-slate-800">
+          BACK TO HOMEPAGE
+        </a>
+        <div class="text-xs font-semibold text-black/60">
+          Links: <a class="underline" href="terms.html">Terms</a> •
+          <a class="underline" href="fair-use.html">Fair Use</a> •
+          <a class="underline" href="policy.html">Privacy</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-black/10 bg-white">
+    <div class="mx-auto max-w-6xl px-4 py-8">
+      <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div class="text-sm font-black">Backyard Bandwidth</div>
+        <div class="text-xs font-black text-black/60">© <span id="year"></span> • janky UI • reliable backend • no fluff</div>
+      </div>
+      <div class="mt-3 text-xs font-black text-black/60">
+        Links: <a class="underline" href="terms.html">Terms</a> • <a class="underline" href="fair-use.html">Fair Use</a>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script>
+  // Year
+  (function () {
+    const yearEl = document.getElementById("year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  })();
+</script>
 </body>
 </html>
