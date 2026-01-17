@@ -41,6 +41,15 @@
   <link rel="preconnect" href="https://plausible.io" crossorigin />
 
   <script src="https://cdn.tailwindcss.com"></script>
+<script>
+  (function () {
+    try {
+      const saved = localStorage.getItem("bb_theme");
+      if (saved === "dark") document.documentElement.classList.add("dark");
+      else document.documentElement.classList.remove("dark");
+    } catch {}
+  })();
+</script>
 
   <!-- Plausible -->
   <script defer data-domain="backyardbandwidth.com"
@@ -163,21 +172,92 @@
       }
   </script>
 
-  <style>
-    body {
-      background:
-        linear-gradient(0deg, rgba(255,255,255,0.95), rgba(255,255,255,0.95)),
-        repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 18px),
-        repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 18px);
-    }
-    .tape { transform: rotate(-1.2deg); }
-    .tape2 { transform: rotate(1.1deg); }
-    .chunky {
-      box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
-      border: 2px solid rgba(0,0,0,0.15);
-    }
-    input[type="range"] { accent-color: #111827; }
-  </style>
+<style>
+  body {
+    background:
+      linear-gradient(0deg, rgba(255,255,255,0.95), rgba(255,255,255,0.95)),
+      repeating-linear-gradient(90deg, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 18px),
+      repeating-linear-gradient(0deg, rgba(0,0,0,0.02) 0px, rgba(0,0,0,0.02) 1px, transparent 1px, transparent 18px);
+  }
+  .tape { transform: rotate(-1.2deg); }
+  .tape2 { transform: rotate(1.1deg); }
+  .chunky {
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+    border: 2px solid rgba(0,0,0,0.15);
+  }
+  input[type="range"] { accent-color: #111827; }
+
+html.dark body{
+  color: rgba(226,232,240,0.92);
+  background:
+    radial-gradient(1200px 600px at 15% 0%, rgba(255,255,255,0.05), transparent 60%),
+    radial-gradient(900px 500px at 90% 20%, rgba(255,255,255,0.035), transparent 55%),
+    linear-gradient(0deg, rgba(9,12,18,0.96), rgba(9,12,18,0.96)),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.045) 0px, rgba(255,255,255,0.045) 1px, transparent 1px, transparent 22px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.035) 0px, rgba(255,255,255,0.035) 1px, transparent 1px, transparent 22px);
+}
+
+  /* Surfaces (utility class overrides) */
+html.dark .bg-white     { background-color: rgba(12, 18, 28, 0.94) !important; }
+html.dark .bg-slate-50  { background-color: rgba(12, 18, 28, 0.72) !important; }
+html.dark .bg-slate-100 { background-color: rgba(12, 18, 28, 0.84) !important; }
+
+/* Dark mode: replace "yellow paper" with slate panels */
+html.dark .bg-yellow-100 { background-color: rgba(76, 100, 145, 0.78) !important; } /* slate-800-ish */
+html.dark .bg-yellow-200 { background-color: rgba(76, 100, 145, 0.78) !important; } /* slightly stronger */
+html.dark .bg-yellow-100,
+html.dark .bg-yellow-200{
+  position: relative;
+  background:
+    /* tape sheen */
+    linear-gradient(180deg, rgba(255,255,255,0.08), transparent 35%),
+    /* tape body */
+    linear-gradient(90deg, rgba(110,122,138,0.88), rgba(92,104,120,0.88)) !important;
+  color: rgba(226,232,240,0.90) !important;
+  border: 2px solid rgba(255,255,255,0.10) !important;
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.75);
+  overflow: hidden;
+}
+
+
+html.dark .bg-yellow-100 [class*="text-black/"],
+html.dark .bg-yellow-200 [class*="text-black/"] {
+  color: rgba(226,232,240,0.82) !important;
+}
+
+  /* Warning boxes */
+  html.dark .bg-red-50 { background-color: rgba(239, 68, 68, 0.12) !important; }
+
+  /* Borders that were black/10, black/20 etc */
+  html.dark [class*="border-black/"] { border-color: rgba(255,255,255,0.14) !important; }
+
+  /* Chunky border/shadow in dark mode */
+html.dark .chunky{
+  box-shadow: 4px 4px 0 rgba(0,0,0,0.75);
+  border: 2px solid rgba(255,255,255,0.14);
+}
+
+  /* Text overrides for your `text-black/xx` utilities */
+  html.dark .text-slate-900 { color: rgba(226,232,240,0.92) !important; }
+  html.dark .text-black { color: rgba(226,232,240,0.92) !important; }
+  html.dark [class*="text-black/"] { color: rgba(226,232,240,0.78) !important; }
+
+  /* Reds */
+  html.dark .text-red-900 { color: rgba(254, 202, 202, 0.95) !important; }
+
+  /* Inputs / selects */
+  html.dark input,
+  html.dark textarea,
+  html.dark select {
+    color: rgba(226,232,240,0.92) !important;
+  }
+  html.dark input::placeholder,
+  html.dark textarea::placeholder {
+    color: rgba(226,232,240,0.50) !important;
+  }
+  html.dark input[type="range"] { accent-color: #facc15; } /* gold */
+</style>
+
 </head>
 
 
@@ -196,7 +276,13 @@
 
 
       <div class="flex flex-wrap items-center gap-2">
-        <a href="https://merch.backyardbandwidth.com"class="rounded bg-white px-3 py-2 text-xs font-black chunky hover:bg-slate-50">MERCH</a>
+        <button id="theme-toggle"
+  type="button"
+  class="rounded bg-white px-3 py-2 text-xs font-black chunky hover:bg-slate-50"
+  aria-pressed="false">
+  DARK MODE
+</button>
+        <a href="https://merch.backyardbandwidth.com" class="rounded bg-white px-3 py-2 text-xs font-black chunky hover:bg-slate-50">MERCH</a>
         <a href="#services" class="rounded bg-white px-3 py-2 text-xs font-black chunky hover:bg-slate-50">SERVICES</a>
         <a href="#contact" class="rounded bg-white px-3 py-2 text-xs font-black chunky hover:bg-slate-50">HELP (IF YOU MUST)</a>
         <a href="https://backyardbandwidth.com/user/login" target="_blank" rel="noreferrer"
@@ -981,6 +1067,49 @@ Washington, DC 20004</pre>
 </main>
 
 <script>
+    // ----------------------------
+  // Theme toggle (dark mode)
+  // ----------------------------
+  (function bindThemeToggle() {
+    const key = "bb_theme";
+    const root = document.documentElement;
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+
+    function apply(mode) {
+      const isDark = mode === "dark";
+      root.classList.toggle("dark", isDark);
+      try { localStorage.setItem(key, mode); } catch {}
+
+      // keep browser UI color sane
+      if (metaTheme) metaTheme.setAttribute("content", isDark ? "#0B1220" : "#FDE047");
+
+      const btn = document.getElementById("theme-toggle");
+      if (btn) {
+        btn.textContent = isDark ? "LIGHT MODE" : "DARK MODE";
+        btn.setAttribute("aria-pressed", String(isDark));
+      }
+    }
+
+function preferred() {
+  try {
+    const saved = localStorage.getItem(key);
+    if (saved === "dark" || saved === "light") return saved;
+  } catch {}
+  return "light";
+}
+
+    document.addEventListener("DOMContentLoaded", () => {
+      apply(preferred());
+
+      const btn = document.getElementById("theme-toggle");
+      if (!btn) return;
+
+      btn.addEventListener("click", () => {
+        apply(root.classList.contains("dark") ? "light" : "dark");
+      });
+    });
+  })();
+
 (() => {
   "use strict";
 
@@ -1246,7 +1375,7 @@ console.log(
 );
 
 console.log(
-  "%cFound something real? Send steps + payload + timestamp. "It broke" gets ignored.",
+  "%cFound something real? Send steps + payload + timestamp. 'It broke' gets ignored.",
   "color:#ef4444; font-weight:800;"
 );
 
